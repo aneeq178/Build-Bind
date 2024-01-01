@@ -13,7 +13,21 @@ class HeadingText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(text,style: TextStyle(color: APPCOLORS.PRIMARY,fontSize:20.sp,fontWeight: FontWeight.normal),);
+    return Text(text,style: TextStyle(color: APPCOLORS.PRIMARY,fontSize:18.sp,fontWeight: FontWeight.bold),);
+  }
+}
+
+class HeadingText2 extends StatelessWidget {
+  const HeadingText2({
+    super.key,
+    required this.text,
+  });
+
+  final String text;
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(text,style: TextStyle(color: APPCOLORS.PRIMARY,fontSize:14.sp,fontWeight: FontWeight.bold));
   }
 }
 

@@ -1,11 +1,15 @@
 
 import 'package:buildbind/Utills/AppColors.dart';
+import 'package:buildbind/View/Favourite/favourite_screen.dart';
+import 'package:buildbind/View/Listing/listing_project.dart';
 import 'package:buildbind/View/Notifcations/notificatoins.dart';
+import 'package:buildbind/View/Search/search_contractor.dart';
+import 'package:buildbind/View/Settings/profile_settings.dart';
 import 'package:buildbind/View/home/featured_companies.dart';
 import 'package:buildbind/View/widgets/sized_boxes.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
-
+import '../widgets/nav_bar.dart';
 import '../widgets/texts.dart';
 
 
@@ -22,6 +26,59 @@ class _DashboardState extends State<Dashboard> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      bottomNavigationBar:  BottomAppBar(
+        height: 8.h,
+        color: APPCOLORS.WHITE,
+        shape: CircularNotchedRectangle(),
+        child: Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(5.w),
+              topRight: Radius.circular(5.w),
+            ),
+          ),
+          child: Row(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              IconButton(
+                icon: Icon(Icons.home),
+                onPressed: () {
+                },
+              ),
+              IconButton(
+                icon: Icon(Icons.favorite),
+                onPressed: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=>FavouriteScreen()));
+                },
+              ),
+              SizedBox(width: 40.0),
+              IconButton(
+                icon: Icon(Icons.add_chart),
+                onPressed: () {
+                  // Navigator.push(context, MaterialPageRoute(builder: (context)=>))
+                },
+              ),
+              IconButton(
+                icon: Icon(Icons.menu),
+                onPressed: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=>ProfileSetings()));
+                },
+              ),
+            ],
+          ),
+        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: FloatingActionButton(
+        shape: CircleBorder(),
+        backgroundColor: APPCOLORS.PRIMARY,
+        child: Icon(Icons.add,color: APPCOLORS.WHITE,),
+        onPressed: () {
+          Navigator.push(context, MaterialPageRoute(builder: (context)=>ListingProject()));
+
+        },
+      ),
 
       body: SingleChildScrollView(
         child: Padding(
@@ -78,44 +135,57 @@ class _DashboardState extends State<Dashboard> {
               hsizedbox2,
 
 
-              Container(
-          padding: EdgeInsets.all(2.w),
-          decoration: BoxDecoration(
-            color: APPCOLORS.GREY,
-            border: Border.all(color: Colors.transparent),
-            borderRadius: BorderRadius.circular(8.0),
-          ),
-          child: Row(
-            children: [
-              Icon(Icons.search),
-              SizedBox(width: 8.0),
-              Expanded(
-                child: TextField(
-                  decoration: InputDecoration(
-                    hintText: 'Select Company or Contractor',
-                    border: InputBorder.none,
+              GestureDetector(
+                onTap: (){
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=>SearchContractor()));
+                },
+                child: Container(
+                          padding: EdgeInsets.all(2.w),
+                          decoration: BoxDecoration(
+                            color: APPCOLORS.GREY,
+                            border: Border.all(color: Colors.transparent),
+                            borderRadius: BorderRadius.circular(8.0),
+                          ),
+                          child: Row(
+                            children: [
+                Icon(Icons.search),
+                SizedBox(width: 8.0),
+                Expanded(
+                  child: TextField(
+                    onTap: (){
+                      Navigator.push(context, MaterialPageRoute(builder: (context)=>SearchContractor()));
+                    },
+                    decoration: InputDecoration(
+                      hintText: 'Search Company or Contractor',
+                      border: InputBorder.none,
+                    ),
                   ),
                 ),
+                            ],
+                          ),
+                        ),
               ),
-            ],
-          ),
-        ),
 
             hsizedbox2,
 
-              Row(
-                children: [
-                  TabButton( text: "All",),
-                  wsizedbox2,
-                  TabButton( text: "House",),
-                  wsizedbox4,
-                  TabButton( text: "Plaza",),
-                  wsizedbox4,
-                  TabButton( text: "Flats",),
-                  // wsizedbox4,
-                  // TabButton( text: "Factory",),
 
-                ],
+              Container(
+                height: 6.1.h,
+                child: ListView(
+                  scrollDirection: Axis.horizontal,
+                  shrinkWrap: true,
+                  children: [
+                    TabButton(text: "All",),
+                    wsizedbox2,
+                    TabButton(text: "House",),
+                    wsizedbox2,
+                    TabButton(text: "Plaza",),
+                    wsizedbox2,
+                    TabButton(text: "Flats",),
+                    // wsizedbox4,
+                    // TabButton( text: "Factory",),
+                  ],
+                ),
               ),
               hsizedbox2,
 
@@ -310,6 +380,7 @@ class FeaturedCompnyTile extends StatelessWidget {
             Container(
               width: 30.w, // Adjust the width as needed
               decoration: BoxDecoration(
+                borderRadius: BorderRadius.all(Radius.circular(4.w)),
                 image: DecorationImage(
                   image: AssetImage(
                     url,

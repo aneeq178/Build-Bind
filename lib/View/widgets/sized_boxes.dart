@@ -15,4 +15,5 @@ Widget wsizedbox4= SizedBox(width: 9.w,);
 Widget wsizedbox5= SizedBox(width: 11.w,);
 Widget wsizedbox6= SizedBox(width: 12.w,);
 Widget wsizedbox7= SizedBox(width: 16.w,);
+Widget wsizedbox8= SizedBox(width: 22.w,);
 // Widget wsizedbox6= SizedBox(width: 12.w,);
