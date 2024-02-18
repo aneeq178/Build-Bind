@@ -26,59 +26,6 @@ class _DashboardState extends State<Dashboard> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar:  BottomAppBar(
-        height: 8.h,
-        color: APPCOLORS.WHITE,
-        shape: CircularNotchedRectangle(),
-        child: Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(5.w),
-              topRight: Radius.circular(5.w),
-            ),
-          ),
-          child: Row(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              IconButton(
-                icon: Icon(Icons.home),
-                onPressed: () {
-                },
-              ),
-              IconButton(
-                icon: Icon(Icons.favorite),
-                onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context)=>FavouriteScreen()));
-                },
-              ),
-              SizedBox(width: 40.0),
-              IconButton(
-                icon: Icon(Icons.add_chart),
-                onPressed: () {
-                  // Navigator.push(context, MaterialPageRoute(builder: (context)=>))
-                },
-              ),
-              IconButton(
-                icon: Icon(Icons.menu),
-                onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context)=>ProfileSetings()));
-                },
-              ),
-            ],
-          ),
-        ),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: FloatingActionButton(
-        shape: CircleBorder(),
-        backgroundColor: APPCOLORS.PRIMARY,
-        child: Icon(Icons.add,color: APPCOLORS.WHITE,),
-        onPressed: () {
-          Navigator.push(context, MaterialPageRoute(builder: (context)=>ListingProject()));
-
-        },
-      ),
 
       body: SingleChildScrollView(
         child: Padding(
@@ -135,36 +82,36 @@ class _DashboardState extends State<Dashboard> {
               hsizedbox2,
 
 
-              GestureDetector(
-                onTap: (){
-                  Navigator.push(context, MaterialPageRoute(builder: (context)=>SearchContractor()));
-                },
-                child: Container(
-                          padding: EdgeInsets.all(2.w),
-                          decoration: BoxDecoration(
-                            color: APPCOLORS.GREY,
-                            border: Border.all(color: Colors.transparent),
-                            borderRadius: BorderRadius.circular(8.0),
-                          ),
-                          child: Row(
-                            children: [
-                Icon(Icons.search),
-                SizedBox(width: 8.0),
-                Expanded(
-                  child: TextField(
-                    onTap: (){
-                      Navigator.push(context, MaterialPageRoute(builder: (context)=>SearchContractor()));
-                    },
-                    decoration: InputDecoration(
-                      hintText: 'Search Company or Contractor',
-                      border: InputBorder.none,
-                    ),
-                  ),
-                ),
-                            ],
-                          ),
-                        ),
-              ),
+              // GestureDetector(
+              //   onTap: (){
+              //     Navigator.push(context, MaterialPageRoute(builder: (context)=>SearchContractor()));
+              //   },
+              //   child: Container(
+              //             padding: EdgeInsets.all(2.w),
+              //             decoration: BoxDecoration(
+              //               color: APPCOLORS.GREY,
+              //               border: Border.all(color: Colors.transparent),
+              //               borderRadius: BorderRadius.circular(8.0),
+              //             ),
+              //             child: Row(
+              //               children: [
+              //   Icon(Icons.search),
+              //   SizedBox(width: 8.0),
+              //   Expanded(
+              //     child: TextField(
+              //       onTap: (){
+              //         Navigator.push(context, MaterialPageRoute(builder: (context)=>SearchContractor()));
+              //       },
+              //       decoration: InputDecoration(
+              //         hintText: 'Search Company or Contractor',
+              //         border: InputBorder.none,
+              //       ),
+              //     ),
+              //   ),
+              //               ],
+              //             ),
+              //           ),
+              // ),
 
             hsizedbox2,
 

@@ -8,7 +8,7 @@ void showSnackbar(BuildContext context, String message) {
 
   overlayEntry = OverlayEntry(
     builder: (context) => Positioned(
-      bottom: 15.w,
+      top: 15.w,
       left: 16.w,
       child: Material(
         color: Colors.transparent,

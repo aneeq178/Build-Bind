@@ -18,219 +18,227 @@ class _SearchContractorState extends State<SearchContractor> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading:    Container(
-          width: 6.h,
-          height: 6.h,
-          decoration: BoxDecoration(
-            color: APPCOLORS.GREY,
-            shape: BoxShape.circle,
-          ),
-          child: Icon(
-            Icons.arrow_back_ios,
+        leading:    Padding(
+          padding:  EdgeInsets.all(2.w),
+          child: Container(
+            width: 6.h,
+            height: 6.h,
+            decoration: BoxDecoration(
+              color: APPCOLORS.GREY,
+              shape: BoxShape.circle,
+            ),
+            child: Center(
+              child: Icon(
+                Icons.arrow_back_ios,
+              ),
+            ),
           ),
         ),
         title:Center(child: LabelText(text: 'Search result')),
         actions: [
-          GestureDetector(
-            onTap: (){
-              showModalBottomSheet(
+          Padding(
+            padding:  EdgeInsets.all(2.w),
 
-                context: context,
-                builder: (BuildContext context) {
-                  return Container(
-                    height: 90.h,
-                    width: 100.w,
-                    decoration: BoxDecoration(
-                      color: APPCOLORS.WHITE, // Set your desired background color
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(6.w),
-                        topRight: Radius.circular(6.w),
+            child: GestureDetector(
+              onTap: (){
+                showModalBottomSheet(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return Container(
+                      height: 90.h,
+                      width: 100.w,
+                      decoration: BoxDecoration(
+                        color: APPCOLORS.WHITE, // Set your desired background color
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(6.w),
+                          topRight: Radius.circular(6.w),
+                        ),
                       ),
-                    ),
-                    child: Padding(
-                      padding: EdgeInsets.all(4.w),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Align(
-                            alignment:Alignment.center,
-                            child: Container(
-                              height: 0.5.h,
-                              width: 20.w,
-                              decoration: BoxDecoration(
-                                color: APPCOLORS.BLACK, // Set your desired background color
-                                borderRadius: BorderRadius.all(Radius.circular(5.w)),
-                              ),
-                            ),
-                          ),
-
-                          hsizedbox3,
-
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              LabelText(text: 'Filter'),
-
-                              Container(
-                                padding: EdgeInsets.all(2.w),
-                                height: 6.h,
-                                width: 25.w,
+                      child: Padding(
+                        padding: EdgeInsets.all(4.w),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Align(
+                              alignment:Alignment.center,
+                              child: Container(
+                                height: 0.5.h,
+                                width: 20.w,
                                 decoration: BoxDecoration(
-                                  color: APPCOLORS.PRIMARY, // Set your desired background color
-                                  borderRadius: BorderRadius.all(Radius.circular(8.w)),
-                                ),
-                                child: Center(
-                                  child:  Text('Reset',style: TextStyle(color: APPCOLORS.WHITE,fontSize:10.sp,fontWeight: FontWeight.normal),),
+                                  color: APPCOLORS.BLACK, // Set your desired background color
+                                  borderRadius: BorderRadius.all(Radius.circular(5.w)),
                                 ),
                               ),
+                            ),
 
-                            ],
-                          ),
-                          LabelText(text: 'Company Level'),
+                            hsizedbox3,
 
-                          hsizedbox1,
-
-                          Container(
-                            height:6.1.h,
-                            child: ListView(
-                              scrollDirection: Axis.horizontal,
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
+                                LabelText(text: 'Filter'),
+
                                 Container(
-                                  padding: EdgeInsets.all(1.w),
+                                  padding: EdgeInsets.all(2.w),
                                   height: 6.h,
                                   width: 25.w,
                                   decoration: BoxDecoration(
-                                    color: APPCOLORS.GREY, // Set your desired background color
+                                    color: APPCOLORS.PRIMARY, // Set your desired background color
                                     borderRadius: BorderRadius.all(Radius.circular(8.w)),
                                   ),
                                   child: Center(
-                                    child:  Text('All',style: TextStyle(color: APPCOLORS.BLACK,fontSize:11.sp,fontWeight: FontWeight.normal),),
-                                  ),
-                                ),
-                                wsizedbox2,
-                                Container(
-                                  padding: EdgeInsets.all(1.w),
-                                  height: 6.h,
-                                  width: 35.w,
-                                  decoration: BoxDecoration(
-                                    color: APPCOLORS.GREY, // Set your desired background color
-                                    borderRadius: BorderRadius.all(Radius.circular(8.w)),
-                                  ),
-                                  child: Center(
-                                    child:  Text('New Company',style: TextStyle(color: APPCOLORS.BLACK,fontSize:11.sp,fontWeight: FontWeight.normal),),
-                                  ),
-                                ),
-                                wsizedbox2,
-                                Container(
-                                  padding: EdgeInsets.all(1.w),
-                                  height: 6.h,
-                                  width: 25.w,
-                                  decoration: BoxDecoration(
-                                    color: APPCOLORS.GREY, // Set your desired background color
-                                    borderRadius: BorderRadius.all(Radius.circular(8.w)),
-                                  ),
-                                  child: Center(
-                                    child:  Text('Level 1',style: TextStyle(color: APPCOLORS.BLACK,fontSize:11.sp,fontWeight: FontWeight.normal),),
-                                  ),
-                                ),
-                                Container(
-                                  padding: EdgeInsets.all(1.w),
-                                  height: 6.h,
-                                  width: 25.w,
-                                  decoration: BoxDecoration(
-                                    color: APPCOLORS.GREY, // Set your desired background color
-                                    borderRadius: BorderRadius.all(Radius.circular(8.w)),
-                                  ),
-                                  child: Center(
-                                    child:  Text('Level 2',style: TextStyle(color: APPCOLORS.BLACK,fontSize:11.sp,fontWeight: FontWeight.normal),),
+                                    child:  Text('Reset',style: TextStyle(color: APPCOLORS.WHITE,fontSize:10.sp,fontWeight: FontWeight.normal),),
                                   ),
                                 ),
 
                               ],
                             ),
-                          ),
+                            LabelText(text: 'Company Level'),
 
-                          LabelText(text: 'Property Area'),
+                            hsizedbox1,
 
-                          hsizedbox1,
+                            Container(
+                              height:6.1.h,
+                              child: ListView(
+                                scrollDirection: Axis.horizontal,
+                                children: [
+                                  Container(
+                                    padding: EdgeInsets.all(1.w),
+                                    height: 6.h,
+                                    width: 25.w,
+                                    decoration: BoxDecoration(
+                                      color: APPCOLORS.GREY, // Set your desired background color
+                                      borderRadius: BorderRadius.all(Radius.circular(8.w)),
+                                    ),
+                                    child: Center(
+                                      child:  Text('All',style: TextStyle(color: APPCOLORS.BLACK,fontSize:11.sp,fontWeight: FontWeight.normal),),
+                                    ),
+                                  ),
+                                  wsizedbox2,
+                                  Container(
+                                    padding: EdgeInsets.all(1.w),
+                                    height: 6.h,
+                                    width: 35.w,
+                                    decoration: BoxDecoration(
+                                      color: APPCOLORS.GREY, // Set your desired background color
+                                      borderRadius: BorderRadius.all(Radius.circular(8.w)),
+                                    ),
+                                    child: Center(
+                                      child:  Text('New Company',style: TextStyle(color: APPCOLORS.BLACK,fontSize:11.sp,fontWeight: FontWeight.normal),),
+                                    ),
+                                  ),
+                                  wsizedbox2,
+                                  Container(
+                                    padding: EdgeInsets.all(1.w),
+                                    height: 6.h,
+                                    width: 25.w,
+                                    decoration: BoxDecoration(
+                                      color: APPCOLORS.GREY, // Set your desired background color
+                                      borderRadius: BorderRadius.all(Radius.circular(8.w)),
+                                    ),
+                                    child: Center(
+                                      child:  Text('Level 1',style: TextStyle(color: APPCOLORS.BLACK,fontSize:11.sp,fontWeight: FontWeight.normal),),
+                                    ),
+                                  ),
+                                  Container(
+                                    padding: EdgeInsets.all(1.w),
+                                    height: 6.h,
+                                    width: 25.w,
+                                    decoration: BoxDecoration(
+                                      color: APPCOLORS.GREY, // Set your desired background color
+                                      borderRadius: BorderRadius.all(Radius.circular(8.w)),
+                                    ),
+                                    child: Center(
+                                      child:  Text('Level 2',style: TextStyle(color: APPCOLORS.BLACK,fontSize:11.sp,fontWeight: FontWeight.normal),),
+                                    ),
+                                  ),
 
-                          Container(
-                            height:6.1.h,
-                            child: ListView(
-                              scrollDirection: Axis.horizontal,
-                              children: [
-                                Container(
-                                  padding: EdgeInsets.all(1.w),
-                                  height: 6.h,
-                                  width: 25.w,
-                                  decoration: BoxDecoration(
-                                    color: APPCOLORS.GREY, // Set your desired background color
-                                    borderRadius: BorderRadius.all(Radius.circular(8.w)),
-                                  ),
-                                  child: Center(
-                                    child:  Text('All',style: TextStyle(color: APPCOLORS.BLACK,fontSize:11.sp,fontWeight: FontWeight.normal),),
-                                  ),
-                                ),
-                                wsizedbox2,
-                                Container(
-                                  padding: EdgeInsets.all(1.w),
-                                  height: 6.h,
-                                  width: 35.w,
-                                  decoration: BoxDecoration(
-                                    color: APPCOLORS.GREY, // Set your desired background color
-                                    borderRadius: BorderRadius.all(Radius.circular(8.w)),
-                                  ),
-                                  child: Center(
-                                    child:  Text('200 sqft',style: TextStyle(color: APPCOLORS.BLACK,fontSize:11.sp,fontWeight: FontWeight.normal),),
-                                  ),
-                                ),
-                                wsizedbox2,
-                                Container(
-                                  padding: EdgeInsets.all(1.w),
-                                  height: 6.h,
-                                  width: 25.w,
-                                  decoration: BoxDecoration(
-                                    color: APPCOLORS.GREY, // Set your desired background color
-                                    borderRadius: BorderRadius.all(Radius.circular(8.w)),
-                                  ),
-                                  child: Center(
-                                    child:  Text('500 sqft',style: TextStyle(color: APPCOLORS.BLACK,fontSize:11.sp,fontWeight: FontWeight.normal),),
-                                  ),
-                                ),
-                                Container(
-                                  padding: EdgeInsets.all(1.w),
-                                  height: 6.h,
-                                  width: 25.w,
-                                  decoration: BoxDecoration(
-                                    color: APPCOLORS.GREY, // Set your desired background color
-                                    borderRadius: BorderRadius.all(Radius.circular(8.w)),
-                                  ),
-                                  child: Center(
-                                    child:  Text('600 sqft',style: TextStyle(color: APPCOLORS.BLACK,fontSize:11.sp,fontWeight: FontWeight.normal),),
-                                  ),
-                                ),
-
-                              ],
+                                ],
+                              ),
                             ),
-                          ),
+
+                            LabelText(text: 'Property Area'),
+
+                            hsizedbox1,
+
+                            Container(
+                              height:6.1.h,
+                              child: ListView(
+                                scrollDirection: Axis.horizontal,
+                                children: [
+                                  Container(
+                                    padding: EdgeInsets.all(1.w),
+                                    height: 6.h,
+                                    width: 25.w,
+                                    decoration: BoxDecoration(
+                                      color: APPCOLORS.GREY, // Set your desired background color
+                                      borderRadius: BorderRadius.all(Radius.circular(8.w)),
+                                    ),
+                                    child: Center(
+                                      child:  Text('All',style: TextStyle(color: APPCOLORS.BLACK,fontSize:11.sp,fontWeight: FontWeight.normal),),
+                                    ),
+                                  ),
+                                  wsizedbox2,
+                                  Container(
+                                    padding: EdgeInsets.all(1.w),
+                                    height: 6.h,
+                                    width: 35.w,
+                                    decoration: BoxDecoration(
+                                      color: APPCOLORS.GREY, // Set your desired background color
+                                      borderRadius: BorderRadius.all(Radius.circular(8.w)),
+                                    ),
+                                    child: Center(
+                                      child:  Text('200 sqft',style: TextStyle(color: APPCOLORS.BLACK,fontSize:11.sp,fontWeight: FontWeight.normal),),
+                                    ),
+                                  ),
+                                  wsizedbox2,
+                                  Container(
+                                    padding: EdgeInsets.all(1.w),
+                                    height: 6.h,
+                                    width: 25.w,
+                                    decoration: BoxDecoration(
+                                      color: APPCOLORS.GREY, // Set your desired background color
+                                      borderRadius: BorderRadius.all(Radius.circular(8.w)),
+                                    ),
+                                    child: Center(
+                                      child:  Text('500 sqft',style: TextStyle(color: APPCOLORS.BLACK,fontSize:11.sp,fontWeight: FontWeight.normal),),
+                                    ),
+                                  ),
+                                  Container(
+                                    padding: EdgeInsets.all(1.w),
+                                    height: 6.h,
+                                    width: 25.w,
+                                    decoration: BoxDecoration(
+                                      color: APPCOLORS.GREY, // Set your desired background color
+                                      borderRadius: BorderRadius.all(Radius.circular(8.w)),
+                                    ),
+                                    child: Center(
+                                      child:  Text('600 sqft',style: TextStyle(color: APPCOLORS.BLACK,fontSize:11.sp,fontWeight: FontWeight.normal),),
+                                    ),
+                                  ),
+
+                                ],
+                              ),
+                            ),
 
 
-                        ],
+                          ],
+                        ),
                       ),
-                    ),
-                  );
-                },
-              );
-            },
-            child: Container(
-              width: 6.h,
-              height: 6.h,
-              decoration: BoxDecoration(
-                color: APPCOLORS.GREY,
-                shape: BoxShape.circle,
-              ),
-              child: Icon(
-                Icons.filter_alt,
+                    );
+                  },
+                );
+              },
+              child: Container(
+                width: 6.h,
+                height: 6.h,
+                decoration: BoxDecoration(
+                  color: APPCOLORS.GREY,
+                  shape: BoxShape.circle,
+                ),
+                child: Icon(
+                  Icons.filter_alt,
+                ),
               ),
             ),
           ),

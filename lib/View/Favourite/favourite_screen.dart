@@ -12,15 +12,17 @@ class FavouriteScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: LabelText(text: 'Favourite Contractors'),
+        centerTitle: true,
+        backgroundColor: Colors.white,
+      ),
       body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.all(4.w),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-
-              hsizedbox2,
-              LabelText(text: 'Favourite Contractors'),
               hsizedbox1,
               Text("Favourite Contractors for you",style:TextStyle(color:Colors.black,fontSize: 8.sp)),
               hsizedbox1,
