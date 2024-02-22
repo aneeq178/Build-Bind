@@ -1,3 +1,4 @@
+import 'package:buildbind/View/Listing/widgets/listing_project_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
@@ -17,147 +18,173 @@ class _ListingProjectState extends State<ListingProject> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        leading:    Container(
-          width: 6.h,
-          height: 6.h,
-          decoration: BoxDecoration(
-            color: APPCOLORS.GREY,
-            shape: BoxShape.circle,
-          ),
-          child: Icon(
-            Icons.arrow_back_ios,
-          ),
-        ),
-        title:Center(child: LabelText(text: 'Add new Project')),
-        actions: [
 
-        ],
-      ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: EdgeInsets.all(4.w),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-
-              hsizedbox5,
-              hsizedbox2,
-
-              HeadingText(text: 'Add New Project'),
-              hsizedbox2,
-
-              // hsizedbox1,
-              Text("You can also try detailed Cost Estimation \nbefore listing the project",style:TextStyle(color:Colors.black,fontSize: 8.sp)),
-              hsizedbox5,
-
-
-
-            LabelText(text: 'Listing Category'),
-
-            Row(
+      body: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            alignment: Alignment.topLeft,
+            image: AssetImage('assets/images/dashboard_back.png',),
+          ),),
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: EdgeInsets.all(4.w),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SelectionContainer(text: 'Residential'),
-                wsizedbox2,
-                SelectionContainer(text: ' Commercial'),
-              ],
-            ),
 
-              hsizedbox4,
-              LabelText(text: 'Listing Type'),
-hsizedbox1,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Container(
+                      width: 6.h,
+                      height: 6.h,
+                      decoration: BoxDecoration(
+                        color: APPCOLORS.GREY,
+                        shape: BoxShape.circle,
+                      ),
+                      child: Icon(
+                        Icons.arrow_back_ios,
+                      ),
+                    ),
+                    wsizedbox7,
+                    HeadingText(text: 'Add New Project'),
+
+                  ],
+                ),
+
+                hsizedbox2,
+
+                // hsizedbox1,
+                Text("You can also try detailed Cost Estimation \nbefore listing the project",style:TextStyle(color:Colors.black,fontSize: 8.sp)),
+                hsizedbox5,
+
+              LabelText(text: 'Project Category'),
+              hsizedbox1,
+
               Row(
                 children: [
-                  SelectionContainer(text: 'House'),
+                  SelectionContainerWidget(text: 'Residential'),
                   wsizedbox2,
-                  SelectionContainer(text: 'Apartment'),
-                  wsizedbox2,
-                  SelectionContainer(text: 'Hotel'),
+                  SelectionContainerWidget(text: ' Commercial'),
                 ],
               ),
 
-            hsizedbox2,
-
-
-            TextField(
-              style: TextStyle(
-                color: Colors.black,
-              ),
-              decoration: InputDecoration(
-                filled: true,
-                fillColor: APPCOLORS.GREY, // Grey color for the background
-                hintText: 'Enter Name',
-                hintStyle: TextStyle(color: Colors.grey),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(6.w), // Adjust the value for rounded corners
-                  borderSide: BorderSide.none, // Removes the border
+                hsizedbox3,
+                LabelText(text: 'Listing Type'),
+        hsizedbox1,
+                Row(
+                  children: [
+                    SelectionContainerWidget(text: 'House'),
+                    wsizedbox2,
+                    SelectionContainerWidget(text: 'Apartment'),
+                    wsizedbox2,
+                    SelectionContainerWidget(text: 'Hotel'),
+                  ],
                 ),
-              ),
-            ),
 
               hsizedbox2,
 
-              Image.asset('assets/images/Layout.png'),
 
-              hsizedbox2,
-              LabelText(text: 'Listing Photos'),
 
-              hsizedbox1,
-              Container(
-                padding: EdgeInsets.only(left: 4.w,right: 4.w,top: 2.h,bottom: 2.h),
-                width: 50.w,
-                decoration: BoxDecoration(
-                  color: APPCOLORS.GREY,
-                  border: Border.all(color: Colors.transparent),
-                  borderRadius: BorderRadius.circular(8.w),
-                ),
-                child:
-                Center(
-                  child:Icon(Icons.add),
-                ),
-              ),
+                LabelText(text: 'Location'),
+                hsizedbox1,
 
-              hsizedbox2,
-              LabelText(text: 'Budget'),
+                hsizedbox2,
 
-              TextField(
-                style: TextStyle(
-                  color: Colors.black,
-                ),
-                decoration: InputDecoration(
-                  filled: true,
-                  fillColor: APPCOLORS.GREY, // Grey color for the background
-                  hintText: 'Budget',
-                  hintStyle: TextStyle(color: Colors.grey),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(6.w), // Adjust the value for rounded corners
-                    borderSide: BorderSide.none, // Removes the border
+                Image.asset('assets/images/Layout.png'),
+
+                hsizedbox2,
+                LabelText(text: 'Listing Photos'),
+
+                hsizedbox1,
+                Container(
+                  padding: EdgeInsets.only(left: 4.w,right: 4.w,top: 2.h,bottom: 2.h),
+                  width: 50.w,
+                  decoration: BoxDecoration(
+                    color: APPCOLORS.GREY,
+                    border: Border.all(color: Colors.transparent),
+                    borderRadius: BorderRadius.circular(8.w),
+                  ),
+                  child:
+                  Center(
+                    child:Icon(Icons.add),
                   ),
                 ),
-              ),
 
-              hsizedbox6,
+                hsizedbox2,
+                LabelText(text: 'Budget'),
+                hsizedbox1,
 
-              Container(
-                height: 8.h,
-                padding: EdgeInsets.all(2.w),
-                decoration: BoxDecoration(
-                  color: APPCOLORS.SECONDARY,
-                  border: Border.all(color: Colors.transparent),
-                  borderRadius: BorderRadius.circular(8.0),
+                TextField(
+                  style: TextStyle(
+                    color: Colors.black,
+                  ),
+                  decoration: InputDecoration(
+                    filled: true,
+                    fillColor: APPCOLORS.GREY, // Grey color for the background
+                    hintText: 'Budget',
+                    hintStyle: TextStyle(color: Colors.grey),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(6.w), // Adjust the value for rounded corners
+                      borderSide: BorderSide.none, // Removes the border
+                    ),
+                  ),
                 ),
-                child: Center(
-                  child: Text('Submit', style: TextStyle(color: APPCOLORS.WHITE,
-                      fontSize: 16.sp,
-                      fontWeight: FontWeight.bold),),
+                hsizedbox2,
+                LabelText(text: 'Project Features'),
+                hsizedbox1,
+
+                ProjectFeatureWidget(title:'Floors',quantity:8),
+                hsizedbox1,
+                ProjectFeatureWidget(title:'Area Sqft',quantity:2000),
+                hsizedbox1,
+                ProjectFeatureWidget(title:'Living rooms',quantity:6),
+
+
+                hsizedbox2,
+                LabelText(text: 'Environment/Facilities'),
+                hsizedbox1,
+                Row(
+
+                  children: [
+                    SelectionContainerWidget(text: 'Basement'),
+                    wsizedbox2,
+                    SelectionContainerWidget(text: 'Loan'),
+                    wsizedbox2,
+                    SelectionContainerWidget(text: 'Swimming Pool'),
+                  ],
                 ),
-              ),
+                hsizedbox1,
+                Row(
+                  children: [
+                    SelectionContainerWidget(text: 'Sun Room'),
+                  ],
+                ),
+
+
+                hsizedbox6,
+
+                Container(
+                  height: 8.h,
+                  padding: EdgeInsets.all(2.w),
+                  decoration: BoxDecoration(
+                    color: APPCOLORS.SECONDARY,
+                    border: Border.all(color: Colors.transparent),
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                  child: Center(
+                    child: Text('Submit', style: TextStyle(color: APPCOLORS.WHITE,
+                        fontSize: 16.sp,
+                        fontWeight: FontWeight.bold),),
+                  ),
+                ),
 
 
 
 
 
-            ],
+              ],
+            ),
           ),
         ),
       ),
@@ -165,25 +192,4 @@ hsizedbox1,
   }
 }
 
-class SelectionContainer extends StatelessWidget {
-  const SelectionContainer({
-    super.key,
-    required this.text,
-  });
-  final String text;
 
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.only(left: 4.w,right: 4.w,top: 2.h,bottom: 2.h),
-
-      decoration: BoxDecoration(
-        color: APPCOLORS.GREY,
-        border: Border.all(color: Colors.transparent),
-        borderRadius: BorderRadius.circular(8.w),
-      ),
-      child:
-      Center(child: Text(text,style: TextStyle(color: APPCOLORS.BLACK,fontSize:11.sp,fontWeight: FontWeight.normal),)),
-    );
-  }
-}

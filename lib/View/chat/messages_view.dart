@@ -1,3 +1,4 @@
+import 'package:buildbind/View/Notifcations/notificatoins.dart';
 import 'package:buildbind/View/chat/chat_screen.dart';
 import 'package:buildbind/View/widgets/sized_boxes.dart';
 import 'package:buildbind/View/widgets/texts.dart';
@@ -12,6 +13,7 @@ class MessagesView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+
       body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.all(4.w),
@@ -31,16 +33,21 @@ class MessagesView extends StatelessWidget {
                   padding: EdgeInsets.all(2.w),
                   child: Row(
                     children: [
-                      Container(
-                        width: 40.w,
-                        height: 10.h,
-                        padding: EdgeInsets.all(2.w),
-                        decoration: BoxDecoration(
-                          color: APPCOLORS.WHITE,
-                          borderRadius: BorderRadius.circular(8.w),
+                      GestureDetector(
+                        onTap: (){
+                          Navigator.push(context, MaterialPageRoute(builder: (context)=>NotificationView()));
+                        },
+                        child: Container(
+                          width: 40.w,
+                          height: 10.h,
+                          padding: EdgeInsets.all(2.w),
+                          decoration: BoxDecoration(
+                            color: APPCOLORS.WHITE,
+                            borderRadius: BorderRadius.circular(8.w),
+                          ),
+                          child:   Center(child: Text("Notifications",style:TextStyle(color:APPCOLORS.PRIMARY,fontSize: 12.sp))),
+
                         ),
-                        child:   Center(child: Text("Notifications",style:TextStyle(color:APPCOLORS.PRIMARY,fontSize: 12.sp))),
-          
                       ),
                       SizedBox(width: 2.w,),
           

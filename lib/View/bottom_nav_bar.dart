@@ -25,8 +25,8 @@ class _BottomNavigationState extends State<BottomNavigation> {
    Dashboard(),
    FavouriteScreen(),
    SearchContractor(),
-    ProfileSetings(),
    ListingProject(),
+    ProfileSetings(),
   ];
 
   _changeTab(int index) async {

@@ -12,6 +12,9 @@ class NotificationView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        toolbarHeight: 1,
+      ),
       body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.all(4.w),
@@ -105,9 +108,6 @@ class NotificationView extends StatelessWidget {
                         Text("10 min ago",style: TextStyle(color: APPCOLORS.BLACK.withOpacity(0.8),fontSize:10.sp,fontWeight: FontWeight.normal),),
                       ],
                     ),
-                    
-
-
 
                   ],
                 ),
