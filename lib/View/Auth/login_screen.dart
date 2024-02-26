@@ -1,4 +1,4 @@
-import 'package:buildbind/View/Auth/regiter_screen.dart';
+import 'package:buildbind/View/Auth/register_screen.dart';
 import 'package:buildbind/View/home/dashboard_screen.dart';
 import 'package:buildbind/View/show_snackbar.dart';
 import 'package:buildbind/View/widgets/sized_boxes.dart';
@@ -105,7 +105,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   GestureDetector(
                       onTap: () {
                         Navigator.push(context, MaterialPageRoute(
-                            builder: (context) => RegisterScreen()));
+                            builder: (context) => RegisterScreen(from: false,)));
                       },
                       child: Text('Register', style: TextStyle(
                           color: APPCOLORS.PRIMARY,

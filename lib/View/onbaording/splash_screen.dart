@@ -2,6 +2,7 @@
 import 'package:buildbind/Utills/AppColors.dart';
 import 'package:buildbind/View/Auth/login_screen.dart';
 import 'package:buildbind/View/home/dashboard_screen.dart';
+import 'package:buildbind/View/onbaording/obboarding_one.dart';
 import 'package:flutter/material.dart';
 
 class SplashScreen extends StatelessWidget {
@@ -14,7 +15,7 @@ class SplashScreen extends StatelessWidget {
   // Navigate to the next screen
   Navigator.pushReplacement(
   context,
-  MaterialPageRoute(builder: (context) =>LoginScreen()),
+  MaterialPageRoute(builder: (context) =>OnboardingOne()),
   );
   });
     return Scaffold(

@@ -1,13 +1,19 @@
+import 'package:buildbind/Providers/cost_estimation_prvider.dart';
 import 'package:buildbind/Utills/AppColors.dart';
 import 'package:buildbind/View/bottom_nav_bar.dart';
 import 'package:buildbind/View/home/dashboard_screen.dart';
 import 'package:buildbind/View/onbaording/splash_screen.dart';
+import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:sizer/sizer.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+      MultiProvider(  providers: [
+        ChangeNotifierProvider(create: (_) => CostEstimationProvider()),
+      ],
+          child:  MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -63,6 +69,6 @@ class MyHomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BottomNavigation();
+    return SplashScreen();
   }
 }

@@ -1,16 +1,19 @@
-import 'package:buildbind/View/onbaording/onboarding_two.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../Utills/AppColors.dart';
-import '../Auth/register_two.dart';
-import '../widgets/app_bar.dart';
+import '../Auth/login_screen.dart';
 import '../widgets/sized_boxes.dart';
 import '../widgets/texts.dart';
 
-class OnboardingOne extends StatelessWidget {
-  const OnboardingOne({super.key});
+class OnBoardingTwo extends StatefulWidget {
+  const OnBoardingTwo({super.key});
 
+  @override
+  State<OnBoardingTwo> createState() => _OnBoardingTwoState();
+}
+
+class _OnBoardingTwoState extends State<OnBoardingTwo> {
   @override
   Widget build(BuildContext context) {
     return  Scaffold(
@@ -64,16 +67,16 @@ class OnboardingOne extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             hsizedbox2,
-            HeadingText(text: 'Get it built'),
+            const HeadingText(text: 'Choose the best\nConstructors'),
             hsizedbox2,
-            const SimpleText(text: 'Find someone to build your project',),
+            const SimpleText(text: 'Find the best constructors.Choose from tens of the listed constructors',),
 
             hsizedbox5,
-            hsizedbox5,
-            hsizedbox4,
+            hsizedbox3,
+            // hsizedbox2,
             Container(
               width: 100.w,
-                height: 63.h,
+              height: 63.h,
               decoration: const BoxDecoration(
                   image: DecorationImage(
                     image: AssetImage(
@@ -89,7 +92,7 @@ class OnboardingOne extends StatelessWidget {
                   child:
                   GestureDetector(
                     onTap: (){
-                      Navigator.push(context, MaterialPageRoute(builder: (context)=>OnBoardingTwo()));
+                      Navigator.push(context, MaterialPageRoute(builder: (context)=>LoginScreen()));
                     },
                     child: Container(
                       width: 50.w,

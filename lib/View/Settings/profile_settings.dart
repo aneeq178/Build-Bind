@@ -1,8 +1,12 @@
 import 'package:buildbind/Utills/AppColors.dart';
 import 'package:buildbind/View/Auth/login_screen.dart';
+import 'package:buildbind/View/Auth/register_screen.dart';
+
 import 'package:buildbind/View/widgets/sized_boxes.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
+
+import '../MyProjects/my_projects.dart';
 
 class ProfileSetings extends StatefulWidget {
   const ProfileSetings({super.key});
@@ -72,32 +76,42 @@ class _ProfileSetingsState extends State<ProfileSetings> {
             Divider(),
             hsizedbox2,
 
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            GestureDetector(
+              onTap: (){
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>MyProjects()));
+              },
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
 
-              children: [
-                Text('My Projects',style: TextStyle(fontSize: 4.5.w,color: APPCOLORS.BLACK),),
+                children: [
+                  Text('My Projects',style: TextStyle(fontSize: 4.5.w,color: APPCOLORS.BLACK),),
 
-                Icon(Icons.notes),
-              ],
+                  Icon(Icons.notes),
+                ],
+              ),
             ),
             Divider(),
 
 
-            Container(
-              padding: EdgeInsets.all(2.w),
-              height: 5.5.h,
-              decoration: BoxDecoration(
-                  color: APPCOLORS.SECONDARY,
-                borderRadius: BorderRadius.all(Radius.circular(4.w)),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text('Become a Contractor',style: TextStyle(fontSize: 4.5.w,color: APPCOLORS.BLACK),),
-
-                  Icon(Icons.account_box_outlined),
-                ],
+            GestureDetector(
+              onTap: (){
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>RegisterScreen(from: true)));
+              },
+              child: Container(
+                padding: EdgeInsets.all(2.w),
+                height: 5.5.h,
+                decoration: BoxDecoration(
+                    color: APPCOLORS.SECONDARY,
+                  borderRadius: BorderRadius.all(Radius.circular(4.w)),
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text('Become a Contractor',style: TextStyle(fontSize: 4.5.w,color: APPCOLORS.BLACK),),
+              
+                    Icon(Icons.account_box_outlined),
+                  ],
+                ),
               ),
             ),
             Divider(),

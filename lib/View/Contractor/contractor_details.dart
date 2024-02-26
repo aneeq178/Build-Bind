@@ -25,59 +25,117 @@ class _ContractorDetailsState extends State<ContractorDetails> {
             children: [
               Container(
                 width: 100.w,
-                height: 55.h,
+                height: 50.h,
                 decoration: BoxDecoration(
                   color: APPCOLORS.GREY,
-                  // image: DecorationImage(
-                  //   image: AssetImage(
-                  //     'assets/images/companies.png'
-                  //   ),
-                  // ),
+                  image: DecorationImage(
+                    image: AssetImage(
+                      'assets/images/main2.jpg'
+                    ),
+                  ),
                   border: Border.all(color: Colors.transparent),
                   borderRadius: BorderRadius.circular(8.w),
                 ),
-                child: Align(
-                  alignment: Alignment.bottomLeft,
-                  child: Padding(
-                    padding: EdgeInsets.all(4.w),
-                    child: Row(
-                      children: [
-                        Container(
-                          width: 25.w,
-                          height: 6.h,
-                          decoration: BoxDecoration(
-                            color: APPCOLORS.PRIMARY,
-                            border: Border.all(color: Colors.transparent),
-                            borderRadius: BorderRadius.circular(8.w),
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              Icon(Icons.star,color: Colors.yellowAccent,),
-                              Text('4.9',style: TextStyle(color: APPCOLORS.WHITE,fontSize:12.sp,fontWeight: FontWeight.bold),),
-                            ],
-                          ),
-                        ),
-                        wsizedbox2,
-                        Container(
-                          width: 25.w,
-                          height: 6.h,
-                          decoration: BoxDecoration(
-                            color: APPCOLORS.PRIMARY,
-                            border: Border.all(color: Colors.transparent),
-                            borderRadius: BorderRadius.circular(8.w),
-                          ),
-                          child:
-                          Center(child: Text('Level 1',style: TextStyle(color: APPCOLORS.WHITE,fontSize:12.sp,fontWeight: FontWeight.normal),)),
+                child: Stack(
+                  children: [
 
-                        ),
-                      ],
+                    Positioned(
+                      top:2.h,
+                      left: 2.w,
+                      child:
+                    Container(
+                      width: 85.w,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+
+                          GestureDetector(
+                            onTap: (){
+                              Navigator.pop(context);
+                            },
+                            child: Container(
+                              width: 6.h,
+                              height: 6.h,
+                              decoration: BoxDecoration(
+                                color: APPCOLORS.GREY,
+                                shape: BoxShape.circle,
+                              ),
+                              child: Icon(
+                                Icons.arrow_back_ios,
+                              ),
+                            ),
+                          ),
+
+                          GestureDetector(
+                            onTap: (){
+
+                            },
+                            child: Container(
+                              width: 6.h,
+                              height: 6.h,
+                              decoration: BoxDecoration(
+                                color: APPCOLORS.SECONDARY,
+                                shape: BoxShape.circle,
+                              ),
+                              child: Icon(
+                                Icons.favorite,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+
+                        ],
+                      ),
+                    ),
 
                     ),
-                  ),
+                    Align(
+                      alignment: Alignment.bottomLeft,
+                      child: Padding(
+                        padding: EdgeInsets.all(4.w),
+                        child: Row(
+                          children: [
+                            Container(
+                              width: 25.w,
+                              height: 6.h,
+                              decoration: BoxDecoration(
+                                color: APPCOLORS.PRIMARY,
+                                border: Border.all(color: Colors.transparent),
+                                borderRadius: BorderRadius.circular(8.w),
+                              ),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  Icon(Icons.star,color: Colors.yellowAccent,),
+                                  Text('4.9',style: TextStyle(color: APPCOLORS.WHITE,fontSize:12.sp,fontWeight: FontWeight.bold),),
+                                ],
+                              ),
+                            ),
+                            wsizedbox2,
+                            Container(
+                              width: 25.w,
+                              height: 6.h,
+                              decoration: BoxDecoration(
+                                color: APPCOLORS.PRIMARY,
+                                border: Border.all(color: Colors.transparent),
+                                borderRadius: BorderRadius.circular(8.w),
+                              ),
+                              child:
+                              Center(child: Text('Level 1',style: TextStyle(color: APPCOLORS.WHITE,fontSize:12.sp,fontWeight: FontWeight.normal),)),
+
+                            ),
+                          ],
+
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
+              hsizedbox2,
+              HeadingText(text: 'Habib Construction'),
               hsizedbox1,
+              hsizedbox2,
               Container(
                 height: 6.1.h,
                 child: ListView(
@@ -93,15 +151,16 @@ class _ContractorDetailsState extends State<ContractorDetails> {
                   ],
                 ),
               ),
+
               hsizedbox2,
               HeadingText(text: 'Services'),
               hsizedbox1,
           Text('1. Construction. \n 2. Plumbing \n 3. Wood Work '
-              ' \n 4. Wiring ',style: TextStyle(color: APPCOLORS.BLACK,fontSize:12.sp,fontWeight: FontWeight.normal)),
+              ' \n 4. Wiring ',style: TextStyle(color: APPCOLORS.BLACK,fontSize:13.sp,fontWeight: FontWeight.normal)),
 
               HeadingText(text: 'Speciality'),
               hsizedbox1,
-              Text('1. Construction.  \n 2. Wood Work',style: TextStyle(color: APPCOLORS.BLACK,fontSize:12.sp,fontWeight: FontWeight.normal)),
+              Text('1. Construction.  \n 2. Wood Work',style: TextStyle(color: APPCOLORS.BLACK,fontSize:13.sp,fontWeight: FontWeight.normal)),
 
               hsizedbox2,
               HeadingText(text: 'Projects'),
@@ -182,6 +241,7 @@ class _ContractorDetailsState extends State<ContractorDetails> {
               hsizedbox1,
 
               Container(
+                padding: EdgeInsets.all(2.w),
                 width:100.w,
                 height: 15.h,
                 decoration: BoxDecoration(
@@ -225,7 +285,9 @@ class _ContractorDetailsState extends State<ContractorDetails> {
                               HeadingText2(text: '4.2'),
                             ],
                           ),
-                          SmallText(text: 'Had a great experience working with him. Quality was complete ensured'),
+                          Container(
+                              width: 60.w,
+                              child: SmallText(text: 'Had a great experience working with him. Quality was complete ensured')),
                         ],
                       ),
                     ],
@@ -250,6 +312,7 @@ class BadgeContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      padding: EdgeInsets.all(4.w),
       // width: 28.w,
       height: 6.h,
       decoration: BoxDecoration(
