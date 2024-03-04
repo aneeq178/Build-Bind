@@ -1,4 +1,5 @@
 
+import 'package:buildbind/View/Auth/register_two.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 import 'package:image_picker/image_picker.dart';
@@ -68,7 +69,7 @@ class _RepresentativeRegistrationState extends State<RepresentativeRegistration>
                 hsizedbox2,
                 GestureDetector(
                   onTap: (){
-
+                    // _pickImage();
                   },
                   child: Container(
                     width: 30.w,
@@ -173,15 +174,9 @@ class _RepresentativeRegistrationState extends State<RepresentativeRegistration>
                 hsizedbox2,
 
 
-
-
-
-
-
-
                 GestureDetector(
                   onTap: (){
-                    // Navigator.push(context, MaterialPageRoute(builder: (context)=>LoginScreen()));
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=>RegisterTwo()));
                   },
                   child: Container(
                     height: 8.h,

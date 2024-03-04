@@ -1,3 +1,4 @@
+import 'package:buildbind/View/Auth/login_screen.dart';
 import 'package:buildbind/View/onbaording/onboarding_two.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
@@ -39,7 +40,7 @@ class OnboardingOne extends StatelessWidget {
             padding: EdgeInsets.all(3.w),
             child: GestureDetector(
               onTap: (){
-                Navigator.pop(context);
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>LoginScreen()));
               },
               child: Container(
                 width: 12.h,

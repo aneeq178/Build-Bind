@@ -1,4 +1,5 @@
 import 'package:buildbind/View/Auth/register_screen.dart';
+import 'package:buildbind/View/bottom_nav_bar.dart';
 import 'package:buildbind/View/home/dashboard_screen.dart';
 import 'package:buildbind/View/show_snackbar.dart';
 import 'package:buildbind/View/widgets/sized_boxes.dart';
@@ -128,7 +129,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   else if (_emailcontroller.text == 'aneeq178@gmail.com' &&
                       _passwordcontrller.text == 'aneeq@2002') {
                     Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => Dashboard()));
+                        MaterialPageRoute(builder: (context) =>BottomNavigation()));
                   }
                   else {
                     showSnackbar(context, 'Incorrect Credentials');

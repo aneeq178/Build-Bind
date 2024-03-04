@@ -31,7 +31,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                hsizedbox5,
+                hsizedbox2,
                 hsizedbox2,
                 Align(
                     alignment: Alignment.centerLeft,
@@ -40,7 +40,26 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 Align(
                     alignment: Alignment.centerLeft,
                     child: SimpleText(text:  widget.from?'Provide details of your Company':'Provide Your Details',)),
-                hsizedbox6,
+                hsizedbox2,
+                widget.from?Container():
+                GestureDetector(
+                  onTap: (){
+                    // _pickImage();
+                  },
+                  child: Container(
+                    width: 30.w,
+                    height: 20.h,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: APPCOLORS.PRIMARY,
+                    ),
+                    child: Icon(
+                      Icons.image,
+                      color: Colors.white,
+                      size: 50,
+                    ),
+                  ),
+                ),
                 GestureDetector(
       
                   child: Container(
@@ -108,7 +127,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       SizedBox(width: 8.0),
                       Expanded(
                         child: TextField(
-      
                           decoration: InputDecoration(
                             hintText:  widget.from?'NTN':'CNIC',
                             border: InputBorder.none,
@@ -157,7 +175,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
       
                 GestureDetector(
                   onTap: (){
-                    Navigator.push(context, MaterialPageRoute(builder: (context)=>RepresentativeRegistration()));
+                    widget.from?{
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=>RepresentativeRegistration())),
+                    }:
+                        {
+                          Navigator.push(context, MaterialPageRoute(builder: (context)=>LoginScreen())),
+                        };
                   },
                   child: Container(
                     height: 8.h,
@@ -168,7 +191,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       borderRadius: BorderRadius.circular(8.0),
                     ),
                     child: Center(
-                      child:Text('Next',style: TextStyle(color: APPCOLORS.WHITE,fontSize:16.sp,fontWeight: FontWeight.bold),),
+                      child:Text(widget.from?'Next':'Submit',style: TextStyle(color: APPCOLORS.WHITE,fontSize:16.sp,fontWeight: FontWeight.bold),),
                     ),
                   ),
                 ),

@@ -42,7 +42,7 @@ class _OnBoardingTwoState extends State<OnBoardingTwo> {
             padding: EdgeInsets.all(3.w),
             child: GestureDetector(
               onTap: (){
-                Navigator.pop(context);
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>LoginScreen()));
               },
               child: Container(
                 width: 12.h,
@@ -76,7 +76,7 @@ class _OnBoardingTwoState extends State<OnBoardingTwo> {
             // hsizedbox2,
             Container(
               width: 100.w,
-              height: 63.h,
+              height: 62.h,
               decoration: const BoxDecoration(
                   image: DecorationImage(
                     image: AssetImage(

@@ -17,7 +17,7 @@ class _CostEstimationState extends State<CostEstimation> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+
       body: Container(
         decoration: BoxDecoration(
           image: DecorationImage(

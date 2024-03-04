@@ -1,8 +1,12 @@
+import 'package:buildbind/View/bottom_nav_bar.dart';
+import 'package:buildbind/View/home/dashboard_screen.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../Utills/AppColors.dart';
+import '../bottom_nav_two.dart';
 import '../widgets/app_bar.dart';
 import '../widgets/sized_boxes.dart';
 import '../widgets/texts.dart';
@@ -11,11 +15,8 @@ import 'login_screen.dart';
 class RegisterTwo extends StatefulWidget {
   const RegisterTwo({
     super.key,
-    required this.from,
+
   });
-
-  final bool from; // true for contractor and false for normal user
-
 
   @override
   State<RegisterTwo> createState() => _RegisterTwoState();
@@ -146,7 +147,36 @@ class _RegisterTwoState extends State<RegisterTwo> {
 
                 GestureDetector(
                   onTap: (){
-                    Navigator.push(context, MaterialPageRoute(builder: (context)=>LoginScreen()));
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: const HeadingText( text: 'Thank You for providing your details',),
+
+                          content: const Text('Your Application is under review by our team you will receive an email one the verification is done'),
+                          actions: [
+
+                            GestureDetector(
+                              onTap: () {
+                                Navigator.push(context, MaterialPageRoute(builder: (context)=>BottomNavigation2()));
+                              },
+                              child: Container(
+                                height: 8.h,
+                                padding: EdgeInsets.all(2.w),
+                                decoration: BoxDecoration(
+                                  color: APPCOLORS.SECONDARY,
+                                  border: Border.all(color: Colors.transparent),
+                                  borderRadius: BorderRadius.circular(8.0),
+                                ),
+                                child: Center(
+                                  child:Text('Continue Browsing',style: TextStyle(color: APPCOLORS.WHITE,fontSize:16.sp,fontWeight: FontWeight.bold),),
+                                ),
+                              ),
+                            ),
+                          ],
+                        );
+                      },
+                    );
                   },
                   child: Container(
                     height: 8.h,
@@ -157,7 +187,7 @@ class _RegisterTwoState extends State<RegisterTwo> {
                       borderRadius: BorderRadius.circular(8.0),
                     ),
                     child: Center(
-                      child:Text('Next',style: TextStyle(color: APPCOLORS.WHITE,fontSize:16.sp,fontWeight: FontWeight.bold),),
+                      child:Text('Submit',style: TextStyle(color: APPCOLORS.WHITE,fontSize:16.sp,fontWeight: FontWeight.bold),),
                     ),
                   ),
                 ),

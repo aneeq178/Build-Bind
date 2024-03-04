@@ -9,6 +9,7 @@ Widget hsizedbox5= SizedBox(height: 5.h,);
 Widget hsizedbox6= SizedBox(height: 6.h,);
 
 
+Widget wsizedbox1= SizedBox(width: 2.w,);
 Widget wsizedbox2= SizedBox(width: 5.w,);
 Widget wsizedbox3= SizedBox(width: 7.w,);
 Widget wsizedbox4= SizedBox(width: 9.w,);

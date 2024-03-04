@@ -1,3 +1,5 @@
+import 'package:buildbind/View/Contractor/Projects/explore_projects.dart';
+import 'package:buildbind/View/Contractor/contractor_home_screen.dart';
 import 'package:buildbind/View/Search/search_contractor.dart';
 import 'package:buildbind/View/Settings/profile_settings.dart';
 import 'package:buildbind/View/home/dashboard_screen.dart';
@@ -6,6 +8,7 @@ import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import 'package:sizer/sizer.dart';
 
 import '../Utills/AppColors.dart';
+import 'Contractor/Profilesetting/profile_setings.dart';
 import 'Favourite/favourite_screen.dart';
 import 'Listing/listing_project.dart';
 
@@ -22,11 +25,9 @@ class _BottomNavigation2State extends State<BottomNavigation2> {
   int _selectedTab = 0;
 
   List _pages = [
-    Dashboard(),
-    FavouriteScreen(),
-    SearchContractor(),
-    ListingProject(),
-    ProfileSetings(),
+    ContractorHomeScreen(),
+    ExploreProjects(),
+    ContractorProfileSettings(),
   ];
 
   _changeTab(int index) async {
@@ -67,39 +68,29 @@ class _BottomNavigation2State extends State<BottomNavigation2> {
                 },
               ),
               IconButton(
-                icon: Icon(Icons.favorite,
+                icon: Icon(Icons.explore_rounded,
                     color: _selectedTab == 1 ? APPCOLORS.SECONDARY : Colors.black),
                 onPressed: () {
                   _changeTab(1);
                 },
               ),
-              SizedBox(width: 40.0),
+              // IconButton(
+              //   icon: Icon(Icons.search,
+              //       color: _selectedTab == 2 ? APPCOLORS.SECONDARY : Colors.black),
+              //   onPressed: () {
+              //     _changeTab(2);
+              //   },
+              // ),
               IconButton(
-                icon: Icon(Icons.search,
+                icon: Icon(Icons.menu,
                     color: _selectedTab == 2 ? APPCOLORS.SECONDARY : Colors.black),
                 onPressed: () {
                   _changeTab(2);
                 },
               ),
-              IconButton(
-                icon: Icon(Icons.menu,
-                    color: _selectedTab == 4 ? APPCOLORS.SECONDARY : Colors.black),
-                onPressed: () {
-                  _changeTab(4);
-                },
-              ),
             ],
           ),
         ),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: FloatingActionButton(
-        shape: CircleBorder(),
-        backgroundColor: APPCOLORS.PRIMARY,
-        child: Icon(Icons.add,color: APPCOLORS.WHITE,),
-        onPressed: () {
-          _changeTab(3);
-        },
       ),
     );
   }

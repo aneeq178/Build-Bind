@@ -14,6 +14,8 @@ class ContractorDetails extends StatefulWidget {
 }
 
 class _ContractorDetailsState extends State<ContractorDetails> {
+  bool servicescon=false;
+  bool specilitycon=false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -153,15 +155,94 @@ class _ContractorDetailsState extends State<ContractorDetails> {
               ),
 
               hsizedbox2,
-              HeadingText(text: 'Services'),
-              hsizedbox1,
-          Text('1. Construction. \n 2. Plumbing \n 3. Wood Work '
-              ' \n 4. Wiring ',style: TextStyle(color: APPCOLORS.BLACK,fontSize:13.sp,fontWeight: FontWeight.normal)),
+              AnimatedContainer(
+                  padding: EdgeInsets.all(4.w),
+                  duration: Duration(milliseconds: 500),// Set the animation duration
+                  curve: Curves.easeInOut, // Set the animation curve
+                  height: servicescon?32.h:9.h,
+                  width: 100.w,
+                  decoration: BoxDecoration(
+                    color: APPCOLORS.GREY,
+                    borderRadius: BorderRadius.all(Radius.circular(3.w)),
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          HeadingText2(text:'Services'),
+                          GestureDetector(
+                              onTap: (){
+                                setState(() {
+                                  servicescon=!servicescon;
+                                });
+                              },
+                              child: Icon(color: APPCOLORS.PRIMARY,size: 10.w,servicescon?Icons.arrow_drop_up_sharp:Icons.arrow_drop_down_rounded)),
+                        ],
+                      ),
+                      servicescon?Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          hsizedbox2,
+                          Text('Construction',style: TextStyle(color: APPCOLORS.PRIMARY,fontSize:14.sp,)),
+                          Divider(),
+                          Text('Plumbing',style: TextStyle(color: APPCOLORS.PRIMARY,fontSize:14.sp,)),
+                          Divider(),
+                          Text('Wood Work',style: TextStyle(color: APPCOLORS.PRIMARY,fontSize:14.sp,)),
+                          Divider(),
+                          Text('Wiring',style: TextStyle(color: APPCOLORS.PRIMARY,fontSize:14.sp,)),
+                          Divider(),
 
-              HeadingText(text: 'Speciality'),
-              hsizedbox1,
-              Text('1. Construction.  \n 2. Wood Work',style: TextStyle(color: APPCOLORS.BLACK,fontSize:13.sp,fontWeight: FontWeight.normal)),
 
+                        ],
+                      ):Container(),
+                    ],
+                  )
+              ),
+
+              hsizedbox1,
+
+              AnimatedContainer(
+                  padding: EdgeInsets.all(4.w),
+                  duration: Duration(milliseconds: 500),// Set the animation duration
+                  curve: Curves.easeInOut, // Set the animation curve
+                  height:  specilitycon?32.h:9.h,
+                  width: 100.w,
+                  decoration: BoxDecoration(
+                    color: APPCOLORS.GREY,
+                    borderRadius: BorderRadius.all(Radius.circular(3.w)),
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          const HeadingText2(text:'Speciality'),
+                          GestureDetector(
+                              onTap: (){
+                                setState(() {
+                                  specilitycon=!specilitycon;
+                                });
+                              },
+                              child: Icon(color: APPCOLORS.PRIMARY,size: 10.w, specilitycon?Icons.arrow_drop_up_sharp:Icons.arrow_drop_down_rounded)),
+                        ],
+                      ),
+                      specilitycon?Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          hsizedbox2,
+                          Text('Construction',style: TextStyle(color: APPCOLORS.PRIMARY,fontSize:14.sp,)),
+                          Divider(),
+                          Text('Plumbing',style: TextStyle(color: APPCOLORS.PRIMARY,fontSize:14.sp,)),
+                          Divider(),
+
+                        ],
+                      ):Container(),
+                    ],
+                  )
+              ),
               hsizedbox2,
               HeadingText(text: 'Projects'),
               hsizedbox1,
@@ -187,7 +268,6 @@ class _ContractorDetailsState extends State<ContractorDetails> {
                   ),
                 ),
               ),
-
               hsizedbox2,
 
               HeadingText(text: 'Legal Docs'),
