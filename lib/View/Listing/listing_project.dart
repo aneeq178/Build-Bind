@@ -16,6 +16,9 @@ class ListingProject extends StatefulWidget {
 }
 
 class _ListingProjectState extends State<ListingProject> {
+
+  bool isChecked=false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -94,10 +97,30 @@ class _ListingProjectState extends State<ListingProject> {
                 ],
               ),
 
+              hsizedbox3,
+              Container(
+                padding: EdgeInsets.only(left:2.w,right: 2.w),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.all(Radius.circular(3.w)),
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                   HeadingText(text: 'Quality Assurance'),
+                    Switch(
+                      activeColor: Colors.green,
+                      value:isChecked,
+                      onChanged: (bool value) {
+                      setState(() {
+                        isChecked=!isChecked;
+                      });
+                      },
+                    )
+                  ],
+                ),
+              ),
               hsizedbox6,
-
-
-
               GestureDetector(
                onTap: (){
                  Navigator.push(context,MaterialPageRoute(builder: (context)=>ListingProject2()));

@@ -14,9 +14,11 @@ import 'login_screen.dart';
 
 class RegisterTwo extends StatefulWidget {
   const RegisterTwo({
+    required this.type,
     super.key,
 
   });
+  final String type;
 
   @override
   State<RegisterTwo> createState() => _RegisterTwoState();
@@ -38,37 +40,15 @@ class _RegisterTwoState extends State<RegisterTwo> {
                 hsizedbox2,
                 Align(
                     alignment: Alignment.centerLeft,
-                    child: HeadingText(text: 'Information of Company \nRepresentative')),
+                    child: HeadingText(text: 'Company Details')),
                 hsizedbox2,
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     const Align(
                         alignment: Alignment.centerLeft,
-                        child: SimpleText(text: 'Fill the Information Bellow',)),
-                    GestureDetector(
-                        onTap: (){
-                          showDialog(
-                            context: context,
-                            builder: (BuildContext context) {
-                              return AlertDialog(
-
-                                content: const Text('Provide Your Position in the company along with your name and CNIC.\n \n'
-                                    'It helps us to ensure clean and transparent dealing'),
-                                actions: [
-
-                                  TextButton(
-                                    onPressed: () {
-                                      Navigator.of(context).pop();
-                                    },
-                                    child: Text('OK'),
-                                  ),
-                                ],
-                              );
-                            },
-                          );
-                        },
-                        child: Icon(Icons.info_outline)),
+                        child: SimpleText(text: 'Provide Details of you Company',)),
+                    Icon(Icons.info_outline),
                   ],
                 ),
                 hsizedbox6,
@@ -80,7 +60,23 @@ class _RegisterTwoState extends State<RegisterTwo> {
                     border: Border.all(color: Colors.transparent),
                     borderRadius: BorderRadius.circular(8.0),
                   ),
-                  child: TextField(
+                  child: const TextField(
+                    maxLines: 1,
+                    decoration: InputDecoration(
+                      hintText: 'Number of Employees in Company',
+                      border: InputBorder.none,
+                    ),
+                  ),
+                ),
+                hsizedbox2,
+                Container(
+                  padding: EdgeInsets.all(2.w),
+                  decoration: BoxDecoration(
+                    color: APPCOLORS.GREY,
+                    border: Border.all(color: Colors.transparent),
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                  child: const TextField(
                     maxLines: 2,
                     decoration: InputDecoration(
                       hintText: 'Description of your Company',
@@ -115,7 +111,7 @@ class _RegisterTwoState extends State<RegisterTwo> {
                   ),
                 ),
                 hsizedbox2,
-                GestureDetector(
+                widget.type=='A'? GestureDetector(
                   onTap: (){
                     _pickPDF(context);
                   },
@@ -139,7 +135,7 @@ class _RegisterTwoState extends State<RegisterTwo> {
                       ),
                     ),
                   ),
-                ),
+                ):Container(),
 
                 hsizedbox1,
 

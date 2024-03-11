@@ -1,9 +1,15 @@
 import 'package:buildbind/Utills/AppColors.dart';
 import 'package:buildbind/View/Auth/login_screen.dart';
 import 'package:buildbind/View/Auth/register_screen.dart';
+import 'package:buildbind/View/Contractor/bussines_sneakpeak.dart';
+import 'package:buildbind/View/Contractor/ongoing_projects.dart';
+import 'package:buildbind/View/Settings/update_password.dart';
+import 'package:buildbind/View/contact_us_screen.dart';
 
 import 'package:buildbind/View/widgets/sized_boxes.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:sizer/sizer.dart';
 
 
@@ -54,31 +60,42 @@ class _ContractorProfileSettingsState extends State<ContractorProfileSettings> {
             hsizedbox6,
 
 
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text('Change Password',style: TextStyle(fontSize: 4.5.w,color: APPCOLORS.BLACK),),
+            GestureDetector(
+              onTap: (){
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>UpdatePassword()));
+              },
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text('Change Password',style: TextStyle(fontSize: 4.5.w,color: APPCOLORS.BLACK),),
 
-                Icon(Icons.key),
-              ],
+                  Icon(Icons.key),
+                ],
+              ),
             ),
             Divider(),
             hsizedbox2,
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            GestureDetector(
+              onTap: (){
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>ContactScreen()));
 
-              children: [
-                Text('Contact Support',style: TextStyle(fontSize: 4.5.w,color: APPCOLORS.BLACK),),
+              },
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
 
-                Icon(Icons.call),
-              ],
+                children: [
+                  Text('Contact Support',style: TextStyle(fontSize: 4.5.w,color: APPCOLORS.BLACK),),
+
+                  Icon(Icons.call),
+                ],
+              ),
             ),
             Divider(),
             hsizedbox2,
 
             GestureDetector(
               onTap: (){
-                // Navigator.push(context, MaterialPageRoute(builder: (context)=>MyProjects()));
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>OnGoingProjects()));
               },
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -94,7 +111,7 @@ class _ContractorProfileSettingsState extends State<ContractorProfileSettings> {
 
             GestureDetector(
               onTap: (){
-                // Navigator.push(context, MaterialPageRoute(builder: (context)=>MyProjects()));
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>BussinessSneakPeak()));
               },
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,

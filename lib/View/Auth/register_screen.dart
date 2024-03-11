@@ -12,9 +12,11 @@ class RegisterScreen extends StatefulWidget {
   const RegisterScreen({
     super.key,
     required this.from,
+
   });
 
-  final bool from; // true for contractor and false for normal user
+  final bool from;// true for contractor and false for normal user
+
 
   @override
   State<RegisterScreen> createState() => _RegisterScreenState();
@@ -39,7 +41,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 hsizedbox2,
                 Align(
                     alignment: Alignment.centerLeft,
-                    child: SimpleText(text:  widget.from?'Provide details of your Company':'Provide Your Details',)),
+                    child: SimpleText(text:  widget.from?'Provide details of your Company':'Provide Your Details')),
                 hsizedbox2,
                 widget.from?Container():
                 GestureDetector(
@@ -77,7 +79,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           child: TextField(
       
                             decoration: InputDecoration(
-                              hintText: 'name',
+                              hintText: widget.from?'company name':'name',
                               border: InputBorder.none,
                             ),
                           ),
@@ -176,7 +178,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 GestureDetector(
                   onTap: (){
                     widget.from?{
-                    Navigator.push(context, MaterialPageRoute(builder: (context)=>RepresentativeRegistration())),
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=>RepresentativeRegistration(type: 'A'))),
                     }:
                         {
                           Navigator.push(context, MaterialPageRoute(builder: (context)=>LoginScreen())),

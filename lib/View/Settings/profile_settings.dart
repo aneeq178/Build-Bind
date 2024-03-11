@@ -1,12 +1,17 @@
 import 'package:buildbind/Utills/AppColors.dart';
+import 'package:buildbind/View/Auth/contractor_type.dart';
 import 'package:buildbind/View/Auth/login_screen.dart';
 import 'package:buildbind/View/Auth/register_screen.dart';
+import 'package:buildbind/View/Settings/update_password.dart';
 
 import 'package:buildbind/View/widgets/sized_boxes.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:sizer/sizer.dart';
 
 import '../MyProjects/my_projects.dart';
+import '../contact_us_screen.dart';
 
 class ProfileSetings extends StatefulWidget {
   const ProfileSetings({super.key});
@@ -54,24 +59,34 @@ class _ProfileSetingsState extends State<ProfileSetings> {
             hsizedbox6,
 
 
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text('Change Password',style: TextStyle(fontSize: 4.5.w,color: APPCOLORS.BLACK),),
+            GestureDetector(
+              onTap: (){
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>UpdatePassword()));
+              },
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text('Change Password',style: TextStyle(fontSize: 4.5.w,color: APPCOLORS.BLACK),),
 
-                Icon(Icons.key),
-              ],
+                  Icon(Icons.key),
+                ],
+              ),
             ),
             Divider(),
             hsizedbox2,
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            GestureDetector(
+              onTap: (){
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>ContactScreen()));
+              },
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
 
-              children: [
-                Text('Contact Support',style: TextStyle(fontSize: 4.5.w,color: APPCOLORS.BLACK),),
+                children: [
+                  Text('Contact Support',style: TextStyle(fontSize: 4.5.w,color: APPCOLORS.BLACK),),
 
-                Icon(Icons.call),
-              ],
+                  Icon(Icons.call),
+                ],
+              ),
             ),
             Divider(),
             hsizedbox2,
@@ -95,7 +110,7 @@ class _ProfileSetingsState extends State<ProfileSetings> {
 
             GestureDetector(
               onTap: (){
-                Navigator.push(context, MaterialPageRoute(builder: (context)=>RegisterScreen(from: true)));
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>ContractorType()));
               },
               child: Container(
                 padding: EdgeInsets.all(2.w),
@@ -115,8 +130,6 @@ class _ProfileSetingsState extends State<ProfileSetings> {
               ),
             ),
             Divider(),
-            hsizedbox2,
-
             GestureDetector(
               onTap: (){
                 Navigator.push(context, MaterialPageRoute(builder: (context)=>LoginScreen()));

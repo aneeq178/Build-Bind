@@ -73,8 +73,6 @@ class _ProjectDetaillsState extends State<ProjectDetaills> {
                                     ),
                                   ),
 
-
-
                                 ],
                               ),
                             ),
@@ -121,7 +119,6 @@ class _ProjectDetaillsState extends State<ProjectDetaills> {
                       ],
                     ),
 
-
                     hsizedbox2,
                     ProjectDescriptionFeature(text: 'Floors',quantity: '2',),
                     hsizedbox1,
@@ -132,13 +129,10 @@ class _ProjectDetaillsState extends State<ProjectDetaills> {
                     ProjectDescriptionFeature(text: 'kitchens',quantity: '1',),
                     hsizedbox1,
                     ProjectDescriptionFeature(text: 'Washrooms',quantity: '4',),
-
-
                   ],
                 ),
               ),
             ),
-
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [

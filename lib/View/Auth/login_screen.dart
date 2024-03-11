@@ -23,7 +23,6 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
       body: Padding(
         padding: EdgeInsets.all(4.w),
         child: SingleChildScrollView(
@@ -35,43 +34,36 @@ class _LoginScreenState extends State<LoginScreen> {
               HeadingText(text: 'Lets Sign in'),
               hsizedbox6,
           
-              GestureDetector(
-                onTap: () {
-                  // Navigator.push(context, MaterialPageRoute(builder: (context)=>SearchContractor()));
-                },
-                child: Container(
-                  padding: EdgeInsets.all(2.w),
-                  decoration: BoxDecoration(
-                    color: APPCOLORS.GREY,
-                    border: Border.all(color: Colors.transparent),
-                    borderRadius: BorderRadius.circular(8.0),
-                  ),
-                  child: Row(
-                    children: [
-                      Icon(Icons.mail),
-                      SizedBox(width: 8.0),
-                      Expanded(
-                        child: TextField(
-                          controller: _emailcontroller,
-                          onTap: () {
-                            // Navigator.push(context, MaterialPageRoute(builder: (context)=>SearchContractor()));
-                          },
-                          decoration: InputDecoration(
-                            hintText: 'email',
-                            border: InputBorder.none,
-                          ),
+              Container(
+                padding: EdgeInsets.all(2.w),
+                decoration: BoxDecoration(
+                  color: APPCOLORS.GREY,
+                  border: Border.all(color: Colors.transparent),
+                  borderRadius: BorderRadius.circular(8.0),
+                ),
+                child: Row(
+                  children: [
+                    Icon(Icons.mail),
+                    SizedBox(width: 8.0),
+                    Expanded(
+                      child: TextField(
+                        controller: _emailcontroller,
+                        onTap: () {
+                          // Navigator.push(context, MaterialPageRoute(builder: (context)=>SearchContractor()));
+                        },
+                        decoration: InputDecoration(
+                          hintText: 'email',
+                          border: InputBorder.none,
                         ),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
           
               hsizedbox2,
               GestureDetector(
-                onTap: () {
-                  // Navigator.push(context, MaterialPageRoute(builder: (context)=>SearchContractor()));
-                },
+
                 child: Container(
                   padding: EdgeInsets.all(2.w),
                   decoration: BoxDecoration(
@@ -106,7 +98,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   GestureDetector(
                       onTap: () {
                         Navigator.push(context, MaterialPageRoute(
-                            builder: (context) => RegisterScreen(from: false,)));
+                            builder: (context) => RegisterScreen(from: false)));
                       },
                       child: Text('Register', style: TextStyle(
                           color: APPCOLORS.PRIMARY,

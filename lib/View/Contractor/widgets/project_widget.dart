@@ -1,4 +1,5 @@
 import 'package:buildbind/View/Contractor/Biding/biding.dart';
+import 'package:buildbind/View/MyProjects/project_detaills.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -120,14 +121,19 @@ class ProjectWidget extends StatelessWidget {
                 Row(
 
                   children: [
-                    Container(
-                      height: 6.h,
-                      padding: EdgeInsets.all(3.w),
-                      decoration: BoxDecoration(
-                        color: APPCOLORS.SECONDARY,
-                        borderRadius: BorderRadius.all(Radius.circular(4.w)),
+                    GestureDetector(
+                    onTap:(){
+                      Navigator.push(context, MaterialPageRoute(builder: (context)=>ProjectDetaills()));
+                    },
+                      child: Container(
+                        height: 6.h,
+                        padding: EdgeInsets.all(3.w),
+                        decoration: BoxDecoration(
+                          color: APPCOLORS.SECONDARY,
+                          borderRadius: BorderRadius.all(Radius.circular(4.w)),
+                        ),
+                        child: Text('View Details',style: TextStyle(color: APPCOLORS.WHITE,fontSize:12.sp,fontWeight: FontWeight.bold)),
                       ),
-                      child: Text('View Details',style: TextStyle(color: APPCOLORS.WHITE,fontSize:12.sp,fontWeight: FontWeight.bold)),
                     ),
                     wsizedbox1,
                     GestureDetector(

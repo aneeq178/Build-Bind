@@ -9,7 +9,8 @@ import '../widgets/sized_boxes.dart';
 import '../widgets/texts.dart';
 
 class RepresentativeRegistration extends StatefulWidget {
-  const RepresentativeRegistration({super.key});
+  const RepresentativeRegistration({required this.type,super.key});
+  final String type;
 
   @override
   State<RepresentativeRegistration> createState() => _RepresentativeRegistrationState();
@@ -17,11 +18,8 @@ class RepresentativeRegistration extends StatefulWidget {
 
 class _RepresentativeRegistrationState extends State<RepresentativeRegistration> {
   @override
-
-
   Widget build(BuildContext context) {
     return SafeArea(
-
       child: Scaffold(
         appBar: CustomAppBar(context),
         body: Padding(
@@ -33,7 +31,7 @@ class _RepresentativeRegistrationState extends State<RepresentativeRegistration>
                 hsizedbox1,
                 Align(
                     alignment: Alignment.centerLeft,
-                    child: HeadingText( text: 'Information of Company \nRepresentative',)),
+                    child: HeadingText( text: widget.type=='A'?'Information of Company \nRepresentative':'Information of Representative')),
                 hsizedbox2,
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -176,7 +174,7 @@ class _RepresentativeRegistrationState extends State<RepresentativeRegistration>
 
                 GestureDetector(
                   onTap: (){
-                    Navigator.push(context, MaterialPageRoute(builder: (context)=>RegisterTwo()));
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=>RegisterTwo(type: widget.type,)));
                   },
                   child: Container(
                     height: 8.h,
