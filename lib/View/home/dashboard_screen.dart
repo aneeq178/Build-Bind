@@ -120,25 +120,25 @@ class _DashboardState extends State<Dashboard> {
 
               hsizedbox2,
 
-
-                Container(
-                  height: 6.2.h,
-                  child: ListView(
-                    scrollDirection: Axis.horizontal,
-                    shrinkWrap: true,
-                    children: [
-                      TabButton(text: "All",selected: true,),
-                      wsizedbox2,
-                      TabButton(text: "House",selected: false,),
-                      wsizedbox2,
-                      TabButton(text: "Plaza",selected: false),
-                      wsizedbox2,
-                      TabButton(text: "Flats",selected: false),
-                      // wsizedbox4,
-                      // TabButton( text: "Factory",),
-                    ],
-                  ),
-                ),
+                //
+                // Container(
+                //   height: 6.2.h,
+                //   child: ListView(
+                //     scrollDirection: Axis.horizontal,
+                //     shrinkWrap: true,
+                //     children: [
+                //       TabButton(text: "All",selected: true,),
+                //       wsizedbox2,
+                //       TabButton(text: "House",selected: false,),
+                //       wsizedbox2,
+                //       TabButton(text: "Plaza",selected: false),
+                //       wsizedbox2,
+                //       TabButton(text: "Flats",selected: false),
+                //       // wsizedbox4,
+                //       // TabButton( text: "Factory",),
+                //     ],
+                //   ),
+                // ),
                 hsizedbox2,
 
                 Row(
@@ -202,13 +202,13 @@ class _DashboardState extends State<Dashboard> {
 
 
                 Container(
-                  height: 14.5.h,
+                  height: 16.5.h,
                   child: ListView.builder(
                     shrinkWrap: true,
                     itemCount: 4,
                     scrollDirection: Axis.horizontal,
                     itemBuilder: (context, index) => Container(
-                      width: 20.w,
+                      width: 25.w,
                       height: 1.5.h,
                       padding: EdgeInsets.all(2.w),
                       decoration: BoxDecoration(
@@ -224,8 +224,7 @@ class _DashboardState extends State<Dashboard> {
                             decoration: BoxDecoration(
                               image: DecorationImage(
                                 image: AssetImage(
-                                  'assets/images/image 29.png',
-                                  // 'assets/images/companies.png'
+                                  'assets/temp/zkbowner.jpeg',
                                 ), // Replace with your image asset path
                                 fit: BoxFit.cover,
                               ),
@@ -235,17 +234,12 @@ class _DashboardState extends State<Dashboard> {
                             ),
                           ),
                           hsizedbox1,
-                          Text(" Ali",style:TextStyle(color:APPCOLORS.PRIMARY,fontSize: 12.sp)),
+                          Text(" Irfan Wahid",style:TextStyle(color:APPCOLORS.PRIMARY,fontSize: 10.sp)),
 
                         ],
                       ),
                     ),),
                 ),
-
-
-
-
-
 
               ],
             ),
@@ -264,7 +258,7 @@ class TopCompanies extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 43.w,
+      width: 52.w,
       height: 8.5.h,
       padding: EdgeInsets.all(2.w),
       decoration: BoxDecoration(
@@ -273,15 +267,16 @@ class TopCompanies extends StatelessWidget {
         borderRadius: BorderRadius.circular(8.w),
       ),
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Container(
-            width: 12.w,
+            width: 13.w,
             height: 8.h,
             padding: EdgeInsets.all(5.w),
             decoration: BoxDecoration(
               image: DecorationImage(
                 image: AssetImage(
-                  'assets/images/companies.png',
+                  'assets/temp/habib.jpeg',
                   // 'assets/images/companies.png'
                 ), // Replace with your image asset path
                 fit: BoxFit.cover,
@@ -291,7 +286,7 @@ class TopCompanies extends StatelessWidget {
               borderRadius: BorderRadius.circular(8.w),
             ),
           ),
-          Text("  Eden Builders",style:TextStyle(color:APPCOLORS.PRIMARY,fontSize: 10.sp)),
+          Text("Habib Constructors",style:TextStyle(color:APPCOLORS.PRIMARY,fontSize: 10.sp)),
           SizedBox(width: 2.w,),
         ],
       ),

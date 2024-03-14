@@ -66,6 +66,9 @@ flutter:
      - assets/images/undraw_city_life_gnpr 1.png
      - assets/images/Layout.png
      - assets/images/contactus.jpg
+     - assets/temp/
+     - assets/temp/zkbowner.jpeg
+     - assets/temp/zkbowner.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
