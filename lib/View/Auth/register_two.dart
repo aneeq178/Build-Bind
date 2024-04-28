@@ -127,7 +127,7 @@ class _RegisterTwoState extends State<RegisterTwo> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          Text('Add PEC Certificate',style: TextStyle(color: APPCOLORS.WHITE,fontSize:12.sp,fontWeight: FontWeight.bold)),
+                          Text('Add PEC Licence',style: TextStyle(color: APPCOLORS.WHITE,fontSize:12.sp,fontWeight: FontWeight.bold)),
                           wsizedbox2,
                           Icon(Icons.drive_folder_upload_outlined,color: Colors.white,),
 

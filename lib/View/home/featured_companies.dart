@@ -136,7 +136,7 @@ class FeaturedCompanies extends StatelessWidget {
                         hsizedbox1,
                         Align(
                             alignment: Alignment.centerLeft,
-                            child: Text("ABC LTD",style:TextStyle(color:APPCOLORS.PRIMARY,fontWeight: FontWeight.bold,fontSize: 10.sp))),
+                            child: Text("Bin Aziz PVT",style:TextStyle(color:APPCOLORS.PRIMARY,fontWeight: FontWeight.bold,fontSize: 10.sp))),
 
                         Row(
                           children: [

@@ -1,3 +1,5 @@
+import 'package:buildbind/Controllers/listing_controllers.dart';
+import 'package:buildbind/Providers/Text_Recognition_Provider.dart';
 import 'package:buildbind/Providers/cost_estimation_prvider.dart';
 import 'package:buildbind/Utills/AppColors.dart';
 import 'package:buildbind/View/bottom_nav_bar.dart';
@@ -12,6 +14,8 @@ void main() {
   runApp(
       MultiProvider(  providers: [
         ChangeNotifierProvider(create: (_) => CostEstimationProvider()),
+        ChangeNotifierProvider(create: (_) => ListingController()),
+        ChangeNotifierProvider(create: (_) => TextRecognitionController()),
       ],
           child:  MyApp()));
 }
@@ -37,7 +41,6 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive, overlays: []);
     return
       Sizer(
           builder: (context, orientation, deviceType) {
@@ -69,6 +72,6 @@ class MyHomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SplashScreen();
+    return BottomNavigation();
   }
 }

@@ -1,17 +1,14 @@
 import 'package:buildbind/View/Contractor/widgets/project_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
-
 import '../../Utills/AppColors.dart';
 import '../Notifcations/notificatoins.dart';
 import '../home/dashboard_screen.dart';
-import '../home/featured_companies.dart';
 import '../widgets/sized_boxes.dart';
 import '../widgets/texts.dart';
 
 class ContractorHomeScreen extends StatelessWidget {
   const ContractorHomeScreen({super.key});
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,7 +21,6 @@ class ContractorHomeScreen extends StatelessWidget {
         child: SingleChildScrollView(
           child: Padding(
             padding:  EdgeInsets.all(5.w),
-
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.start,

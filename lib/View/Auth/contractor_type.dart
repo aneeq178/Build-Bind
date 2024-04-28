@@ -98,9 +98,6 @@ class ContractorType extends StatelessWidget {
                 ),
               ),
             ),
-
-
-
           ],
         ),
       ),

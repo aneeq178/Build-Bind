@@ -1,4 +1,4 @@
-
+import 'dart:io';
 import 'package:buildbind/View/Auth/register_two.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
@@ -17,6 +17,39 @@ class RepresentativeRegistration extends StatefulWidget {
 }
 
 class _RepresentativeRegistrationState extends State<RepresentativeRegistration> {
+  File? _cnicfront;
+  File? _cnicback;
+
+  String? _cnicfrontP;
+  String? _cnicblackP;
+
+  final picker = ImagePicker();
+
+  Future getCNICF() async {
+    final pickedFile = await picker.pickImage(source: ImageSource.camera);
+
+    setState(() {
+      if (pickedFile != null) {
+        _cnicfront = File(pickedFile.path);
+        _cnicfrontP = pickedFile.path;
+      } else {
+        print('No image selected.');
+      }
+    });
+  }
+
+  Future getCNICB() async {
+    final pickedFile = await picker.pickImage(source: ImageSource.camera);
+
+    setState(() {
+      if (pickedFile != null) {
+        _cnicback = File(pickedFile.path);
+        _cnicblackP = pickedFile.path;
+      } else {
+        print('No image selected.');
+      }
+    });
+  }
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -31,7 +64,7 @@ class _RepresentativeRegistrationState extends State<RepresentativeRegistration>
                 hsizedbox1,
                 Align(
                     alignment: Alignment.centerLeft,
-                    child: HeadingText( text: widget.type=='A'?'Information of Company \nRepresentative':'Information of Representative')),
+                    child: HeadingText( text: widget.type=='A'?'Information of Company \nRepresentative':'Please Enter your details')),
                 hsizedbox2,
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -153,22 +186,62 @@ class _RepresentativeRegistrationState extends State<RepresentativeRegistration>
                     ],
                   ),
                 ),
-                hsizedbox2,
-                Container(
-                  padding: EdgeInsets.all(2.w),
-                  decoration: BoxDecoration(
-                    color: APPCOLORS.GREY,
-                    border: Border.all(color: Colors.transparent),
-                    borderRadius: BorderRadius.circular(8.0),
-                  ),
-                  child: TextField(
-                    maxLines: 2,
-                    decoration: InputDecoration(
-                      hintText: 'Description of your Company',
-                      border: InputBorder.none,
+                hsizedbox1,
+                Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
+                  Column(children: [
+                    GestureDetector(
+                      onTap:(){
+                        getCNICF();
+                      },
+                      child: _cnicfront==null?Image.asset(
+                        "assets/images/cnic_front.png",
+                        width: 100,
+                        height: 100,
+                      ):Image.file(
+                        _cnicfront!,
+                        width: 100,
+                        height: 100,
+                      ),
                     ),
-                  ),
-                ),
+                    SizedBox(height: 10),
+                    Text("CNIC Front"),
+                  ]),
+                  Column(children: [
+                    GestureDetector(
+                        onTap: (){
+                          getCNICB();
+                        },
+                        child: _cnicback==null?Image.asset(
+                          "assets/images/cnic_front.png",
+                          width: 100,
+                          height: 100,
+                        ):Image.file(
+                          _cnicback!,
+                          width: 100,
+                          height: 100,
+                        )
+                    ),
+                    SizedBox(height: 10),
+                    Text("CNIC Back"),
+                  ]),
+                ]),
+
+                // hsizedbox2,
+                // Container(
+                //   padding: EdgeInsets.all(2.w),
+                //   decoration: BoxDecoration(
+                //     color: APPCOLORS.GREY,
+                //     border: Border.all(color: Colors.transparent),
+                //     borderRadius: BorderRadius.circular(8.0),
+                //   ),
+                //   child: TextField(
+                //     maxLines: 2,
+                //     decoration: InputDecoration(
+                //       hintText: 'Description of your Company',
+                //       border: InputBorder.none,
+                //     ),
+                //   ),
+                // ),
                 hsizedbox2,
 
 

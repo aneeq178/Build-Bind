@@ -135,7 +135,7 @@ class _ContractorDetailsState extends State<ContractorDetails> {
                 ),
               ),
               hsizedbox2,
-              HeadingText(text: 'Habib Construction'),
+              HeadingText(text: 'Bin Aziz PVT'),
               hsizedbox1,
               hsizedbox2,
               Container(

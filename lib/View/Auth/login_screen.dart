@@ -20,51 +20,27 @@ class _LoginScreenState extends State<LoginScreen> {
   var _emailcontroller = TextEditingController();
   var _passwordcontrller = TextEditingController();
 
+  final _formKey = GlobalKey<FormState>();
+  final RegExp regex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
         padding: EdgeInsets.all(4.w),
         child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Image.asset('assets/images/undraw_city_life_gnpr 1.png'),
-              hsizedbox5,
-              HeadingText(text: 'Lets Sign in'),
-              hsizedbox6,
-          
-              Container(
-                padding: EdgeInsets.all(2.w),
-                decoration: BoxDecoration(
-                  color: APPCOLORS.GREY,
-                  border: Border.all(color: Colors.transparent),
-                  borderRadius: BorderRadius.circular(8.0),
-                ),
-                child: Row(
-                  children: [
-                    Icon(Icons.mail),
-                    SizedBox(width: 8.0),
-                    Expanded(
-                      child: TextField(
-                        controller: _emailcontroller,
-                        onTap: () {
-                          // Navigator.push(context, MaterialPageRoute(builder: (context)=>SearchContractor()));
-                        },
-                        decoration: InputDecoration(
-                          hintText: 'email',
-                          border: InputBorder.none,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-          
-              hsizedbox2,
-              GestureDetector(
-
-                child: Container(
+          child: Form(
+            key: _formKey,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Image.asset('assets/images/undraw_city_life_gnpr 1.png'),
+                hsizedbox5,
+                HeadingText(text: 'Lets Sign in'),
+                hsizedbox6,
+            
+                Container(
                   padding: EdgeInsets.all(2.w),
                   decoration: BoxDecoration(
                     color: APPCOLORS.GREY,
@@ -73,16 +49,30 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   child: Row(
                     children: [
-                      Icon(Icons.lock),
+                      Icon(Icons.mail),
                       SizedBox(width: 8.0),
                       Expanded(
-                        child: TextField(
-                          controller: _passwordcontrller,
+                        child: TextFormField(
+                          validator: (value) {
+                            if (value == null || value.isEmpty ) {
+                              return 'Please enter email';
+                            }
+                            else if(regex.hasMatch(value))
+                              {
+                                return null;
+                              }
+                            else{
+                              return 'please enter valid email';
+                            }
+                            // Add additional password validation logic if needed
+                            return null;
+                          },
+                          controller: _emailcontroller,
                           onTap: () {
                             // Navigator.push(context, MaterialPageRoute(builder: (context)=>SearchContractor()));
                           },
                           decoration: InputDecoration(
-                            hintText: 'Password',
+                            hintText: 'email',
                             border: InputBorder.none,
                           ),
                         ),
@@ -90,60 +80,92 @@ class _LoginScreenState extends State<LoginScreen> {
                     ],
                   ),
                 ),
-              ),
-              hsizedbox1,
-              Row(
-                children: [
-                  Text('Dont have an account? '),
-                  GestureDetector(
-                      onTap: () {
-                        Navigator.push(context, MaterialPageRoute(
-                            builder: (context) => RegisterScreen(from: false)));
-                      },
-                      child: Text('Register', style: TextStyle(
-                          color: APPCOLORS.PRIMARY,
-                          fontSize: 12.sp,
-                          fontWeight: FontWeight.bold),)),
-                ],
-              ),
-              hsizedbox6,
-          
-              GestureDetector(
-                onTap: () {
-                  print(_emailcontroller.text);
-                  print(_passwordcontrller.text);
-
-                  if (_emailcontroller.text == '' ||
-                      _passwordcontrller.text == '') {
-                    showSnackbar(context, 'Please enter email and password');
-                    // showSnackBar(context, 'Please enter email & password');
-                  }
-                  else if (_emailcontroller.text == 'aneeq178@gmail.com' &&
-                      _passwordcontrller.text == 'aneeq@2002') {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) =>BottomNavigation()));
-                  }
-                  else {
-                    showSnackbar(context, 'Incorrect Credentials');
-          
-                  }
-                },
-                child: Container(
-                  height: 8.h,
-                  padding: EdgeInsets.all(2.w),
-                  decoration: BoxDecoration(
-                    color: APPCOLORS.SECONDARY,
-                    border: Border.all(color: Colors.transparent),
-                    borderRadius: BorderRadius.circular(8.0),
-                  ),
-                  child: Center(
-                    child: Text('Login', style: TextStyle(color: APPCOLORS.WHITE,
-                        fontSize: 16.sp,
-                        fontWeight: FontWeight.bold),),
+            
+                hsizedbox2,
+                GestureDetector(
+            
+                  child: Container(
+                    padding: EdgeInsets.all(2.w),
+                    decoration: BoxDecoration(
+                      color: APPCOLORS.GREY,
+                      border: Border.all(color: Colors.transparent),
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
+                    child: Row(
+                      children: [
+                        Icon(Icons.lock),
+                        SizedBox(width: 8.0),
+                        Expanded(
+                          child: TextFormField(
+                            controller: _passwordcontrller,
+                            decoration: InputDecoration(
+                              hintText: 'Password',
+                              border: InputBorder.none,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
-              ),
-            ],
+                hsizedbox1,
+                Row(
+                  children: [
+                    Text('Dont have an account? '),
+                    GestureDetector(
+                        onTap: () {
+                          Navigator.push(context, MaterialPageRoute(
+                              builder: (context) => RegisterScreen(from: false)));
+                        },
+                        child: Text('Register', style: TextStyle(
+                            color: APPCOLORS.PRIMARY,
+                            fontSize: 12.sp,
+                            fontWeight: FontWeight.bold),)),
+                  ],
+                ),
+                hsizedbox6,
+            
+                GestureDetector(
+                  onTap: () {
+                    // if (_formKey.currentState?.validate() ?? false) {
+                    //   print(_emailcontroller.text);
+                    //   print(_passwordcontrller.text);
+                    //
+                    //   if (_emailcontroller.text == '' ||
+                    //       _passwordcontrller.text == '') {
+                    //     showSnackbar(context, 'Please enter email and password');
+                    //     // showSnackBar(context, 'Please enter email & password');
+                    //   }
+                    //   else if (_emailcontroller.text == 'aneeq178@gmail.com' &&
+                    //       _passwordcontrller.text == 'aneeq@2002') {
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) =>BottomNavigation()));
+                    //   }
+                    //   else {
+                    //     showSnackbar(context, 'Incorrect Credentials');
+                    //
+                    //   }
+                    //
+                    // }
+
+                  },
+                  child: Container(
+                    height: 8.h,
+                    padding: EdgeInsets.all(2.w),
+                    decoration: BoxDecoration(
+                      color: APPCOLORS.SECONDARY,
+                      border: Border.all(color: Colors.transparent),
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
+                    child: Center(
+                      child: Text('Login', style: TextStyle(color: APPCOLORS.WHITE,
+                          fontSize: 16.sp,
+                          fontWeight: FontWeight.bold),),
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),

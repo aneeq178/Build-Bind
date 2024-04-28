@@ -1,3 +1,4 @@
+import 'package:buildbind/View/Contractor/Tokens/buy_tokens_screen.dart';
 import 'package:buildbind/View/widgets/sized_boxes.dart';
 import 'package:buildbind/View/widgets/texts.dart';
 import 'package:flutter/material.dart';
@@ -133,6 +134,24 @@ class _BussinessSneakPeakState extends State<BussinessSneakPeak> {
                     ],
                   ),
                 ),
+                hsizedbox4,
+
+                GestureDetector(
+                  onTap: (){
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=>BuyTokens()));
+                  },
+                  child: Container(
+                    width: 80.w,
+                    height: 7.h,
+                    decoration: BoxDecoration(
+                      color: APPCOLORS.SECONDARY,
+
+                      borderRadius: BorderRadius.circular(4.w),
+                    ),
+                    child: Center(child: Text('Buy Tokens',style: TextStyle(color: APPCOLORS.WHITE,fontSize:12.sp,fontWeight: FontWeight.bold))),
+
+                  ),
+                )
               ],
             ),
           ),
