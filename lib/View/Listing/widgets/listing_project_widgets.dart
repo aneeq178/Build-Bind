@@ -4,7 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
-import '../../../Controllers/listing_controllers.dart';
+import '../../../Providers/listing_providers.dart';
 import '../../../Utills/AppColors.dart';
 import '../../widgets/sized_boxes.dart';
 import '../../widgets/texts.dart';

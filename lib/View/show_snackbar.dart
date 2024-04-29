@@ -33,3 +33,36 @@ void showSnackbar(BuildContext context, String message) {
   });
 }
 
+
+VoidCallback showLoading(BuildContext context, String message) {
+  OverlayEntry overlayEntry;
+
+  overlayEntry = OverlayEntry(
+    builder: (context) => Center(
+      child: Material(
+        color: Colors.transparent,
+        child: Container(
+          color: Colors.black.withOpacity(0.5),
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                CircularProgressIndicator(color: APPCOLORS.PRIMARY),
+                SizedBox(height: 20),
+                Text(message,style: TextStyle(fontSize: 20,color: APPCOLORS.PRIMARY,fontWeight: FontWeight.bold),),
+              ],
+            ),
+          ),
+        ),
+      ),
+    ),
+  );
+
+  Overlay.of(context, rootOverlay: true)?.insert(overlayEntry);
+
+  // Return a function that removes the overlayEntry
+  return () {
+    overlayEntry.remove();
+  };
+}
+

@@ -1,4 +1,4 @@
-import 'package:buildbind/Controllers/listing_controllers.dart';
+import 'package:buildbind/Providers/listing_providers.dart';
 import 'package:buildbind/Providers/Text_Recognition_Provider.dart';
 import 'package:buildbind/Providers/cost_estimation_prvider.dart';
 import 'package:buildbind/Utills/AppColors.dart';
