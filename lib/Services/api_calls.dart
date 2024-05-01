@@ -1,12 +1,27 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 
 class ApiCall{
 
+  static Future<String> getToken()async{
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    String token =await prefs.getString('token')??'7';
+    print("token ${token}");
+
+    return token;
+  }
 
   static Future callApiPost(Map<String, dynamic> body, String endpoint) async {
     try {
+
+      String token =await getToken();
+
+
+      var headers={
+        'Authorization':'Bearer $token',
+      };
       String baseUrl = "https://shazal-web.onrender.com$endpoint";
       print(baseUrl);
       print(body);
@@ -17,6 +32,7 @@ class ApiCall{
       print(body);
 
       final response = await http.post(
+        headers: headers,
         Uri.parse(baseUrl),
         body:body,
       ).timeout(Duration(seconds: 10));

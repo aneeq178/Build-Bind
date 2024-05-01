@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:math';
 import 'package:buildbind/Providers/Text_Recognition_Provider.dart';
+import 'package:buildbind/Utills/extentions/navigation_extension.dart';
 import 'package:buildbind/View/Auth/login_screen.dart';
 import 'package:buildbind/View/Auth/register_two.dart';
 import 'package:buildbind/View/Auth/representative_regitration.dart';
@@ -37,7 +38,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
   String? _cnicblackP;
 
   final picker = ImagePicker();
-
 
 
   void _chooseImageSourceModal(bool front) {
@@ -90,6 +90,27 @@ class _RegisterScreenState extends State<RegisterScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        appBar: AppBar(
+          leading: Padding(
+            padding: EdgeInsets.all(1.w),
+            child: GestureDetector(
+              onTap: (){
+                context.navigateBack();
+              },
+              child: Container(
+                width: 6.h,
+                height: 6.h,
+                decoration: BoxDecoration(
+                  color: APPCOLORS.GREY,
+                  shape: BoxShape.circle,
+                ),
+                child: Icon(
+                  Icons.arrow_back_ios,
+                ),
+              ),
+            ),
+          ),
+        ),
         body: Padding(
           padding: EdgeInsets.all(4.w),
           child: SingleChildScrollView(

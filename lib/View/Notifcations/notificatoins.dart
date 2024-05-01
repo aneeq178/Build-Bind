@@ -1,10 +1,13 @@
+import 'package:buildbind/Utills/extentions/navigation_extension.dart';
 import 'package:buildbind/View/chat/messages_view.dart';
+import 'package:buildbind/View/home/dashboard_screen.dart';
 import 'package:buildbind/View/widgets/sized_boxes.dart';
 import 'package:buildbind/View/widgets/texts.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../Utills/AppColors.dart';
+import '../bottom_nav_bar.dart';
 
 class NotificationView extends StatelessWidget {
   const NotificationView({super.key});
@@ -13,8 +16,26 @@ class NotificationView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        toolbarHeight: 1,
-      ),
+        leading: Padding(
+          padding: EdgeInsets.all(1.w),
+          child: GestureDetector(
+            onTap: (){
+              context.navigateAndReplace(BottomNavigation());
+            },
+            child: Container(
+              width: 6.h,
+              height: 6.h,
+              decoration: BoxDecoration(
+                color: APPCOLORS.GREY,
+                shape: BoxShape.circle,
+              ),
+              child: Icon(
+                Icons.arrow_back_ios,
+              ),
+            ),
+          ),
+        ),
+        toolbarHeight: 5.h,),
       body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.all(4.w),

@@ -1,3 +1,4 @@
+import 'package:buildbind/Utills/extentions/navigation_extension.dart';
 import 'package:buildbind/View/widgets/sized_boxes.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
@@ -16,15 +17,24 @@ class _ChatScreenState extends State<ChatScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading:    Container(
-          width: 6.h,
-          height: 6.h,
-          decoration: BoxDecoration(
-            color: APPCOLORS.GREY,
-            shape: BoxShape.circle,
-          ),
-          child: Icon(
-            Icons.arrow_back_ios,
+        toolbarHeight: 8.h,
+        leading: Padding(
+          padding: EdgeInsets.all(1.w),
+          child: GestureDetector(
+            onTap: (){
+         context.navigateBack();
+            },
+            child: Container(
+              width: 6.h,
+              height: 6.h,
+              decoration: BoxDecoration(
+                color: APPCOLORS.GREY,
+                shape: BoxShape.circle,
+              ),
+              child: Icon(
+                Icons.arrow_back_ios,
+              ),
+            ),
           ),
         ),
 title: Row(

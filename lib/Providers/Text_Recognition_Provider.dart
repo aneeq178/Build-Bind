@@ -4,7 +4,7 @@ import 'package:google_mlkit_text_recognition/google_mlkit_text_recognition.dart
 import 'package:image_picker/image_picker.dart';
 
 class TextRecognitionController extends ChangeNotifier{
-
+  final TextEditingController textEditingController = TextEditingController();
   var textRecognizer = TextRecognizer(script: TextRecognitionScript.latin);
   late ImagePicker imagePicker;
   String? Cnicf;
@@ -91,6 +91,10 @@ class TextRecognitionController extends ChangeNotifier{
     }
 
     notifyListeners();
+  }
+
+  void clearData() {
+    textEditingController.clear();
   }
 
 

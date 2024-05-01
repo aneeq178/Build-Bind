@@ -1,3 +1,4 @@
+import 'package:buildbind/Utills/extentions/navigation_extension.dart';
 import 'package:buildbind/View/Notifcations/notificatoins.dart';
 import 'package:buildbind/View/chat/chat_screen.dart';
 import 'package:buildbind/View/widgets/sized_boxes.dart';
@@ -6,6 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../Utills/AppColors.dart';
+import '../bottom_nav_bar.dart';
+import '../home/dashboard_screen.dart';
 
 class MessagesView extends StatelessWidget {
   const MessagesView({super.key});
@@ -13,6 +16,28 @@ class MessagesView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        leading: Padding(
+          padding: EdgeInsets.all(1.w),
+          child: GestureDetector(
+            onTap: ()
+            {
+              context.navigateAndReplace(BottomNavigation());
+            },
+            child: Container(
+              width: 6.h,
+              height: 6.h,
+              decoration: BoxDecoration(
+                color: APPCOLORS.GREY,
+                shape: BoxShape.circle,
+              ),
+              child: Icon(
+                Icons.arrow_back_ios,
+              ),
+            ),
+          ),
+        ),
+        toolbarHeight: 5.h,),
 
       body: SingleChildScrollView(
         child: Padding(
@@ -50,7 +75,7 @@ class MessagesView extends StatelessWidget {
                         ),
                       ),
                       SizedBox(width: 2.w,),
-          
+
                       GestureDetector(
                         onTap: (){
                           Navigator.push(context, MaterialPageRoute(builder: (context)=>MessagesView()));

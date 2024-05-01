@@ -1,8 +1,10 @@
 import 'dart:io';
 import 'package:buildbind/View/Auth/register_two.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 import 'package:image_picker/image_picker.dart';
+import '../../Providers/Text_Recognition_Provider.dart';
 import '../../Utills/AppColors.dart';
 import '../widgets/app_bar.dart';
 import '../widgets/sized_boxes.dart';
@@ -25,6 +27,40 @@ class _RepresentativeRegistrationState extends State<RepresentativeRegistration>
 
   final picker = ImagePicker();
 
+  void _chooseImageSourceModal(bool front) {
+    showModalBottomSheet(
+      context: context,
+      builder: (context) {
+        var trcontrl=context.read<TextRecognitionController>();
+        return Padding(
+          padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 16),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              ListTile(
+                leading: const Icon(Icons.photo_library),
+                title: const Text('Choose from gallery'),
+                onTap: () {
+                  Navigator.pop(context);
+                  trcontrl.pickImageAndProcess(source: ImageSource.gallery,front: front);
+
+                },
+              ),
+              ListTile(
+                leading: const Icon(Icons.camera_alt),
+                title: const Text('Take a picture'),
+                onTap: () {
+                  Navigator.pop(context);
+                  trcontrl.pickImageAndProcess(source: ImageSource.camera,front: front);
+
+                },
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
   Future getCNICF() async {
     final pickedFile = await picker.pickImage(source: ImageSource.camera);
 
@@ -187,44 +223,47 @@ class _RepresentativeRegistrationState extends State<RepresentativeRegistration>
                   ),
                 ),
                 hsizedbox1,
-                Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
-                  Column(children: [
-                    GestureDetector(
-                      onTap:(){
-                        getCNICF();
-                      },
-                      child: _cnicfront==null?Image.asset(
-                        "assets/images/cnic_front.png",
-                        width: 100,
-                        height: 100,
-                      ):Image.file(
-                        _cnicfront!,
-                        width: 100,
-                        height: 100,
-                      ),
-                    ),
-                    SizedBox(height: 10),
-                    Text("CNIC Front"),
-                  ]),
-                  Column(children: [
-                    GestureDetector(
-                        onTap: (){
-                          getCNICB();
+                Consumer<TextRecognitionController>(builder: (context, data, child) {
+                  return  Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
+                    Column(children: [
+                      GestureDetector(
+                        onTap:(){
+                          _chooseImageSourceModal(true);
                         },
-                        child: _cnicback==null?Image.asset(
+                        child: data.Cnicf==null?Image.asset(
                           "assets/images/cnic_front.png",
                           width: 100,
                           height: 100,
                         ):Image.file(
-                          _cnicback!,
+                          data.CnicfileF!,
                           width: 100,
                           height: 100,
-                        )
-                    ),
-                    SizedBox(height: 10),
-                    Text("CNIC Back"),
-                  ]),
-                ]),
+                        ),
+                      ),
+                      SizedBox(height: 10),
+                      Text("CNIC Front"),
+                    ]),
+                    Column(children: [
+                      GestureDetector(
+                          onTap: (){
+                            _chooseImageSourceModal(false);
+                          },
+                          child: data.Cnicb==null?Image.asset(
+                            "assets/images/cnic_front.png",
+                            width: 100,
+                            height: 100,
+                          ):Image.file(
+                            data.CnicfileB!,
+                            width: 100,
+                            height: 100,
+                          )
+                      ),
+                      SizedBox(height: 10),
+                      Text("CNIC Back"),
+                    ]),
+                  ]);
+                },),
+
 
                 // hsizedbox2,
                 // Container(
@@ -245,23 +284,26 @@ class _RepresentativeRegistrationState extends State<RepresentativeRegistration>
                 hsizedbox2,
 
 
-                GestureDetector(
-                  onTap: (){
-                    Navigator.push(context, MaterialPageRoute(builder: (context)=>RegisterTwo(type: widget.type,)));
-                  },
-                  child: Container(
-                    height: 8.h,
-                    padding: EdgeInsets.all(2.w),
-                    decoration: BoxDecoration(
-                      color: APPCOLORS.SECONDARY,
-                      border: Border.all(color: Colors.transparent),
-                      borderRadius: BorderRadius.circular(8.0),
-                    ),
-                    child: Center(
-                      child:Text('Next',style: TextStyle(color: APPCOLORS.WHITE,fontSize:16.sp,fontWeight: FontWeight.bold),),
-                    ),
-                  ),
-                ),
+    Consumer<TextRecognitionController>(builder: (context, data, child) {
+    return
+      GestureDetector(
+        onTap: (){
+          Navigator.push(context, MaterialPageRoute(builder: (context)=>RegisterTwo(type: widget.type,)));
+        },
+        child: Container(
+          height: 8.h,
+          padding: EdgeInsets.all(2.w),
+          decoration: BoxDecoration(
+            color: APPCOLORS.SECONDARY,
+            border: Border.all(color: Colors.transparent),
+            borderRadius: BorderRadius.circular(8.0),
+          ),
+          child: Center(
+            child:Text('Next',style: TextStyle(color: APPCOLORS.WHITE,fontSize:16.sp,fontWeight: FontWeight.bold),),
+          ),
+        ),
+      );
+    }),
 
 
               ],
