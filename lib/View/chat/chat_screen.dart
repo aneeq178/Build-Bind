@@ -1,9 +1,12 @@
+import 'package:buildbind/Models/message_model.dart';
 import 'package:buildbind/Utills/extentions/navigation_extension.dart';
 import 'package:buildbind/View/widgets/sized_boxes.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 import '../../Utills/AppColors.dart';
 import '../widgets/texts.dart';
+
 
 class ChatScreen extends StatefulWidget {
   const ChatScreen({super.key});
@@ -13,6 +16,18 @@ class ChatScreen extends StatefulWidget {
 }
 
 class _ChatScreenState extends State<ChatScreen> {
+
+  Future<void> _sendMessage(String text)async
+  {
+
+    Message message=Message(
+      senderID: '',
+      content: text,
+      messageType: 'Text',
+      sentAt: Timestamp.fromDate(DateTime.now()),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

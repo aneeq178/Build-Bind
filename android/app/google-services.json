@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1015744451069",
+    "project_id": "chat-d51cb",
+    "storage_bucket": "chat-d51cb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1015744451069:android:b4bd70d0ae475ac6660994",
+        "android_client_info": {
+          "package_name": "com.example.buildbind"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA7RL0Hwbm9AsFN0vJ57CXZZwe4DuQynoc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,3 +1,4 @@
+import 'package:buildbind/Controllers/auth_controller.dart';
 import 'package:buildbind/View/Auth/register_screen.dart';
 import 'package:buildbind/View/bottom_nav_bar.dart';
 import 'package:buildbind/View/home/dashboard_screen.dart';
@@ -127,26 +128,14 @@ class _LoginScreenState extends State<LoginScreen> {
             
                 GestureDetector(
                   onTap: () {
-                    // if (_formKey.currentState?.validate() ?? false) {
-                    //   print(_emailcontroller.text);
-                    //   print(_passwordcontrller.text);
-                    //
-                    //   if (_emailcontroller.text == '' ||
-                    //       _passwordcontrller.text == '') {
-                    //     showSnackbar(context, 'Please enter email and password');
-                    //     // showSnackBar(context, 'Please enter email & password');
-                    //   }
-                    //   else if (_emailcontroller.text == 'aneeq178@gmail.com' &&
-                    //       _passwordcontrller.text == 'aneeq@2002') {
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (context) =>BottomNavigation()));
-                    //   }
-                    //   else {
-                    //     showSnackbar(context, 'Incorrect Credentials');
-                    //
-                    //   }
-                    //
-                    // }
+                    if (_formKey.currentState?.validate() ?? false) {
+
+                       var ctrl=AuthController();
+
+                       ctrl.login(_emailcontroller.text, _passwordcontrller.text, context);
+
+
+                    }
 
                   },
                   child: Container(

@@ -47,9 +47,9 @@ VoidCallback showLoading(BuildContext context, String message) {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                CircularProgressIndicator(color: APPCOLORS.PRIMARY),
+                CircularProgressIndicator(color: APPCOLORS.SECONDARY),
                 SizedBox(height: 20),
-                Text(message,style: TextStyle(fontSize: 20,color: APPCOLORS.PRIMARY,fontWeight: FontWeight.bold),),
+                Text(message,style: TextStyle(fontSize: 20,color: APPCOLORS.SECONDARY,fontWeight: FontWeight.bold),),
               ],
             ),
           ),

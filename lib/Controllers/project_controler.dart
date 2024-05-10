@@ -1,10 +1,46 @@
+import 'package:buildbind/Models/project_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 import '../Services/api_calls.dart';
 import '../View/show_snackbar.dart';
 
-class ProjectController
+class ProjectController extends ChangeNotifier
 {
+  List<Project> projects=[];
+
+  getProjects(BuildContext context) async {
+
+    try {
+
+    var response = await ApiCall.callApiGet('/projects/');
+
+    if(response !=null)
+    {
+     projects.clear();
+      for (var data in response['items'])
+      {
+        projects.add(Project.fromJson(data));
+      }
+      print('Length of project is${projects.length}');
+
+
+      notifyListeners();
+    }
+
+    else
+    {
+      showSnackbar(context, "An error occurred please try again");
+    }
+
+    } catch (e) {
+      print("error in controller  ${e}");
+    }
+  }
+
+
+
+
+
 
   createNewProject(String p_name,String p_details,String qa,String p_category,String p_type,String p_mode,String p_qa,String p_listing,
   String p_floors,String p_area,String p_living_area,String p_washorrom,String p_kitchen,String p_lat,String p_long,String p_budget
@@ -12,7 +48,7 @@ class ProjectController
 
 
     try {
-      final url = Uri.parse('http://localhost:5000/create_project/');
+      final url = Uri.parse('https://buildbind.onrender.com/create_project/');
 
       final req = http.MultipartRequest('POST', url)
         ..fields['project_name'] = p_name
@@ -45,7 +81,7 @@ class ProjectController
 
   if (res.statusCode==200) {
 
-  showSnackbar(context, "Registered Successfully");
+  showSnackbar(context, "Project Uploaded");
 
   } else {
   showSnackbar(context, 'An error Occurred, Please try again later');

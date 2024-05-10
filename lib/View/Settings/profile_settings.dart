@@ -1,3 +1,4 @@
+import 'package:buildbind/Controllers/auth_controller.dart';
 import 'package:buildbind/Utills/AppColors.dart';
 import 'package:buildbind/View/Auth/contractor_type.dart';
 import 'package:buildbind/View/Auth/login_screen.dart';
@@ -132,7 +133,9 @@ class _ProfileSetingsState extends State<ProfileSetings> {
             Divider(),
             GestureDetector(
               onTap: (){
-                Navigator.push(context, MaterialPageRoute(builder: (context)=>LoginScreen()));
+              var ctrl= AuthController();
+
+              ctrl.logOut(context);
               },
               child: Container(
                 padding: EdgeInsets.all(2.w),

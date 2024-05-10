@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'dart:math';
+import 'package:buildbind/Controllers/auth_controller.dart';
 import 'package:buildbind/Providers/Text_Recognition_Provider.dart';
 import 'package:buildbind/Utills/extentions/navigation_extension.dart';
 import 'package:buildbind/View/Auth/login_screen.dart';
@@ -81,6 +82,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   var _CNICcontroller = TextEditingController();
   var _emailcontroller = TextEditingController();
   var _passwordcontrller = TextEditingController();
+  var _phonecontrller = TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
   final RegExp regex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
@@ -183,46 +185,75 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     ),
                   ),
                   hsizedbox2,
-                  GestureDetector(
-
-                    child: Container(
-                      padding: EdgeInsets.all(2.w),
-                      decoration: BoxDecoration(
-                        color: APPCOLORS.GREY,
-                        border: Border.all(color: Colors.transparent),
-                        borderRadius: BorderRadius.circular(8.0),
-                      ),
-                      child: Row(
-                        children: [
-                          Icon(Icons.mail),
-                          SizedBox(width: 8.0),
-                          Expanded(
-                            child: TextFormField(
-                              controller: _emailcontroller,
-                              validator: (value) {
-                                if (value == null || value.isEmpty ) {
-                                  return 'Please enter email';
-                                }
-                                else if(regex.hasMatch(value))
-                                {
-                                  return null;
-                                }
-                                else{
-                                  return 'please enter valid email';
-                                }
-                                // Add additional password validation logic if needed
+                  Container(
+                    padding: EdgeInsets.all(2.w),
+                    decoration: BoxDecoration(
+                      color: APPCOLORS.GREY,
+                      border: Border.all(color: Colors.transparent),
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
+                    child: Row(
+                      children: [
+                        Icon(Icons.mail),
+                        SizedBox(width: 8.0),
+                        Expanded(
+                          child: TextFormField(
+                            controller: _emailcontroller,
+                            validator: (value) {
+                              if (value == null || value.isEmpty ) {
+                                return 'Please enter email';
+                              }
+                              else if(regex.hasMatch(value))
+                              {
                                 return null;
-                              },
-                              decoration: InputDecoration(
-                                hintText: 'email',
-                                border: InputBorder.none,
-                              ),
+                              }
+                              else{
+                                return 'please enter valid email';
+                              }
+                              // Add additional password validation logic if needed
+                              return null;
+                            },
+                            decoration: InputDecoration(
+                              hintText: 'email',
+                              border: InputBorder.none,
                             ),
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
                   ),
+
+                  hsizedbox2,
+                  Container(
+                    padding: EdgeInsets.all(2.w),
+                    decoration: BoxDecoration(
+                      color: APPCOLORS.GREY,
+                      border: Border.all(color: Colors.transparent),
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
+                    child: Row(
+                      children: [
+                        Icon(Icons.phone),
+                        SizedBox(width: 8.0),
+                        Expanded(
+                          child: TextFormField(
+                            controller: _phonecontrller,
+                            validator: (value) {
+                              if (value == null || value.isEmpty ) {
+                                return 'Please enter phone number';
+                              }
+                              return null;
+                            },
+                            decoration: InputDecoration(
+                              labelText: 'Phone Number',
+                              border:   InputBorder.none,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+
                   hsizedbox2,
                   Container(
                     padding: EdgeInsets.all(2.w),
@@ -264,6 +295,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     ),
                   ),
                   hsizedbox1,
+
 
                   widget.from?Container():
                       Consumer<TextRecognitionController>(builder: (context, data, child) {
@@ -362,17 +394,26 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
                         if (_formKey.currentState?.validate() ?? false) {
 
-                          if(data.cnicNumber!=_CNICcontroller.text)
+
+                          String cnic1=data.cnicNumber!;
+                          String cnic2=_CNICcontroller.text.trim().toString();
+                          print(data.cnicNumber);
+                          print(_CNICcontroller.text);
+
+                          if(data.Cnicf==null || data.Cnicb==null)
                             {
-                              showSnackbar(context, "CNIC don't match with image");
+                              showSnackbar(context, "Please select CNIC images");
+
                             }
+                          else if(cnic1 != cnic2)
+                              {
+                                showSnackbar(context, "CNIC don't match with image");
+                              }
                           else{
-                            widget.from?{
-                              Navigator.push(context, MaterialPageRoute(builder: (context)=>RepresentativeRegistration(type: 'A'))),
-                            }:
-                            {
-                              Navigator.push(context, MaterialPageRoute(builder: (context)=>LoginScreen())),
-                            };
+                            print('last else');
+                           var ctrl =AuthController();
+                           ctrl.Signup(_namecontroller.text,_emailcontroller.text,_phonecontrller.text,'false',_CNICcontroller.text
+                               ,_passwordcontrller.text,data.Cnicf!,data.Cnicb!, context,widget.from);
                           }
                         }
 

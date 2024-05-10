@@ -5,6 +5,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class ApiCall{
 
+
+
+
   static Future<String> getToken()async{
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     String token =await prefs.getString('token')??'7';
@@ -20,10 +23,15 @@ class ApiCall{
 
 
       var headers={
-        'Authorization':'Bearer $token',
+        'Content-Type': 'application/json',
+        'token':'$token',
       };
-      String baseUrl = "https://shazal-web.onrender.com$endpoint";
+
+      var data=jsonEncode(body);
+
+      String baseUrl = "https://buildbind.onrender.com$endpoint";
       print(baseUrl);
+      print(headers);
       print(body);
       print("1");
 
@@ -31,10 +39,11 @@ class ApiCall{
 
       print(body);
 
+
       final response = await http.post(
         headers: headers,
         Uri.parse(baseUrl),
-        body:body,
+        body:data,
       ).timeout(Duration(seconds: 10));
 
       print("2");
@@ -46,8 +55,9 @@ class ApiCall{
 
       if (response.statusCode == 200) {
         return jsonResponse;
-      } else if (response.statusCode == 400) {
-        return null;
+      } else if (response.statusCode == 401) {
+        print('false');
+        return 'false';
       } else {
         return null;
       }
@@ -61,7 +71,7 @@ class ApiCall{
 
   static Future callApiPut(Map<String, dynamic> body, String endpoint) async {
     try {
-      String baseUrl = "https://shazal-web.onrender.com$endpoint";
+      String baseUrl = "https://buildbind.onrender.com/$endpoint";
       print(baseUrl);
       print(body);
       print("1");
@@ -102,7 +112,7 @@ class ApiCall{
 
     print("12");
     try {
-      String baseUrl = "https://shazal-web.onrender.com$endpoint";
+      String baseUrl = "https://buildbind.onrender.com/$endpoint";
       print(baseUrl);
 
       print("1");

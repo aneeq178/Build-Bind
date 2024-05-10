@@ -1,11 +1,15 @@
+import 'package:buildbind/Services/chat_service.dart';
 import 'package:buildbind/Utills/extentions/navigation_extension.dart';
 import 'package:buildbind/View/Notifcations/notificatoins.dart';
 import 'package:buildbind/View/chat/chat_screen.dart';
 import 'package:buildbind/View/widgets/sized_boxes.dart';
 import 'package:buildbind/View/widgets/texts.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
+import '../../Models/chat_model.dart';
+import '../../Models/message_model.dart';
 import '../../Utills/AppColors.dart';
 import '../bottom_nav_bar.dart';
 import '../home/dashboard_screen.dart';
@@ -53,7 +57,7 @@ class MessagesView extends StatelessWidget {
                   color: APPCOLORS.GREY,
                   borderRadius: BorderRadius.circular(8.w),
                 ),
-          
+
                 child: Padding(
                   padding: EdgeInsets.all(2.w),
                   child: Row(
@@ -91,20 +95,68 @@ class MessagesView extends StatelessWidget {
                           child:  Center(child: Text("Messages",style:TextStyle(color:APPCOLORS.PRIMARY,fontSize: 12.sp))),
                         ),
                       ),
-          
+
                     ],
                   ),
                 ),
               ),
               hsizedbox2,
-          
+
               LabelText(text: 'All Chats'),
-          
+
               hsizedbox1,
-          
+
               GestureDetector(
-                onTap: (){
-                  Navigator.push(context, MaterialPageRoute(builder: (context)=>ChatScreen()));
+                onTap: ()async{
+
+                  var chat_obj=ChatService();
+
+                 final chatExist= await chat_obj.checkChatExists('1', '2');
+
+
+                 if(!chatExist)
+                   {
+                     await chat_obj.createChat('1', '2');
+                   }
+                 else{
+                   print('chat exist');
+                 }
+
+                context.navigateTo(ChatScreen());
+
+                  // try {
+                  //   QuerySnapshot querySnapshot = await FirebaseFirestore.instance.collection('chats').get();
+                  //   List<Chat> chats = [];
+                  //   for (QueryDocumentSnapshot documentSnapshot in querySnapshot.docs) {
+                  //     Map<String, dynamic> data = documentSnapshot.data() as Map<String, dynamic>;
+                  //     List<Message> messages = [];
+                  //     print(data);
+                  //     if (data['messages'] != null) {
+                  //       print(data['messages']);
+                  //       // for (var messageData in data['messages']) {
+                  //       //   messages.add(Message(
+                  //       //     senderID: messageData['senderID'],
+                  //       //     content: messageData['content'],
+                  //       //     messageType: messageData['messageType'],
+                  //       //     sentAt: messageData['sentAt'] != null ? (messageData['sentAt'] as Timestamp).toDate() : null,
+                  //       //   ));
+                  //       // }
+                  //     }
+                  //
+                  //
+                  //
+                  //     print('chats length is');
+                  //   }
+
+                  // } catch (e) {
+                  //   print('Error fetching chats: $e');
+                  // }
+                  // var chatservice =ChatService();
+                  //
+                  //  bool check=await chatservice.checkChatExists('2', '1');
+                  //
+                  //  print(check);
+                  // Navigator.push(context, MaterialPageRoute(builder: (context)=>ChatScreen()));
                 },
                 child: Container(
                   width: 100.w,
@@ -156,9 +208,9 @@ class MessagesView extends StatelessWidget {
                   ),
                 ),
               ),
-          
-          
-          
+
+
+
             ],
           ),
         ),

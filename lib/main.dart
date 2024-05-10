@@ -1,24 +1,47 @@
+import 'package:buildbind/Controllers/project_controler.dart';
 import 'package:buildbind/Providers/listing_providers.dart';
 import 'package:buildbind/Providers/Text_Recognition_Provider.dart';
 import 'package:buildbind/Providers/cost_estimation_prvider.dart';
 import 'package:buildbind/Utills/AppColors.dart';
 import 'package:buildbind/View/bottom_nav_bar.dart';
-import 'package:buildbind/View/home/dashboard_screen.dart';
-import 'package:buildbind/View/onbaording/splash_screen.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:sizer/sizer.dart';
 
-void main() {
+import 'firebase_options.dart';
+
+void main() async{
+
+  _checkFirebaseConnection();
   runApp(
       MultiProvider(  providers: [
         ChangeNotifierProvider(create: (_) => CostEstimationProvider()),
         ChangeNotifierProvider(create: (_) => ListingController()),
         ChangeNotifierProvider(create: (_) => TextRecognitionController()),
+        ChangeNotifierProvider(create: (_) => ProjectController()),
       ],
           child:  MyApp()));
 }
+
+Future<void> _checkFirebaseConnection() async {
+  print('I am here');
+
+  try {
+    WidgetsFlutterBinding.ensureInitialized();
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
+    
+    print('firebase connected');
+
+  } catch (e) {
+    print('firebase not connected');
+
+  }
+}
+
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
