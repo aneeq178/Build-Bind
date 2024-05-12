@@ -13,6 +13,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
+import '../../Models/contractor_model.dart';
 import '../../Utills/AppColors.dart';
 import '../widgets/sized_boxes.dart';
 import '../widgets/texts.dart';
@@ -21,22 +22,14 @@ class RegisterScreen extends StatefulWidget {
   const RegisterScreen({
     super.key,
     required this.from,
-
   });
 
   final bool from;// true for contractor and false for normal user
-
-
   @override
   State<RegisterScreen> createState() => _RegisterScreenState();
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
-  File? _cnicfront;
-  File? _cnicback;
-
-  String? _cnicfrontP;
-  String? _cnicblackP;
 
   final picker = ImagePicker();
 
@@ -80,6 +73,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   var _namecontroller = TextEditingController();
   var _CNICcontroller = TextEditingController();
+  var _NTNcontroller = TextEditingController();
   var _emailcontroller = TextEditingController();
   var _passwordcontrller = TextEditingController();
   var _phonecontrller = TextEditingController();
@@ -87,6 +81,22 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final _formKey = GlobalKey<FormState>();
   final RegExp regex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
   final RegExp cnicRegex = RegExp(r'\b\d{5}-\d{7}-\d{1}\b');
+
+  File? _image;
+  String? imgpath;
+
+  Future<void> pickImage() async {
+    final pickedFile = await ImagePicker().pickImage(source: ImageSource.gallery);
+    if (pickedFile != null) {
+      setState(() {
+        _image = File(pickedFile.path);
+        imgpath = pickedFile.path;
+      });
+
+    print(_image);
+    print(imgpath);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -131,10 +141,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       alignment: Alignment.centerLeft,
                       child: SimpleText(text:  widget.from?'Provide details of your Company':'Provide Your Details')),
                   hsizedbox2,
-                  widget.from?Container():
+
                   GestureDetector(
                     onTap: (){
-                      // _pickImage();
+                      pickImage();
                     },
                     child: Container(
                       width: 30.w,
@@ -143,45 +153,42 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         shape: BoxShape.circle,
                         color: APPCOLORS.PRIMARY,
                       ),
-                      child: Icon(
+                      child: _image == null?Icon(
                         Icons.image,
                         color: Colors.white,
                         size: 50,
-                      ),
+                      ): Image.file(_image!),
                     ),
                   ),
-                  GestureDetector(
+                  Container(
+                    padding: EdgeInsets.all(2.w),
+                    decoration: BoxDecoration(
+                      color: APPCOLORS.GREY,
+                      border: Border.all(color: Colors.transparent),
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
+                    child: Row(
+                      children: [
+                        Icon(Icons.account_box),
+                        SizedBox(width: 8.0),
+                        Expanded(
+                          child: TextFormField(
+                            controller: _namecontroller,
+                            validator: (value) {
+                              if (value == null || value.isEmpty ) {
+                                return 'Please enter name';
+                              }
 
-                    child: Container(
-                      padding: EdgeInsets.all(2.w),
-                      decoration: BoxDecoration(
-                        color: APPCOLORS.GREY,
-                        border: Border.all(color: Colors.transparent),
-                        borderRadius: BorderRadius.circular(8.0),
-                      ),
-                      child: Row(
-                        children: [
-                          Icon(Icons.account_box),
-                          SizedBox(width: 8.0),
-                          Expanded(
-                            child: TextFormField(
-                              controller: _namecontroller,
-                              validator: (value) {
-                                if (value == null || value.isEmpty ) {
-                                  return 'Please enter name';
-                                }
+                              return null;
+                            },
 
-                                return null;
-                              },
-
-                              decoration: InputDecoration(
-                                hintText: widget.from?'company name':'name',
-                                border: InputBorder.none,
-                              ),
+                            decoration: InputDecoration(
+                              hintText: widget.from?'company name':'name',
+                              border: InputBorder.none,
                             ),
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
                   ),
                   hsizedbox2,
@@ -255,7 +262,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ),
 
                   hsizedbox2,
-                  Container(
+                  !widget.from?Container(
                     padding: EdgeInsets.all(2.w),
                     decoration: BoxDecoration(
                       color: APPCOLORS.GREY,
@@ -293,12 +300,45 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         ),
                       ],
                     ),
+                  ):Container(
+                    padding: EdgeInsets.all(2.w),
+                    decoration: BoxDecoration(
+                      color: APPCOLORS.GREY,
+                      border: Border.all(color: Colors.transparent),
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
+                    child: Row(
+                      children: [
+                        Icon(Icons.mail),
+                        SizedBox(width: 8.0),
+                        Expanded(
+                          child: TextFormField(
+                            controller: _NTNcontroller,
+                            validator: (value) {
+                              if (value == null || value.isEmpty ) {
+                                return 'Please enter NTN';
+                              }
+                              else
+                              {
+                                return null;
+                              }
+
+                            },
+                            decoration: InputDecoration(
+                              labelText: 'NTN',
+
+                              border:   InputBorder.none,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                   hsizedbox1,
 
 
-                  widget.from?Container():
-                      Consumer<TextRecognitionController>(builder: (context, data, child) {
+
+                      widget.from?Container():Consumer<TextRecognitionController>(builder: (context, data, child) {
                         return  Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
                           Column(children: [
                             GestureDetector(
@@ -395,29 +435,33 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         if (_formKey.currentState?.validate() ?? false) {
 
 
-                          String cnic1=data.cnicNumber!;
-                          String cnic2=_CNICcontroller.text.trim().toString();
-                          print(data.cnicNumber);
-                          print(_CNICcontroller.text);
-
-                          if(data.Cnicf==null || data.Cnicb==null)
+                          if(!widget.from)
                             {
-                              showSnackbar(context, "Please select CNIC images");
-
-                            }
-                          else if(cnic1 != cnic2)
+                              String cnic1=data.cnicNumber!;
+                              String cnic2=_CNICcontroller.text.trim().toString();
+                              print(data.cnicNumber);
+                              print(_CNICcontroller.text);
+                              if(data.Cnicf==null || data.Cnicb==null)
+                              {
+                                showSnackbar(context, "Please select CNIC images");
+                              }
+                              else if(cnic1 != cnic2)
                               {
                                 showSnackbar(context, "CNIC don't match with image");
                               }
+                            }
+
+
                           else{
                             print('last else');
                            var ctrl =AuthController();
-                           ctrl.Signup(_namecontroller.text,_emailcontroller.text,_phonecontrller.text,'false',_CNICcontroller.text
+                            ContractorReg contractor= ContractorReg(contractorImage: imgpath,companyName: _namecontroller.text,
+                                ntn: _NTNcontroller.text,individualEmail: _emailcontroller.text);
+
+                           widget.from?context.navigateTo(RepresentativeRegistration(type: 'A',contractorReg: contractor,)):ctrl.Signup(_namecontroller.text,_emailcontroller.text,_phonecontrller.text,'false',_CNICcontroller.text
                                ,_passwordcontrller.text,data.Cnicf!,data.Cnicb!, context,widget.from);
                           }
                         }
-
-
                       },
                       child: Container(
                         height: 8.h,

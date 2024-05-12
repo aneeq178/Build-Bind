@@ -156,7 +156,7 @@ class _MyProjectsState extends State<MyProjects> {
                           children: [
                             GestureDetector(
                               onTap:(){
-                                Navigator.push(context, MaterialPageRoute(builder: (context)=>ProjectDetaills()));
+                                // Navigator.push(context, MaterialPageRoute(builder: (context)=>ProjectDetaills()));
                               },
                               child: Container(
                                 height: 6.h,

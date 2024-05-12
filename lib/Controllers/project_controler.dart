@@ -8,16 +8,17 @@ class ProjectController extends ChangeNotifier
 {
   List<Project> projects=[];
 
+
   getProjects(BuildContext context) async {
 
-    try {
+    // try {
 
-    var response = await ApiCall.callApiGet('/projects/');
+    var response = await ApiCall.callApiGet('project_media');
 
     if(response !=null)
     {
      projects.clear();
-      for (var data in response['items'])
+      for (var data in response)
       {
         projects.add(Project.fromJson(data));
       }
@@ -32,9 +33,9 @@ class ProjectController extends ChangeNotifier
       showSnackbar(context, "An error occurred please try again");
     }
 
-    } catch (e) {
-      print("error in controller  ${e}");
-    }
+    // } catch (e) {
+    //   print("error in controller  ${e}");
+    // }
   }
 
 
@@ -175,6 +176,37 @@ class ProjectController extends ChangeNotifier
       print("error in controller  ${e}");
     }
   }
+
+
+
+  ////////////////// Search Projects
+
+  searchProjects(String parameter,String value,BuildContext context) async {
+
+
+    try {
+      // var hideLoading = showLoading(context, 'Please Wait..');
+      var response = await ApiCall.callApiGet('search-projects/?$parameter=$value');
+      // hideLoading();
+      if (response != null) {
+        projects.clear();
+        for (var data in response['projects'])
+        {
+          projects.add(Project.fromJson(data));
+        }
+        print('Length of project is${projects.length}');
+
+        notifyListeners();
+      } else {
+        showSnackbar(context, 'An error Occurred, Please try again later');
+      }
+    } catch (e) {
+      print("error in controller  ${e}");
+    }
+  }
+
+
+
 
 
 

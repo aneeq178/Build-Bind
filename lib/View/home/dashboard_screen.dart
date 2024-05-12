@@ -1,14 +1,18 @@
 
+import 'package:buildbind/Controllers/contractor_controller.dart';
+import 'package:buildbind/Controllers/project_controler.dart';
 import 'package:buildbind/Utills/AppColors.dart';
-import 'package:buildbind/View/Favourite/favourite_screen.dart';
-import 'package:buildbind/View/Listing/listing_project.dart';
-import 'package:buildbind/View/Notifcations/notificatoins.dart';
-import 'package:buildbind/View/Search/search_contractor.dart';
-import 'package:buildbind/View/Settings/profile_settings.dart';
+import 'package:buildbind/Utills/extentions/navigation_extension.dart';
+import 'package:buildbind/View/Contractor/company_details.dart';
+import 'package:buildbind/View/Contractor/contractor_details.dart';
+
 import 'package:buildbind/View/home/featured_companies.dart';
 import 'package:buildbind/View/widgets/sized_boxes.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
+import '../../Models/contractor_model.dart';
+import '../Bids/bids_screen.dart';
 import '../widgets/nav_bar.dart';
 import '../widgets/texts.dart';
 
@@ -22,9 +26,16 @@ class Dashboard extends StatefulWidget {
 
 class _DashboardState extends State<Dashboard> {
   
-  
+  @override
+  void initState() {
+    var ctrl= context.read<ContractorController>();
+    ctrl.getTopCompanies(context);
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
+    var ctrl= context.read<ContractorController>();
+    ctrl.getTopContractors(context);
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(
@@ -179,14 +190,17 @@ class _DashboardState extends State<Dashboard> {
                 hsizedbox2,
 
 
-                Container(
-                  height: 8.5.h,
-                  child: ListView.builder(
-                    shrinkWrap: true,
-                    itemCount: 4,
-                    scrollDirection: Axis.horizontal,
-                    itemBuilder: (context, index) =>  TopCompanies(),),
-                ),
+                Consumer<ContractorController>(builder: (context, data, child) {
+                  return Container(
+                    height: 8.5.h,
+                    child: ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: data.Companies.length,
+                      scrollDirection: Axis.horizontal,
+                      itemBuilder: (context, index) =>  TopCompanies(contractor: data.Companies[index],),),
+                  );
+                },),
+
 
 
                 hsizedbox2,
@@ -201,45 +215,54 @@ class _DashboardState extends State<Dashboard> {
                 hsizedbox2,
 
 
-                Container(
-                  height: 16.5.h,
-                  child: ListView.builder(
-                    shrinkWrap: true,
-                    itemCount: 4,
-                    scrollDirection: Axis.horizontal,
-                    itemBuilder: (context, index) => Container(
-                      width: 25.w,
-                      height: 1.5.h,
-                      padding: EdgeInsets.all(2.w),
-                      decoration: BoxDecoration(
-                        border: Border.all(color: Colors.transparent),
-                        borderRadius: BorderRadius.circular(8.w),
-                      ),
-                      child:Column(
-                        children: [
-                          Container(
-                            width: 14.w,
-                            height: 7.5.h,
-                            padding: EdgeInsets.all(5.w),
+                Consumer<ContractorController>(builder: (context, data, child) {
+                  return
+                    Container(
+                      height: 16.5.h,
+                      child: ListView.builder(
+                        shrinkWrap: true,
+                        itemCount: data.top_contractors.length,
+                        scrollDirection: Axis.horizontal,
+                        itemBuilder: (context, index) => GestureDetector(
+                          onTap: (){
+                            context.navigateTo(ContractorDetails(contractor: data.top_contractors[index],));
+                          },
+                          child: Container(
+                            width: 25.w,
+                            height: 1.5.h,
+                            padding: EdgeInsets.all(2.w),
                             decoration: BoxDecoration(
-                              image: DecorationImage(
-                                image: AssetImage(
-                                  'assets/temp/zkbowner.jpeg',
-                                ), // Replace with your image asset path
-                                fit: BoxFit.cover,
-                              ),
-                              color: APPCOLORS.GREY,
                               border: Border.all(color: Colors.transparent),
                               borderRadius: BorderRadius.circular(8.w),
                             ),
-                          ),
-                          hsizedbox1,
-                          Text(" Irfan Wahid",style:TextStyle(color:APPCOLORS.PRIMARY,fontSize: 10.sp)),
+                            child:Column(
+                              children: [
+                                Container(
+                                  width: 14.w,
+                                  height: 7.5.h,
+                                  padding: EdgeInsets.all(5.w),
+                                  decoration: BoxDecoration(
+                                    image: DecorationImage(
+                                      image: AssetImage(
+                                        'assets/temp/zkbowner.jpeg',
+                                      ), // Replace with your image asset path
+                                      fit: BoxFit.cover,
+                                    ),
+                                    color: APPCOLORS.GREY,
+                                    border: Border.all(color: Colors.transparent),
+                                    borderRadius: BorderRadius.circular(8.w),
+                                  ),
+                                ),
+                                hsizedbox1,
+                                Text(data.top_contractors[index].individualName,style:TextStyle(color:APPCOLORS.PRIMARY,fontSize: 10.sp)),
 
-                        ],
-                      ),
-                    ),),
-                ),
+                              ],
+                            ),
+                          ),
+                        ),),
+                    );
+
+                },),
 
               ],
             ),
@@ -252,43 +275,50 @@ class _DashboardState extends State<Dashboard> {
 
 class TopCompanies extends StatelessWidget {
   const TopCompanies({
+    required this.contractor,
     super.key,
   });
+  final Contractor contractor;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 52.w,
-      height: 8.5.h,
-      padding: EdgeInsets.all(2.w),
-      decoration: BoxDecoration(
-        color: APPCOLORS.GREY,
-        border: Border.all(color: Colors.transparent),
-        borderRadius: BorderRadius.circular(8.w),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Container(
-            width: 13.w,
-            height: 8.h,
-            padding: EdgeInsets.all(5.w),
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage(
-                  'assets/temp/habib.jpeg',
-                  // 'assets/images/companies.png'
-                ), // Replace with your image asset path
-                fit: BoxFit.cover,
+    return GestureDetector(
+      onTap: (){
+        context.navigateTo(CompanyDetails(contractor: contractor));
+      },
+      child: Container(
+        width: 52.w,
+        height: 8.5.h,
+        padding: EdgeInsets.all(2.w),
+        decoration: BoxDecoration(
+          color: APPCOLORS.GREY,
+          border: Border.all(color: Colors.transparent),
+          borderRadius: BorderRadius.circular(8.w),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Container(
+              width: 13.w,
+              height: 8.h,
+              padding: EdgeInsets.all(5.w),
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage(
+                    'assets/temp/habib.jpeg',
+                    // 'assets/images/companies.png'
+                  ), // Replace with your image asset path
+                  fit: BoxFit.cover,
+                ),
+                color: APPCOLORS.GREY,
+                border: Border.all(color: Colors.transparent),
+                borderRadius: BorderRadius.circular(8.w),
               ),
-              color: APPCOLORS.GREY,
-              border: Border.all(color: Colors.transparent),
-              borderRadius: BorderRadius.circular(8.w),
             ),
-          ),
-          Text("Habib Constructors",style:TextStyle(color:APPCOLORS.PRIMARY,fontSize: 10.sp)),
-          SizedBox(width: 2.w,),
-        ],
+            Text(contractor.companyName,style:TextStyle(color:APPCOLORS.PRIMARY,fontSize: 10.sp)),
+            SizedBox(width: 2.w,),
+          ],
+        ),
       ),
     );
   }

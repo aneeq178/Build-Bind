@@ -1,18 +1,13 @@
 import 'package:buildbind/Services/chat_service.dart';
 import 'package:buildbind/Utills/extentions/navigation_extension.dart';
-import 'package:buildbind/View/Notifcations/notificatoins.dart';
 import 'package:buildbind/View/chat/chat_screen.dart';
 import 'package:buildbind/View/widgets/sized_boxes.dart';
 import 'package:buildbind/View/widgets/texts.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
-
-import '../../Models/chat_model.dart';
-import '../../Models/message_model.dart';
 import '../../Utills/AppColors.dart';
+import '../Bids/bids_screen.dart';
 import '../bottom_nav_bar.dart';
-import '../home/dashboard_screen.dart';
 
 class MessagesView extends StatelessWidget {
   const MessagesView({super.key});
@@ -116,13 +111,13 @@ class MessagesView extends StatelessWidget {
 
                  if(!chatExist)
                    {
-                     await chat_obj.createChat('1', '2');
+                     await chat_obj.createChat('1', '2',context);
                    }
                  else{
                    print('chat exist');
                  }
 
-                context.navigateTo(ChatScreen());
+                // context.navigateTo(ChatScreen());
 
                   // try {
                   //   QuerySnapshot querySnapshot = await FirebaseFirestore.instance.collection('chats').get();

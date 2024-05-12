@@ -1,15 +1,22 @@
+import 'package:buildbind/Controllers/bid_controller.dart';
+import 'package:buildbind/Controllers/contractor_controller.dart';
 import 'package:buildbind/Controllers/project_controler.dart';
 import 'package:buildbind/Providers/listing_providers.dart';
 import 'package:buildbind/Providers/Text_Recognition_Provider.dart';
 import 'package:buildbind/Providers/cost_estimation_prvider.dart';
+import 'package:buildbind/Providers/project_filtter_provider.dart';
+import 'package:buildbind/Services/chat_service.dart';
 import 'package:buildbind/Utills/AppColors.dart';
 import 'package:buildbind/View/bottom_nav_bar.dart';
+import 'package:buildbind/View/chat/chat_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:sizer/sizer.dart';
 
+import 'Providers/contractor_fillter_provider.dart';
+import 'View/bottom_nav_two.dart';
 import 'firebase_options.dart';
 
 void main() async{
@@ -21,6 +28,12 @@ void main() async{
         ChangeNotifierProvider(create: (_) => ListingController()),
         ChangeNotifierProvider(create: (_) => TextRecognitionController()),
         ChangeNotifierProvider(create: (_) => ProjectController()),
+        ChangeNotifierProvider(create: (_) => ChatService()),
+        ChangeNotifierProvider(create: (_) => ProjectController()),
+        ChangeNotifierProvider(create: (_) => PFilterProvider()),
+        ChangeNotifierProvider(create: (_) => CFilterProvider()),
+        ChangeNotifierProvider(create: (_) => BidController()),
+        ChangeNotifierProvider(create: (_) => ContractorController()),
       ],
           child:  MyApp()));
 }

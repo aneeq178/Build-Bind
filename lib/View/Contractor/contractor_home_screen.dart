@@ -1,8 +1,8 @@
-import 'package:buildbind/View/Contractor/widgets/project_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 import '../../Utills/AppColors.dart';
-import '../Notifcations/notificatoins.dart';
+import '../Bids/bids_screen.dart';
 import '../home/dashboard_screen.dart';
 import '../widgets/sized_boxes.dart';
 import '../widgets/texts.dart';
@@ -117,14 +117,15 @@ class ContractorHomeScreen extends StatelessWidget {
                 ),
                 hsizedbox1,
 
-                Container(
-                  height: 8.5.h,
-                  child: ListView.builder(
-                    shrinkWrap: true,
-                    itemCount: 4,
-                    scrollDirection: Axis.horizontal,
-                    itemBuilder: (context, index) =>  TopCompanies(),),
-                ),
+                // Consumer(builder: )
+                // Container(
+                //   height: 8.5.h,
+                //   child: ListView.builder(
+                //     shrinkWrap: true,
+                //     itemCount: 4,
+                //     scrollDirection: Axis.horizontal,
+                //     itemBuilder: (context, index) =>  TopCompanies(contractor: data.C,),),
+                // ),
 
                 hsizedbox2,
 
@@ -205,7 +206,7 @@ class ContractorHomeScreen extends StatelessWidget {
                 //   ),
                 // ),
                 // hsizedbox2,
-                ProjectWidget(),
+                // ProjectWidget(),
               ],
             ),
           ),

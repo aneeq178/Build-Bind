@@ -1,6 +1,11 @@
+import 'package:buildbind/Providers/contractor_fillter_provider.dart';
 import 'package:buildbind/View/widgets/sized_boxes.dart';
 import 'package:buildbind/View/widgets/texts.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:get/get.dart';
+import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 import '../../Utills/AppColors.dart';
 import '../Contractor/contractor_details.dart';
@@ -42,190 +47,10 @@ class _SearchContractorState extends State<SearchContractor> {
             child: GestureDetector(
               onTap: (){
                 showModalBottomSheet(
+                  isScrollControlled: true,
                   context: context,
                   builder: (BuildContext context) {
-                    return Container(
-                      height: 90.h,
-                      width: 100.w,
-                      decoration: BoxDecoration(
-                        color: APPCOLORS.WHITE, // Set your desired background color
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(6.w),
-                          topRight: Radius.circular(6.w),
-                        ),
-                      ),
-                      child: Padding(
-                        padding: EdgeInsets.all(4.w),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Align(
-                              alignment:Alignment.center,
-                              child: Container(
-                                height: 0.5.h,
-                                width: 20.w,
-                                decoration: BoxDecoration(
-                                  color: APPCOLORS.BLACK, // Set your desired background color
-                                  borderRadius: BorderRadius.all(Radius.circular(5.w)),
-                                ),
-                              ),
-                            ),
-
-                            hsizedbox3,
-
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                LabelText(text: 'Filter'),
-
-                                Container(
-                                  padding: EdgeInsets.all(2.w),
-                                  height: 6.h,
-                                  width: 25.w,
-                                  decoration: BoxDecoration(
-                                    color: APPCOLORS.PRIMARY, // Set your desired background color
-                                    borderRadius: BorderRadius.all(Radius.circular(8.w)),
-                                  ),
-                                  child: Center(
-                                    child:  Text('Reset',style: TextStyle(color: APPCOLORS.WHITE,fontSize:10.sp,fontWeight: FontWeight.normal),),
-                                  ),
-                                ),
-
-                              ],
-                            ),
-                            LabelText(text: 'Company Level'),
-
-                            hsizedbox1,
-
-                            Container(
-                              height:6.1.h,
-                              child: ListView(
-                                scrollDirection: Axis.horizontal,
-                                children: [
-                                  Container(
-                                    padding: EdgeInsets.all(1.w),
-                                    height: 6.h,
-                                    width: 25.w,
-                                    decoration: BoxDecoration(
-                                      color: APPCOLORS.GREY, // Set your desired background color
-                                      borderRadius: BorderRadius.all(Radius.circular(8.w)),
-                                    ),
-                                    child: Center(
-                                      child:  Text('All',style: TextStyle(color: APPCOLORS.BLACK,fontSize:11.sp,fontWeight: FontWeight.normal),),
-                                    ),
-                                  ),
-                                  wsizedbox2,
-                                  Container(
-                                    padding: EdgeInsets.all(1.w),
-                                    height: 6.h,
-                                    width: 35.w,
-                                    decoration: BoxDecoration(
-                                      color: APPCOLORS.GREY, // Set your desired background color
-                                      borderRadius: BorderRadius.all(Radius.circular(8.w)),
-                                    ),
-                                    child: Center(
-                                      child:  Text('New Company',style: TextStyle(color: APPCOLORS.BLACK,fontSize:11.sp,fontWeight: FontWeight.normal),),
-                                    ),
-                                  ),
-                                  wsizedbox2,
-                                  Container(
-                                    padding: EdgeInsets.all(1.w),
-                                    height: 6.h,
-                                    width: 25.w,
-                                    decoration: BoxDecoration(
-                                      color: APPCOLORS.GREY, // Set your desired background color
-                                      borderRadius: BorderRadius.all(Radius.circular(8.w)),
-                                    ),
-                                    child: Center(
-                                      child:  Text('Level 1',style: TextStyle(color: APPCOLORS.BLACK,fontSize:11.sp,fontWeight: FontWeight.normal),),
-                                    ),
-                                  ),
-                                  Container(
-                                    padding: EdgeInsets.all(1.w),
-                                    height: 6.h,
-                                    width: 25.w,
-                                    decoration: BoxDecoration(
-                                      color: APPCOLORS.GREY, // Set your desired background color
-                                      borderRadius: BorderRadius.all(Radius.circular(8.w)),
-                                    ),
-                                    child: Center(
-                                      child:  Text('Level 2',style: TextStyle(color: APPCOLORS.BLACK,fontSize:11.sp,fontWeight: FontWeight.normal),),
-                                    ),
-                                  ),
-
-                                ],
-                              ),
-                            ),
-
-                            LabelText(text: 'Property Area'),
-
-                            hsizedbox1,
-
-                            Container(
-                              height:6.1.h,
-                              child: ListView(
-                                scrollDirection: Axis.horizontal,
-                                children: [
-                                  Container(
-                                    padding: EdgeInsets.all(1.w),
-                                    height: 6.h,
-                                    width: 25.w,
-                                    decoration: BoxDecoration(
-                                      color: APPCOLORS.GREY, // Set your desired background color
-                                      borderRadius: BorderRadius.all(Radius.circular(8.w)),
-                                    ),
-                                    child: Center(
-                                      child:  Text('All',style: TextStyle(color: APPCOLORS.BLACK,fontSize:11.sp,fontWeight: FontWeight.normal),),
-                                    ),
-                                  ),
-                                  wsizedbox2,
-                                  Container(
-                                    padding: EdgeInsets.all(1.w),
-                                    height: 6.h,
-                                    width: 35.w,
-                                    decoration: BoxDecoration(
-                                      color: APPCOLORS.GREY, // Set your desired background color
-                                      borderRadius: BorderRadius.all(Radius.circular(8.w)),
-                                    ),
-                                    child: Center(
-                                      child:  Text('200 sqft',style: TextStyle(color: APPCOLORS.BLACK,fontSize:11.sp,fontWeight: FontWeight.normal),),
-                                    ),
-                                  ),
-                                  wsizedbox2,
-                                  Container(
-                                    padding: EdgeInsets.all(1.w),
-                                    height: 6.h,
-                                    width: 25.w,
-                                    decoration: BoxDecoration(
-                                      color: APPCOLORS.GREY, // Set your desired background color
-                                      borderRadius: BorderRadius.all(Radius.circular(8.w)),
-                                    ),
-                                    child: Center(
-                                      child:  Text('500 sqft',style: TextStyle(color: APPCOLORS.BLACK,fontSize:11.sp,fontWeight: FontWeight.normal),),
-                                    ),
-                                  ),
-                                  Container(
-                                    padding: EdgeInsets.all(1.w),
-                                    height: 6.h,
-                                    width: 25.w,
-                                    decoration: BoxDecoration(
-                                      color: APPCOLORS.GREY, // Set your desired background color
-                                      borderRadius: BorderRadius.all(Radius.circular(8.w)),
-                                    ),
-                                    child: Center(
-                                      child:  Text('600 sqft',style: TextStyle(color: APPCOLORS.BLACK,fontSize:11.sp,fontWeight: FontWeight.normal),),
-                                    ),
-                                  ),
-
-                                ],
-                              ),
-                            ),
-
-
-                          ],
-                        ),
-                      ),
-                    );
+                    return FilterWidget();
                   },
                 );
               },
@@ -298,6 +123,212 @@ class _SearchContractorState extends State<SearchContractor> {
   }
 }
 
+class FilterWidget extends StatelessWidget {
+  const FilterWidget({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    var ctrl= context.read<CFilterProvider>();
+
+    return
+      Consumer<CFilterProvider>(builder: (context, data, child) {
+        return   Container(
+          height: 80.h,
+          width: 100.w,
+          decoration: BoxDecoration(
+            color: APPCOLORS.WHITE, // Set your desired background color
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(6.w),
+              topRight: Radius.circular(6.w),
+            ),
+          ),
+          child: Padding(
+            padding: EdgeInsets.all(4.w),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Align(
+                  alignment:Alignment.center,
+                  child: Container(
+                    height: 0.5.h,
+                    width: 20.w,
+                    decoration: BoxDecoration(
+                      color: APPCOLORS.BLACK, // Set your desired background color
+                      borderRadius: BorderRadius.all(Radius.circular(5.w)),
+                    ),
+                  ),
+                ),
+
+                hsizedbox3,
+
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    LabelText(text: 'Filters'),
+
+                    Container(
+                      padding: EdgeInsets.all(2.w),
+                      height: 6.h,
+                      width: 25.w,
+                      decoration: BoxDecoration(
+                        color: APPCOLORS.PRIMARY, // Set your desired background color
+                        borderRadius: BorderRadius.all(Radius.circular(8.w)),
+                      ),
+                      child: Center(
+                        child:  Text('Reset',style: TextStyle(color: APPCOLORS.WHITE,fontSize:10.sp,fontWeight: FontWeight.normal),),
+                      ),
+                    ),
+
+                  ],
+                ),
+                BoldText(text: 'Company Employees'),
+
+                hsizedbox1,
+
+                GestureDetector(
+                  onTap: (){
+                    ctrl.updateemp(1);
+                  },
+                  child: Container(
+                    height:6.1.h,
+                    child: ListView(
+                      scrollDirection: Axis.horizontal,
+                      children: [
+                        Container(
+                          padding: EdgeInsets.all(1.w),
+                          height: 6.h,
+                          width: 25.w,
+                          decoration: BoxDecoration(
+                            color:data.no_of_emp==1?APPCOLORS.PRIMARY:APPCOLORS.GREY, // Set your desired background color
+                            borderRadius: BorderRadius.all(Radius.circular(8.w)),
+                          ),
+                          child: Center(
+                            child:  Text('< 8',style: TextStyle(color:data.no_of_emp==1?APPCOLORS.WHITE: APPCOLORS.BLACK,fontSize:11.sp,fontWeight: FontWeight.normal),),
+                          ),
+                        ),
+                        wsizedbox2,
+                        GestureDetector(
+                          onTap: (){
+                            ctrl.updateemp(2);
+                          },
+                          child: Container(
+                            padding: EdgeInsets.all(1.w),
+                            height: 6.h,
+                            width: 35.w,
+                            decoration: BoxDecoration(
+                              color:data.no_of_emp==2?APPCOLORS.PRIMARY:APPCOLORS.GREY, // Set y
+                              borderRadius: BorderRadius.all(Radius.circular(8.w)),
+                            ),
+                            child: Center(
+                              child:  Text('< 15',style: TextStyle(color:data.no_of_emp==2?APPCOLORS.WHITE:APPCOLORS.BLACK,fontSize:11.sp,fontWeight: FontWeight.normal),),
+                            ),
+                          ),
+                        ),
+                        wsizedbox2,
+                        GestureDetector(
+                          onTap: (){
+                            ctrl.updateemp(3);
+                          },
+                          child: Container(
+                            padding: EdgeInsets.all(1.w),
+                            height: 6.h,
+                            width: 25.w,
+                            decoration: BoxDecoration(
+                              color:data.no_of_emp==3?APPCOLORS.PRIMARY:APPCOLORS.GREY, // Set y
+                              borderRadius: BorderRadius.all(Radius.circular(8.w)),
+                            ),
+                            child: Center(
+                              child:  Text('< 30 ',style: TextStyle(color: data.no_of_emp==3?APPCOLORS.WHITE:APPCOLORS.BLACK,fontSize:11.sp,fontWeight: FontWeight.normal),),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+
+                const BoldText(text: 'Company Ratting'),
+                hsizedbox1,
+
+                GestureDetector(
+                  onTap: (){
+                    ctrl.updaterating(1);
+                  },
+                  child: Container(
+                    height:6.1.h,
+                    child: ListView(
+                      scrollDirection: Axis.horizontal,
+                      children: [
+                        Container(
+                          padding: EdgeInsets.all(1.w),
+                          height: 6.h,
+                          width: 25.w,
+                          decoration: BoxDecoration(
+                            color:data.rating==1?APPCOLORS.PRIMARY:APPCOLORS.GREY, // Set y
+                            borderRadius: BorderRadius.all(Radius.circular(8.w)),
+                          ),
+                          child: Center(
+                            child:  Text('> 3',style: TextStyle(color: data.rating==1?APPCOLORS.WHITE:APPCOLORS.BLACK,fontSize:11.sp,fontWeight: FontWeight.normal),),
+                          ),
+                        ),
+                        wsizedbox2,
+                        GestureDetector(
+                          onTap: (){
+                            ctrl.updaterating(2);
+                          },
+                          child: Container(
+                            padding: EdgeInsets.all(1.w),
+                            height: 6.h,
+                            width: 35.w,
+                            decoration: BoxDecoration(
+                              color:data.rating==2?APPCOLORS.PRIMARY:APPCOLORS.GREY, // Set y
+                              borderRadius: BorderRadius.all(Radius.circular(8.w)),
+                            ),
+                            child: Center(
+                              child:  Text('> 4',style: TextStyle(color: data.rating==2?APPCOLORS.WHITE:APPCOLORS.BLACK,fontSize:11.sp,fontWeight: FontWeight.normal),),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                hsizedbox3,
+                hsizedbox3,
+                hsizedbox3,
+
+                Align(
+                  alignment: Alignment.center,
+                  child: GestureDetector(
+                    onTap: (){
+
+                    },
+                    child: Container(
+                      alignment: Alignment.center,
+                      width: 20.h,
+                      height: 6.h,
+                      padding: EdgeInsets.only(top:3.w,bottom: 3.w,right: 5.w,left:5.w),
+                      decoration: BoxDecoration(
+                        color: APPCOLORS.SECONDARY,
+                        borderRadius: BorderRadius.all(Radius.circular(4.w)),
+                      ),
+                      child: Text('Confirm',style: TextStyle(color: APPCOLORS.WHITE,fontSize:12.sp,fontWeight: FontWeight.bold)),
+                    ),
+                  ),
+                ),
+
+
+              ],
+            ),
+          ),
+        );
+      },);
+
+  }
+}
+
 class FeaturedCompnyTile2 extends StatelessWidget {
   const FeaturedCompnyTile2({
     required this.url,
@@ -318,7 +349,7 @@ class FeaturedCompnyTile2 extends StatelessWidget {
       padding: EdgeInsets.all(2.w),
       child: GestureDetector(
         onTap: (){
-          Navigator.push(context, MaterialPageRoute(builder: (context)=>ContractorDetails()));
+          // Navigator.push(context, MaterialPageRoute(builder: (context)=>ContractorDetails()));
         },
         child: Container(
           width: 90.w,

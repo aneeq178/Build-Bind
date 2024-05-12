@@ -7,3 +7,6 @@ String generateChatID({required String id1, required String id2})
   print("chat id is ${chatID}");
   return chatID;
 }
+
+
+String BASEURL='http://10.0.2.2:5000';

@@ -29,7 +29,7 @@ class FavouriteScreen extends StatelessWidget {
 
               GestureDetector(
                 onTap: (){
-                  Navigator.push(context, MaterialPageRoute(builder: (context)=>ContractorDetails()));
+                  // Navigator.push(context, MaterialPageRoute(builder: (context)=>ContractorDetails()));
                 },
                 child: Container(
                   width: 50.w,

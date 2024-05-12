@@ -1,3 +1,4 @@
+import 'package:buildbind/Models/project_model.dart';
 import 'package:buildbind/Providers/listing_providers.dart';
 import 'package:buildbind/View/Listing/widgets/listing_project_widgets.dart';
 import 'package:buildbind/View/costEstimation/cost_estiamation.dart';
@@ -13,13 +14,20 @@ import '../widgets/sized_boxes.dart';
 import '../widgets/texts.dart';
 
 class ListingProject2 extends StatefulWidget {
-  const ListingProject2({super.key});
+  const ListingProject2({
+    required this.project,
+    super.key});
+
+  final Project project;
 
   @override
   State<ListingProject2> createState() => _ListingProject2State();
 }
 
 class _ListingProject2State extends State<ListingProject2> {
+
+  var _namecontroller = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     var ctrl=context.read<ListingController>();
@@ -100,6 +108,39 @@ class _ListingProject2State extends State<ListingProject2> {
                     ),
                     LabelText(text: 'Location'),
                     hsizedbox1,
+                    Container(
+                      padding: EdgeInsets.all(1.w),
+                      height:8.h,
+                      decoration: BoxDecoration(
+                        color: APPCOLORS.GREY,
+                        border: Border.all(color: Colors.transparent),
+                        borderRadius: BorderRadius.circular(8.0),
+                      ),
+                      child: Row(
+                        children: [
+                          Icon(Icons.account_box),
+                          SizedBox(width: 8.0),
+                          Expanded(
+                            child: TextFormField(
+                              controller: _namecontroller,
+                              validator: (value) {
+                                if (value == null || value.isEmpty ) {
+                                  return 'Please enter project Title';
+                                }
+
+                                return null;
+                              },
+
+                              decoration: const InputDecoration(
+                                hintText:'# Marala # Story Project',
+                                labelText: 'Project Title',
+                                border: InputBorder.none,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
 
                     hsizedbox2,
 
@@ -108,23 +149,28 @@ class _ListingProject2State extends State<ListingProject2> {
                     hsizedbox2,
                     LabelText(text: 'Map / Models'),
                     hsizedbox1,
-                    Container(
-                      width: 80.w,
-                      height: 7.h,
-                      decoration: BoxDecoration(
-                        color: APPCOLORS.PRIMARY,
-                        border: Border.all(color: Colors.black54),
-                        borderRadius: BorderRadius.circular(8.w),
-                      ),
-                      child: Center(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Text('Map / Models',style: TextStyle(color: APPCOLORS.WHITE,fontSize:12.sp,fontWeight: FontWeight.bold)),
-                            wsizedbox2,
-                            Icon(Icons.drive_folder_upload_outlined,color: Colors.white,),
+                    GestureDetector(
+                      onTap: (){
 
-                          ],
+                      },
+                      child: Container(
+                        width: 80.w,
+                        height: 7.h,
+                        decoration: BoxDecoration(
+                          color: APPCOLORS.PRIMARY,
+                          border: Border.all(color: Colors.black54),
+                          borderRadius: BorderRadius.circular(8.w),
+                        ),
+                        child: Center(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Text('Map / Models   (pdf)',style: TextStyle(color: APPCOLORS.WHITE,fontSize:12.sp,fontWeight: FontWeight.bold)),
+                              wsizedbox2,
+                              Icon(Icons.drive_folder_upload_outlined,color: Colors.white,),
+
+                            ],
+                          ),
                         ),
                       ),
                     ),

@@ -5,12 +5,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:sizer/sizer.dart';
 
+import '../../Models/project_model.dart';
 import '../../Utills/AppColors.dart';
 import '../widgets/sized_boxes.dart';
 import '../widgets/texts.dart';
 
 class ProjectDetaills extends StatefulWidget {
-  const ProjectDetaills({super.key});
+  const ProjectDetaills({
+    required this.project,
+
+    super.key});
+
+  final Project project;
+
 
   @override
   State<ProjectDetaills> createState() => _ProjectDetaillsState();
@@ -20,12 +27,15 @@ class _ProjectDetaillsState extends State<ProjectDetaills> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        toolbarHeight: 0,
+      ),
       body: Padding(
         padding: EdgeInsets.all(4.w),
         child: Column(
           children: [
             Container(
-              height: 88.h,
+              height: 82.h,
               child: SingleChildScrollView(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -83,9 +93,9 @@ class _ProjectDetaillsState extends State<ProjectDetaills> {
                       ),
                     ),
                     hsizedbox2,
-                    HeadingText2(text: '15 Marla, 2 Floor Complete House'),
+                    HeadingText2(text:widget.project.pName??'House'),
                     hsizedbox2,
-                    SimpleText(text: 'Complete Project Including Interior Design and Electric and plumbing work included',),
+                    SimpleText(text: widget.project.pDetails??'Dettails',),
                     hsizedbox2,
 
                     Container(
@@ -98,7 +108,7 @@ class _ProjectDetaillsState extends State<ProjectDetaills> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text('Budget',style: TextStyle(color: APPCOLORS.WHITE,fontSize:12.sp,fontWeight: FontWeight.bold)),
-                          Text('50,050,00',style: TextStyle(color: APPCOLORS.WHITE,fontSize:12.sp,)),
+                          Text( 'Rs ${widget.project.pBudget}',style: TextStyle(color: APPCOLORS.WHITE,fontSize:12.sp,)),
                         ],
                       ),
                     ),
@@ -107,7 +117,7 @@ class _ProjectDetaillsState extends State<ProjectDetaills> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text('Construction Type ',style: TextStyle(color: APPCOLORS.PRIMARY,fontSize:12.sp,fontWeight: FontWeight.bold)),
-                        Text('Complete Project ',style: TextStyle(color: APPCOLORS.PRIMARY,fontSize:12.sp,)),
+                        Text(widget.project.pType??'Complete',style: TextStyle(color: APPCOLORS.PRIMARY,fontSize:12.sp,)),
                       ],
                     ),
                     Divider(),
@@ -115,20 +125,20 @@ class _ProjectDetaillsState extends State<ProjectDetaills> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text('Construction Mode',style: TextStyle(color: APPCOLORS.PRIMARY,fontSize:12.sp,fontWeight: FontWeight.bold)),
-                        Text('With Material',style: TextStyle(color: APPCOLORS.PRIMARY,fontSize:12.sp)),
+                        Text(widget.project.pMode??'W Material',style: TextStyle(color: APPCOLORS.PRIMARY,fontSize:12.sp)),
                       ],
                     ),
 
                     hsizedbox2,
-                    ProjectDescriptionFeature(text: 'Floors',quantity: '2',),
+                    ProjectDescriptionFeature(text: 'Floors',quantity:widget.project.pFloors.toString(),),
                     hsizedbox1,
-                    ProjectDescriptionFeature(text: 'Area Sqft',quantity: '2000',),
+                    ProjectDescriptionFeature(text: 'Area Sqft',quantity: widget.project.pArea.toString(),),
                     hsizedbox1,
-                    ProjectDescriptionFeature(text: 'Living rooms',quantity: '6',),
+                    ProjectDescriptionFeature(text: 'Living rooms',quantity: widget.project.pFloors.toString(),),
                     hsizedbox1,
-                    ProjectDescriptionFeature(text: 'kitchens',quantity: '1',),
+                    ProjectDescriptionFeature(text: 'kitchens',quantity: widget.project.pKitchen.toString(),),
                     hsizedbox1,
-                    ProjectDescriptionFeature(text: 'Washrooms',quantity: '4',),
+                    ProjectDescriptionFeature(text: 'Washrooms',quantity:  widget.project.pWashroom.toString(),),
                   ],
                 ),
               ),
@@ -138,7 +148,7 @@ class _ProjectDetaillsState extends State<ProjectDetaills> {
               children: [
                 GestureDetector(
                   onTap: (){
-                    Navigator.push(context, MaterialPageRoute(builder: (context)=>ChatScreen()));
+                    // Navigator.push(context, MaterialPageRoute(builder: (context)=>ChatScreen()));
                   },
                   child: Container(
                     width:40.w,

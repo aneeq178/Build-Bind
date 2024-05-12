@@ -8,13 +8,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import '../Services/api_calls.dart';
+import '../Utills/utills.dart';
 import '../View/Auth/representative_regitration.dart';
 import '../View/show_snackbar.dart';
 
 class AuthController
 {
   
- 
 
 /////////////////////// Log In
 
@@ -38,8 +38,8 @@ class AuthController
           // print(response['user']['user_id'].toString());
 
           String is_contractor='';
-          for(var data in response['user'])
-            {
+          var data = response['user'];
+
               print('in it data');
 
               String id = data['user_id'].toString();
@@ -63,15 +63,11 @@ class AuthController
               await prefs.setString('contractor',is_contractor);
 
 
-            }
+
 
           String token  = response['token'].toString();
 
-
-
           showSnackbar(context, 'Logged In Successfully');
-          final SharedPreferences prefs = await SharedPreferences.getInstance();
-
 
           await prefs.setString('token',token);
 
@@ -140,7 +136,10 @@ class AuthController
     try {
 
       // final url = Uri.parse('https://buildbind.onrender.com/createuser/');
-      final url = Uri.parse('https://buildbind.onrender.com/createuser/');
+      var headers={
+        'Content-Type': 'multipart/form-data',
+      };
+      final url = Uri.parse('$BASEURL/createuser/');
 
       final req = http.MultipartRequest('POST', url)
         ..fields['username'] = 'Anewerq'
@@ -150,21 +149,25 @@ class AuthController
         ..fields['cnic'] = '37301-3481334-2'
         ..fields['password'] = 'pass123341'
         ..files.add(await http.MultipartFile.fromPath(
+            'user_img',cincf_path))
+        ..files.add(await http.MultipartFile.fromPath(
             'cnic_front',cincf_path))
         ..files.add(await http.MultipartFile.fromPath(
             'cnic_back', cnicb_path));
+
+        req.headers.addAll(headers);
 
       print(cnicb_path);
       print(cincf_path);
 
 
-      var hideLoading = showLoading(context, 'Please Wait..');
+      // var hideLoading = showLoading(context, 'Please Wait..');
 
-      final stream = await req.send();
+      final stream = await req.send().timeout(Duration(seconds: 10));
 
       final res = await http.Response.fromStream(stream);
 
-      hideLoading();
+      // hideLoading();
       // var response =res.body;
       print(res.statusCode);
       print(res.body);
@@ -172,7 +175,7 @@ class AuthController
       if (res.statusCode==200) {
 
         showSnackbar(context, "Registered Successfully");
-        from?context.navigateTo(RepresentativeRegistration(type: 'A')):context.navigateTo(LoginScreen());
+        context.navigateTo(LoginScreen());
 
       } else {
         showSnackbar(context, 'An error Occurred, Please try again later');

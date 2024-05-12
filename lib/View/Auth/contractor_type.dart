@@ -63,11 +63,11 @@ class ContractorType extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: APPCOLORS.GREY,
                   borderRadius: BorderRadius.all(Radius.circular(4.w)),
-
                 ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
+                  children:
+                  [
                     HeadingText2(text: 'Registered Company'),
                     Icon(Icons.arrow_forward),
                   ],

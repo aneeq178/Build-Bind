@@ -4,7 +4,7 @@ class Message {
   String? senderID;
   String? content;
   String? messageType;
-  Timestamp? sentAt;
+  String? sentAt;
 
   Message({this.senderID, this.content, this.messageType, this.sentAt});
 
@@ -12,7 +12,7 @@ class Message {
     senderID = json['senderID'];
     content = json['content'];
     sentAt = json['sentAt'];
-    messageType =json['messageType'];
+    messageType =json['messageType'] ;
   }
 
   Map<String, dynamic> toJson() {

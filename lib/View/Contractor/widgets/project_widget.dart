@@ -5,13 +5,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:sizer/sizer.dart';
 
+import '../../../Models/project_model.dart';
 import '../../../Utills/AppColors.dart';
 import '../../widgets/sized_boxes.dart';
 
 class ProjectWidget extends StatelessWidget {
   const ProjectWidget({
+    required this.project,
     super.key,
   });
+  final Project project;
 
   @override
   Widget build(BuildContext context) {
@@ -67,26 +70,19 @@ class ProjectWidget extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  '15 Marla, 2 Floor',
+                  project.pName??'House',
                   style: TextStyle(
                     color:APPCOLORS.PRIMARY,
                     fontSize: 12.sp,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                Text(
-                  'Modern House',
-                  style: TextStyle(
-                    color:APPCOLORS.PRIMARY,
-                    fontSize: 12.sp,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
+
                 hsizedbox1,
                 Container(
                   width: 45.w,
                   child:  Text(
-                    'Complete Project Including Interior Design and Electric and plumbing work included',
+                    project.pDetails??'Project Detailers',
                     style: TextStyle(
                       color:APPCOLORS.BLACK,
                       fontSize: 8.sp,
@@ -109,7 +105,7 @@ class ProjectWidget extends StatelessWidget {
                   ],
                 ),
                 Text(
-                  'Budget: 10 M PKR',
+                  'Rs ${project.pBudget}',
                   style: TextStyle(
                       color: Colors.black,
                       fontSize: 10.sp,
@@ -123,7 +119,7 @@ class ProjectWidget extends StatelessWidget {
                   children: [
                     GestureDetector(
                     onTap:(){
-                      Navigator.push(context, MaterialPageRoute(builder: (context)=>ProjectDetaills()));
+                      Navigator.push(context, MaterialPageRoute(builder: (context)=>ProjectDetaills(project: project,)));
                     },
                       child: Container(
                         height: 6.h,

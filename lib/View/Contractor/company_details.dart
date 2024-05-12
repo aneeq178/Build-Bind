@@ -7,19 +7,18 @@ import 'package:buildbind/View/widgets/texts.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
-class ContractorDetails extends StatefulWidget {
-  const ContractorDetails({
+class CompanyDetails extends StatefulWidget {
+  const CompanyDetails({
     required this.contractor,
     super.key});
 
-  final IndividualContractor contractor;
-
+  final Contractor contractor;
 
   @override
-  State<ContractorDetails> createState() => _ContractorDetailsState();
+  State<CompanyDetails> createState() => _CompanyDetailsState();
 }
 
-class _ContractorDetailsState extends State<ContractorDetails> {
+class _CompanyDetailsState extends State<CompanyDetails> {
   bool servicescon=false;
   bool specilitycon=false;
   @override
@@ -39,7 +38,7 @@ class _ContractorDetailsState extends State<ContractorDetails> {
                   color: APPCOLORS.GREY,
                   image: DecorationImage(
                     image: AssetImage(
-                      'assets/images/main2.jpg'
+                        'assets/images/main2.jpg'
                     ),
                   ),
                   border: Border.all(color: Colors.transparent),
@@ -52,50 +51,50 @@ class _ContractorDetailsState extends State<ContractorDetails> {
                       top:2.h,
                       left: 2.w,
                       child:
-                    Container(
-                      width: 85.w,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
+                      Container(
+                        width: 85.w,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
 
-                          GestureDetector(
-                            onTap: (){
-                              Navigator.pop(context);
-                            },
-                            child: Container(
-                              width: 6.h,
-                              height: 6.h,
-                              decoration: BoxDecoration(
-                                color: APPCOLORS.GREY,
-                                shape: BoxShape.circle,
-                              ),
-                              child: Icon(
-                                Icons.arrow_back_ios,
-                              ),
-                            ),
-                          ),
-
-                          GestureDetector(
-                            onTap: (){
-
-                            },
-                            child: Container(
-                              width: 6.h,
-                              height: 6.h,
-                              decoration: BoxDecoration(
-                                color: APPCOLORS.SECONDARY,
-                                shape: BoxShape.circle,
-                              ),
-                              child: Icon(
-                                Icons.favorite,
-                                color: Colors.white,
+                            GestureDetector(
+                              onTap: (){
+                                Navigator.pop(context);
+                              },
+                              child: Container(
+                                width: 6.h,
+                                height: 6.h,
+                                decoration: BoxDecoration(
+                                  color: APPCOLORS.GREY,
+                                  shape: BoxShape.circle,
+                                ),
+                                child: Icon(
+                                  Icons.arrow_back_ios,
+                                ),
                               ),
                             ),
-                          ),
 
-                        ],
+                            GestureDetector(
+                              onTap: (){
+
+                              },
+                              child: Container(
+                                width: 6.h,
+                                height: 6.h,
+                                decoration: BoxDecoration(
+                                  color: APPCOLORS.SECONDARY,
+                                  shape: BoxShape.circle,
+                                ),
+                                child: Icon(
+                                  Icons.favorite,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
+
+                          ],
+                        ),
                       ),
-                    ),
 
                     ),
                     Align(
@@ -116,23 +115,12 @@ class _ContractorDetailsState extends State<ContractorDetails> {
                                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                 children: [
                                   Icon(Icons.star,color: Colors.yellowAccent,),
-                                  Text('4.9',style: TextStyle(color: APPCOLORS.WHITE,fontSize:12.sp,fontWeight: FontWeight.bold),),
+                                  // Text(widget.contractor,style: TextStyle(color: APPCOLORS.WHITE,fontSize:12.sp,fontWeight: FontWeight.bold),),
                                 ],
                               ),
                             ),
                             wsizedbox2,
-                            Container(
-                              width: 25.w,
-                              height: 6.h,
-                              decoration: BoxDecoration(
-                                color: APPCOLORS.PRIMARY,
-                                border: Border.all(color: Colors.transparent),
-                                borderRadius: BorderRadius.circular(8.w),
-                              ),
-                              child:
-                              Center(child: Text('Level 1',style: TextStyle(color: APPCOLORS.WHITE,fontSize:12.sp,fontWeight: FontWeight.normal),)),
 
-                            ),
                           ],
 
                         ),
@@ -142,7 +130,7 @@ class _ContractorDetailsState extends State<ContractorDetails> {
                 ),
               ),
               hsizedbox2,
-              HeadingText(text:widget.contractor.individualName),
+              HeadingText(text: widget.contractor.companyName),
               hsizedbox1,
               hsizedbox2,
               Container(
@@ -153,17 +141,107 @@ class _ContractorDetailsState extends State<ContractorDetails> {
                   children: [
                     BadgeContainer(text: 'Employees ${widget.contractor.noOfEmployees.toString()}'),
                     wsizedbox2,
+                    BadgeContainer(text: 'NTN Number ${widget.contractor.companyNtn}'),
+                    wsizedbox2,
                     BadgeContainer(text: 'Total Projects ${widget.contractor.totalProjects}'),
                   ],
                 ),
               ),
 
-
-              hsizedbox4,
-              BadgeContainer(text: widget.contractor.description),
-
               hsizedbox2,
-              HeadingText(text:'Projects'),
+              BadgeContainer(text: ' ${widget.contractor.description.toString()}'),
+
+              // hsizedbox2,
+              // AnimatedContainer(
+              //     padding: EdgeInsets.all(4.w),
+              //     duration: Duration(milliseconds: 500),// Set the animation duration
+              //     curve: Curves.easeInOut, // Set the animation curve
+              //     height: servicescon?32.h:9.h,
+              //     width: 100.w,
+              //     decoration: BoxDecoration(
+              //       color: APPCOLORS.GREY,
+              //       borderRadius: BorderRadius.all(Radius.circular(3.w)),
+              //     ),
+              //     child: Column(
+              //       mainAxisAlignment: MainAxisAlignment.start,
+              //       children: [
+              //         Row(
+              //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //           children: [
+              //             HeadingText2(text:'Services'),
+              //             GestureDetector(
+              //                 onTap: (){
+              //                   setState(() {
+              //                     servicescon=!servicescon;
+              //                   });
+              //                 },
+              //                 child: Icon(color: APPCOLORS.PRIMARY,size: 10.w,servicescon?Icons.arrow_drop_up_sharp:Icons.arrow_drop_down_rounded)),
+              //           ],
+              //         ),
+              //         servicescon?Column(
+              //           crossAxisAlignment: CrossAxisAlignment.start,
+              //           children: [
+              //             hsizedbox2,
+              //             Text('Construction',style: TextStyle(color: APPCOLORS.PRIMARY,fontSize:14.sp,)),
+              //             Divider(),
+              //             Text('Plumbing',style: TextStyle(color: APPCOLORS.PRIMARY,fontSize:14.sp,)),
+              //             Divider(),
+              //             Text('Wood Work',style: TextStyle(color: APPCOLORS.PRIMARY,fontSize:14.sp,)),
+              //             Divider(),
+              //             Text('Wiring',style: TextStyle(color: APPCOLORS.PRIMARY,fontSize:14.sp,)),
+              //             Divider(),
+              //
+              //
+              //           ],
+              //         ):Container(),
+              //       ],
+              //     )
+              // ),
+              //
+              // hsizedbox1,
+              //
+              // AnimatedContainer(
+              //     padding: EdgeInsets.all(4.w),
+              //     duration: Duration(milliseconds: 500),// Set the animation duration
+              //     curve: Curves.easeInOut, // Set the animation curve
+              //     height:  specilitycon?32.h:9.h,
+              //     width: 100.w,
+              //     decoration: BoxDecoration(
+              //       color: APPCOLORS.GREY,
+              //       borderRadius: BorderRadius.all(Radius.circular(3.w)),
+              //     ),
+              //     child: Column(
+              //       mainAxisAlignment: MainAxisAlignment.start,
+              //       children: [
+              //         Row(
+              //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //           children: [
+              //             const HeadingText2(text:'Speciality'),
+              //             GestureDetector(
+              //                 onTap: (){
+              //                   setState(() {
+              //                     specilitycon=!specilitycon;
+              //                   });
+              //                 },
+              //                 child: Icon(color: APPCOLORS.PRIMARY,size: 10.w, specilitycon?Icons.arrow_drop_up_sharp:Icons.arrow_drop_down_rounded)),
+              //           ],
+              //         ),
+              //         specilitycon?Column(
+              //           crossAxisAlignment: CrossAxisAlignment.start,
+              //           children: [
+              //             hsizedbox2,
+              //             Text('Construction',style: TextStyle(color: APPCOLORS.PRIMARY,fontSize:14.sp,)),
+              //             Divider(),
+              //             Text('Plumbing',style: TextStyle(color: APPCOLORS.PRIMARY,fontSize:14.sp,)),
+              //             Divider(),
+              //
+              //           ],
+              //         ):Container(),
+              //       ],
+              //     )
+              // ),
+              hsizedbox2,
+              HeadingText(text: 'Projects'),
               hsizedbox1,
               Align(
                 alignment: Alignment.center,
@@ -235,7 +313,7 @@ class _ContractorDetailsState extends State<ContractorDetails> {
                 ),
               ),
               hsizedbox2,
-              
+
               HeadingText(text: 'Reviews'),
               hsizedbox1,
 
@@ -272,7 +350,7 @@ class _ContractorDetailsState extends State<ContractorDetails> {
                       ),
 
                       wsizedbox2,
-                  Column(
+                      Column(
                         children: [
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -280,7 +358,7 @@ class _ContractorDetailsState extends State<ContractorDetails> {
                               HeadingText2(text: 'Kurt Mullins'),
                               wsizedbox8,
                               Icon(Icons.star,color: Colors.yellowAccent,),
-                              wsizedbox2,               
+                              wsizedbox2,
                               HeadingText2(text: '4.2'),
                             ],
                           ),
