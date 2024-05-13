@@ -1,14 +1,34 @@
+import 'package:buildbind/Controllers/local_storage_controller.dart';
+import 'package:buildbind/Models/contractor_model.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../Utills/AppColors.dart';
 import '../Contractor/contractor_details.dart';
+import '../Search/search_contractor.dart';
 import '../widgets/sized_boxes.dart';
 import '../widgets/texts.dart';
 
-class FavouriteScreen extends StatelessWidget {
+class FavouriteScreen extends StatefulWidget {
   const FavouriteScreen({super.key});
 
+  @override
+  State<FavouriteScreen> createState() => _FavouriteScreenState();
+}
+
+class _FavouriteScreenState extends State<FavouriteScreen> {
+
+  @override
+  void initState() {
+
+    var ctrl= context.read<FavController>();// TODO: implement initState
+
+    ctrl.getFav();
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,66 +44,43 @@ class FavouriteScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               hsizedbox1,
-              Text("Favourite Contractors for you",style:TextStyle(color:Colors.black,fontSize: 8.sp)),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text("Favourite Contractors for you",style:TextStyle(color:Colors.black,fontSize: 8.sp)),
+                  GestureDetector(
+                      onTap: (){
+                        var ctrl= context.read<FavController>();
+                        ctrl.delete();
+                      },
+                      child: Icon(Icons.delete)),
+                ],
+              ),
               hsizedbox1,
 
-              GestureDetector(
-                onTap: (){
-                  // Navigator.push(context, MaterialPageRoute(builder: (context)=>ContractorDetails()));
-                },
-                child: Container(
-                  width: 50.w,
-                  height: 30.h,
-                  padding: EdgeInsets.all(2.w),
-                  decoration: BoxDecoration(
-                    color: APPCOLORS.GREY,
-                    border: Border.all(color: Colors.transparent),
-                    borderRadius: BorderRadius.circular(8.w),
-                  ),
+              Consumer<FavController>(builder: (context, value, child) {
 
-                  child: Padding(
-                    padding: EdgeInsets.all(1.w),
-                    child: Column(
-                      children: [
-                        Container(
-                          width: 45.w,
-                          height: 20.h,
-                          padding: EdgeInsets.all(2.w),
-                          decoration: BoxDecoration(
-                            image: DecorationImage(
-                              image: AssetImage(
-                                'assets/images/companies.png',
-                                // 'assets/images/companies.png'
-                              ), // Replace with your image asset path
-                              fit: BoxFit.cover,
-                            ),
-                            color: APPCOLORS.GREY,
-                            border: Border.all(color: Colors.transparent),
-                            borderRadius: BorderRadius.circular(8.w),
-                          ),
-                        ),
+                return Container(
+                  height: 80.h,
+                  width: 100.w,
+                  child:
+                  ListView.builder(
+                    itemCount: value.templist.length,
+                    itemBuilder: (context, index) {
+                      return GestureDetector(
+                        onTap: (){
+                          // Navigator.push(context, MaterialPageRoute(builder: (context)=>ContractorDetails()));
+                        },
+                        child:FeaturedCompnyTile2(url: 'assets/images/image 29              .png', name:value.templist[index].companyName, rating: '4.4', locaion: 'Rawalpindi'),
 
-                        hsizedbox1,
-                        Align(
-                            alignment: Alignment.centerLeft,
-                            child: Text("Bin Aziz PVT",style:TextStyle(color:APPCOLORS.PRIMARY,fontWeight: FontWeight.bold,fontSize: 10.sp))),
+                      );
+                  },)
 
-                        Row(
-                          children: [
-                            Icon(Icons.star),
-                            Text("4.8",style:TextStyle(color:APPCOLORS.PRIMARY,fontSize: 8.sp)),
-                            Icon(Icons.location_on_sharp),
-                            Text("Rawalpindi",style:TextStyle(color:APPCOLORS.PRIMARY,fontSize: 8.sp)),
-                          ],
-                        ),
+                );
+
+              },),
 
 
-
-                      ],
-                    ),
-                  ),
-                ),
-              ),
 
 
 

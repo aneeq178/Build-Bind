@@ -1,5 +1,6 @@
 class Contractor {
   int contractorId;
+  bool fav;
   int noOfEmployees;
   int userId; // Renamed from user_id
   String contractorType; // No change
@@ -23,6 +24,7 @@ class Contractor {
     required this.contractorId,
     required this.noOfEmployees,
     required this.userId,
+    required this.fav,
     required this.contractorType,
     required this.description,
     required this.contractorRating,
@@ -52,6 +54,7 @@ class Contractor {
     companyName: json['company_name'] as String,
     companyEmail: json['company_email'] as String,
     companyNtn: json['company_ntn'] as int,
+    fav: false,
     representativeName: json['representative_name'] as String,
     representativePosition: json['representative_position'] as String,
     representativeCnic: json['representative_cnic']??'cnic',

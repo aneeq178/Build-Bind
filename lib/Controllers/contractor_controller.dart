@@ -104,7 +104,7 @@ class ContractorController extends ChangeNotifier
               ..files.add(await http.MultipartFile.fromPath(
                   'image', image));
 
-            req.headers['authorization'] = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo2OSwiZW1haWwiOiJhbmVlcTJAZ21haWwuY29tIiwiaWF0IjoxNzE1MzU0NzU5LCJleHAiOjE3MTUzNTgzNTl9.okEzPY6ci7wbcQbL5QuEgW_Bj0-p2paFZ1gnD5sOJE0';
+            req.headers['authorization'] = token;
 
             final stream = await req.send();
             final res = await http.Response.fromStream(stream);

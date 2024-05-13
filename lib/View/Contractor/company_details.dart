@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:buildbind/Controllers/local_storage_controller.dart';
 import 'package:buildbind/Models/contractor_model.dart';
 import 'package:buildbind/Utills/AppColors.dart';
 import 'package:buildbind/View/widgets/sized_boxes.dart';
@@ -75,20 +76,52 @@ class _CompanyDetailsState extends State<CompanyDetails> {
                             ),
 
                             GestureDetector(
-                              onTap: (){
+                              onTap: ()async{
+                                setState(() {
+                                  widget.contractor.fav=!widget.contractor.fav;
+                                });
+                                var ctrl=FavController();
+
+                                List<Contractor> templist=await ctrl.getFav()!;
+
+                                print('list here isss ${templist.length}');
+                                if(!widget.contractor.fav)
+                                  {
+                                    if(templist.isEmpty)
+                                    {
+                                      List<Contractor> contracotrlis=[];
+                                      contracotrlis.add(widget.contractor);
+                                      ctrl.saveFav(contracotrlis);
+                                    }
+                                    else
+                                    {
+                                      templist.add(widget.contractor);
+                                      ctrl.saveFav(templist);
+                                    }
+
+                                  }
+                                else
+                                  {
+                                    templist.removeWhere((element) => element.companyName==widget.contractor.companyName);
+                                  }
+
+
+
+
 
                               },
                               child: Container(
                                 width: 6.h,
                                 height: 6.h,
                                 decoration: BoxDecoration(
-                                  color: APPCOLORS.SECONDARY,
+                                  color: APPCOLORS.WHITE,
                                   shape: BoxShape.circle,
                                 ),
-                                child: Icon(
+                                child: widget.contractor.fav?Icon(
                                   Icons.favorite,
-                                  color: Colors.white,
-                                ),
+                                  color: Colors.red,
+                                ):
+                                    Icon(Icons.favorite_border,color:Colors.red),
                               ),
                             ),
 

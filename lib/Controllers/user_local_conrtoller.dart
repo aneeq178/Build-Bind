@@ -1,22 +1,46 @@
-import 'dart:html';
 
 import 'package:flutter/cupertino.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../Services/api_calls.dart';
+import '../View/show_snackbar.dart';
+
 class UserLocalController extends ChangeNotifier
 {
-  String city='';
+  String name='';
+  String phone='';
+  String email='';
 
-  void saveCity(String city) async
-  {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setString('city', city);
+
+   getData()async{
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+     name =await prefs.getString('name')??'Aneeq';
+     phone =await prefs.getString('phone')??'+ 92';
+     email =await prefs.getString('email')??'aneeq2@gmail.com';
+
+    notifyListeners();
   }
 
-  void getCity(String city) async
-  {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    String city = prefs.getString('city')??'';
+
+  updateUser(String phone,String username,BuildContext context) async {
+    Map<String,dynamic> body = {'phone': email, 'username': username};
+
+    try {
+      var hideLoading = showLoading(context, 'Please Wait..');
+      var response = await ApiCall.callApiPut(body, '/update_user/');
+      hideLoading();
+      if (response != null) {
+
+          showSnackbar(context, "Updated Successfully");
+          final SharedPreferences prefs = await SharedPreferences.getInstance();
+
+          await prefs.setString('phone',phone);
+          await prefs.setString('name',name);
+    }} catch (e) {
+      showSnackbar(context, 'An error Occurred, Please try again later');
+
+      print("error in controller  ${e}");
+    }
   }
 
 }

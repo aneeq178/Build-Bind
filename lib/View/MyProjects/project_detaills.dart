@@ -146,26 +146,26 @@ class _ProjectDetaillsState extends State<ProjectDetaills> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                GestureDetector(
-                  onTap: (){
-                    // Navigator.push(context, MaterialPageRoute(builder: (context)=>ChatScreen()));
-                  },
-                  child: Container(
-                    width:40.w,
-                    height: 8.h,
-                    padding: EdgeInsets.all(2.w),
-                    decoration: BoxDecoration(
-                      color: APPCOLORS.SECONDARY,
-                      border: Border.all(color: Colors.transparent),
-                      borderRadius: BorderRadius.circular(8.0),
-                    ),
-                    child: Center(
-                      child: Text('Chat', style: TextStyle(color: APPCOLORS.WHITE,
-                          fontSize: 16.sp,
-                          fontWeight: FontWeight.bold),),
-                    ),
-                  ),
-                ),
+                // GestureDetector(
+                //   onTap: (){
+                //     // Navigator.push(context, MaterialPageRoute(builder: (context)=>ChatScreen()));
+                //   },
+                //   child: Container(
+                //     width:40.w,
+                //     height: 8.h,
+                //     padding: EdgeInsets.all(2.w),
+                //     decoration: BoxDecoration(
+                //       color: APPCOLORS.SECONDARY,
+                //       border: Border.all(color: Colors.transparent),
+                //       borderRadius: BorderRadius.circular(8.0),
+                //     ),
+                //     child: Center(
+                //       child: Text('Chat', style: TextStyle(color: APPCOLORS.WHITE,
+                //           fontSize: 16.sp,
+                //           fontWeight: FontWeight.bold),),
+                //     ),
+                //   ),
+                // ),
 
                 GestureDetector(
                   onTap: (){

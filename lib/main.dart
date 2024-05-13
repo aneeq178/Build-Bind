@@ -1,6 +1,8 @@
 import 'package:buildbind/Controllers/bid_controller.dart';
 import 'package:buildbind/Controllers/contractor_controller.dart';
+import 'package:buildbind/Controllers/local_storage_controller.dart';
 import 'package:buildbind/Controllers/project_controler.dart';
+import 'package:buildbind/Controllers/user_local_conrtoller.dart';
 import 'package:buildbind/Providers/listing_providers.dart';
 import 'package:buildbind/Providers/Text_Recognition_Provider.dart';
 import 'package:buildbind/Providers/cost_estimation_prvider.dart';
@@ -34,6 +36,8 @@ void main() async{
         ChangeNotifierProvider(create: (_) => CFilterProvider()),
         ChangeNotifierProvider(create: (_) => BidController()),
         ChangeNotifierProvider(create: (_) => ContractorController()),
+        ChangeNotifierProvider(create: (_) => UserLocalController()),
+        ChangeNotifierProvider(create: (_) => FavController()),
       ],
           child:  MyApp()));
 }

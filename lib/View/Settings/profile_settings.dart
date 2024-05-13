@@ -1,14 +1,18 @@
 import 'package:buildbind/Controllers/auth_controller.dart';
+import 'package:buildbind/Controllers/user_local_conrtoller.dart';
 import 'package:buildbind/Utills/AppColors.dart';
+import 'package:buildbind/Utills/extentions/navigation_extension.dart';
 import 'package:buildbind/View/Auth/contractor_type.dart';
 import 'package:buildbind/View/Auth/login_screen.dart';
 import 'package:buildbind/View/Auth/register_screen.dart';
+import 'package:buildbind/View/Settings/edit_user.dart';
 import 'package:buildbind/View/Settings/update_password.dart';
 
 import 'package:buildbind/View/widgets/sized_boxes.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
 import '../MyProjects/my_projects.dart';
@@ -22,6 +26,14 @@ class ProfileSetings extends StatefulWidget {
 }
 
 class _ProfileSetingsState extends State<ProfileSetings> {
+
+  @override
+  void initState() {
+    var ctrl= context.read<UserLocalController>();
+    ctrl.getData();
+    // TODO: implement initState
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,37 +43,48 @@ class _ProfileSetingsState extends State<ProfileSetings> {
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             hsizedbox6,
-            Align(
-              alignment: Alignment.centerLeft,
-              child: Row(
-                children: [
-                  Container(
-                    width: 26.w,
-                    height: 12.h,
-                    decoration: BoxDecoration(
-                      color: APPCOLORS.SECONDARY,
-                      borderRadius: BorderRadius.circular(30.w), // Adjust the radius as needed
+            Consumer<UserLocalController>(builder: (context, value, child) {
+              return   Align(
+                alignment: Alignment.centerLeft,
+                child: Row(
+                  children: [
+                    Container(
+                      width: 26.w,
+                      height: 12.h,
+                      decoration: BoxDecoration(
+                        color: APPCOLORS.SECONDARY,
+                        borderRadius: BorderRadius.circular(30.w), // Adjust the radius as needed
+                      ),
                     ),
-                  ),
-                  wsizedbox4,
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text('Ali',style: TextStyle(fontSize: 4.5.w,color: APPCOLORS.BLACK),),
-                      Text('+92 3475907436',style: TextStyle(fontSize: 4.5.w,color: APPCOLORS.BLACK),),
-                    ],
-                  ),
+                    wsizedbox4,
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(value.name,style: TextStyle(fontSize: 4.5.w,color: APPCOLORS.BLACK),),
+                        Text(value.phone,style: TextStyle(fontSize: 4.5.w,color: APPCOLORS.BLACK),),
+                      ],
+                    ),
 
-                ],
-              ),
-            ),
+                  wsizedbox4,
+                  GestureDetector(
+                      onTap: (){
+                        context.navigateTo(UpdateUser(phone:value.phone,name: value.name,email: value.email,));
+                      },
+                      child: Icon(Icons.edit)),
+                  ],
+
+                ),
+              );
+            },),
+
             hsizedbox6,
             hsizedbox6,
 
 
             GestureDetector(
               onTap: (){
+
                 Navigator.push(context, MaterialPageRoute(builder: (context)=>UpdatePassword()));
               },
               child: Row(

@@ -1,7 +1,10 @@
+import 'dart:developer';
+
 import 'package:buildbind/Models/project_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 import '../Services/api_calls.dart';
+import '../Utills/utills.dart';
 import '../View/show_snackbar.dart';
 
 class ProjectController extends ChangeNotifier
@@ -13,12 +16,12 @@ class ProjectController extends ChangeNotifier
 
     // try {
 
-    var response = await ApiCall.callApiGet('project_media');
+    var response = await ApiCall.callApiGet('/project_media');
 
     if(response !=null)
     {
      projects.clear();
-      for (var data in response)
+      for (var data in response['Projects'])
       {
         projects.add(Project.fromJson(data));
       }
@@ -43,30 +46,38 @@ class ProjectController extends ChangeNotifier
 
 
 
-  createNewProject(String p_name,String p_details,String qa,String p_category,String p_type,String p_mode,String p_qa,String p_listing,
+  createNewProject(String p_name,String p_details,String qa,String p_category,String p_type,String p_mode,String p_listing,
   String p_floors,String p_area,String p_living_area,String p_washorrom,String p_kitchen,String p_lat,String p_long,String p_budget
       ,String img_1,String img_2,String img_3,String model,BuildContext context) async {
 
 
     try {
-      final url = Uri.parse('https://buildbind.onrender.com/create_project/');
+      final url = Uri.parse('$BASEURL/create_project/');
+
+      log(url.toString());
+      log(img_1);
+      log(model);
+
+
+      String token =await ApiCall.getToken();
 
       final req = http.MultipartRequest('POST', url)
-        ..fields['project_name'] = p_name
-        ..fields['project_details'] = p_details
-        ..fields['p_category'] = p_details
-        ..fields['p_type'] = p_category
-        ..fields['p_mode'] = p_mode
-        ..fields['p_qa'] = qa
-        ..fields['p_listing'] = p_listing
-        ..fields['p_floors'] = p_floors
-        ..fields['p_area'] = p_area
-        ..fields['p_living_area'] = p_living_area
-        ..fields['p_washroom'] = p_area
-        ..fields['p_kitchen'] = p_kitchen
-        ..fields['p_latitude'] = p_lat
-        ..fields['p_longitude'] = p_long
-        ..fields['p_budget'] = p_budget
+        ..fields['project_name'] = 'Dummy Project'
+        ..fields['project_details'] = 'This is a dummy project for testing purposes'
+        ..fields['p_category'] = 'residential'
+        ..fields['p_type'] = 'grey structure'
+        ..fields['p_mode'] = 'with material'
+        ..fields['p_qa'] = 'true'
+        ..fields['p_listing'] = 'house'
+        ..fields['p_floors'] = '2'
+        ..fields['p_area'] = '2000'
+        ..fields['p_living_area'] = '1500'
+        ..fields['p_washroom'] = '2'
+        ..fields['p_kitchen'] = '1'
+        ..fields['p_status'] = 'Listed'
+        ..fields['p_latitude'] = '37.7749'
+        ..fields['p_longitude'] = '-122.4194'
+        ..fields['p_budget'] = '100000'
         ..files.add(await http.MultipartFile.fromPath(
             'image_1', img_1))
         ..files.add(await http.MultipartFile.fromPath(
@@ -76,9 +87,17 @@ class ProjectController extends ChangeNotifier
         ..files.add(await http.MultipartFile.fromPath(
             'model_3d', model));
 
+      var hideLoading = showLoading(context, 'Please Wait..');
+
+      req.headers['authorization'] = token;
+
       final stream = await req.send();
       final res = await http.Response.fromStream(stream);
 
+      hideLoading();
+
+      print(res.statusCode);
+      print(res.body);
 
   if (res.statusCode==200) {
 

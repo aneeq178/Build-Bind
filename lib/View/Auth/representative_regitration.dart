@@ -23,14 +23,15 @@ class RepresentativeRegistration extends StatefulWidget {
 }
 
 class _RepresentativeRegistrationState extends State<RepresentativeRegistration> {
-  File? _image;
-  String? imgpath;
+
   final _formKey = GlobalKey<FormState>();
 
   var _namecontroller = TextEditingController();
   var _CNICcontroller = TextEditingController();
   var _positioncontroller = TextEditingController();
 
+  File? _image;
+  String? imgpath;
   Future<void> pickImage() async {
     final pickedFile = await ImagePicker().pickImage(source: ImageSource.gallery);
     if (pickedFile != null) {

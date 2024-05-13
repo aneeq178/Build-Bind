@@ -19,6 +19,8 @@ class SearchContractor extends StatefulWidget {
 }
 
 class _SearchContractorState extends State<SearchContractor> {
+
+  bool company_selected=true;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -101,6 +103,66 @@ class _SearchContractorState extends State<SearchContractor> {
                         ),
                       ),
                       Icon(Icons.search),
+                    ],
+                  ),
+                ),
+              ),
+
+              hsizedbox1,
+              Container(
+                width: 95.w,
+                height: 10.h,
+                padding: EdgeInsets.all(2.w),
+                decoration: BoxDecoration(
+                  color: APPCOLORS.GREY,
+                  borderRadius: BorderRadius.circular(8.w),
+                ),
+
+                child: Padding(
+                  padding: EdgeInsets.all(2.w),
+                  child: Row(
+                    children: [
+                      GestureDetector(
+                        onTap: (){
+                          setState(() {
+                          company_selected=true;
+                          });},
+                        child: Container(
+                          width: 40.w,
+                          height: 10.h,
+                          padding: EdgeInsets.all(2.w),
+                          decoration: BoxDecoration(
+                            color:company_selected?APPCOLORS.PRIMARY: APPCOLORS.WHITE,
+                            borderRadius: BorderRadius.circular(8.w),
+                          ),
+                          child:   Center(child: Text("Companies",style:TextStyle(color:!company_selected?APPCOLORS.PRIMARY: APPCOLORS.WHITE,
+                              fontSize: 12.sp))),
+
+                        ),
+                      ),
+                      SizedBox(width: 2.w,),
+
+                      GestureDetector(
+                        onTap: (){
+                          setState(() {
+                            company_selected=false;
+
+                          });
+                        },
+                        child: Container(
+                          width: 40.w,
+                          height: 10.h,
+                          padding: EdgeInsets.all(2.w),
+                          decoration: BoxDecoration(
+                            color:!company_selected?APPCOLORS.PRIMARY: APPCOLORS.WHITE,
+
+                            borderRadius: BorderRadius.circular(8.w),
+                          ),
+                          child:  Center(child: Text("Contractors",style:TextStyle(color:company_selected?APPCOLORS.PRIMARY: APPCOLORS.WHITE,
+                              fontSize: 12.sp))),
+                        ),
+                      ),
+
                     ],
                   ),
                 ),
