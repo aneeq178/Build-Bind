@@ -1,16 +1,34 @@
+import 'package:buildbind/Controllers/chat_controller.dart';
 import 'package:buildbind/Services/chat_service.dart';
 import 'package:buildbind/Utills/extentions/navigation_extension.dart';
 import 'package:buildbind/View/chat/chat_screen.dart';
 import 'package:buildbind/View/widgets/sized_boxes.dart';
 import 'package:buildbind/View/widgets/texts.dart';
 import 'package:flutter/material.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 import '../../Utills/AppColors.dart';
 import '../Bids/bids_screen.dart';
 import '../bottom_nav_bar.dart';
+import '../show_snackbar.dart';
 
-class MessagesView extends StatelessWidget {
+class MessagesView extends StatefulWidget {
   const MessagesView({super.key});
+
+  @override
+  State<MessagesView> createState() => _MessagesViewState();
+}
+
+class _MessagesViewState extends State<MessagesView> {
+
+  @override
+  void initState() {
+
+    var ctrl= context.read<ChatController>();
+    ctrl.getChats(context);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -69,7 +87,7 @@ class MessagesView extends StatelessWidget {
                             color: APPCOLORS.WHITE,
                             borderRadius: BorderRadius.circular(8.w),
                           ),
-                          child:   Center(child: Text("Notifications",style:TextStyle(color:APPCOLORS.PRIMARY,fontSize: 12.sp))),
+                          child:   Center(child: Text("Bids",style:TextStyle(color:APPCOLORS.PRIMARY,fontSize: 12.sp))),
 
                         ),
                       ),
@@ -101,108 +119,91 @@ class MessagesView extends StatelessWidget {
 
               hsizedbox1,
 
-              GestureDetector(
-                onTap: ()async{
+              Consumer<ChatController>(builder: (context, value, child) {
 
-                  var chat_obj=ChatService();
+                return ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: value.chats.length,
+                  itemBuilder: (context, index) {
+                    return Padding(
+                      padding:  EdgeInsets.all(2),
+                      child: GestureDetector(
+                          onTap: ()async{
 
-                 final chatExist= await chat_obj.checkChatExists('1', '2');
+                            var chat_obj=ChatService();
 
+                            final chatExist= await chat_obj.checkChatExists(value.chats[index].userId.toString(),value.chats[index].contractorId.toString());
 
-                 if(!chatExist)
-                   {
-                     await chat_obj.createChat('1', '2',context);
-                   }
-                 else{
-                   print('chat exist');
-                 }
+                            var hideLoading = showLoading(context, 'Please Wait..');
 
-                // context.navigateTo(ChatScreen());
+                            if(!chatExist)
+                            {
+                              await chat_obj.createChat('1', '2',context);
+                            }
+                            else{
+                              print('chat exist');
+                            }
 
-                  // try {
-                  //   QuerySnapshot querySnapshot = await FirebaseFirestore.instance.collection('chats').get();
-                  //   List<Chat> chats = [];
-                  //   for (QueryDocumentSnapshot documentSnapshot in querySnapshot.docs) {
-                  //     Map<String, dynamic> data = documentSnapshot.data() as Map<String, dynamic>;
-                  //     List<Message> messages = [];
-                  //     print(data);
-                  //     if (data['messages'] != null) {
-                  //       print(data['messages']);
-                  //       // for (var messageData in data['messages']) {
-                  //       //   messages.add(Message(
-                  //       //     senderID: messageData['senderID'],
-                  //       //     content: messageData['content'],
-                  //       //     messageType: messageData['messageType'],
-                  //       //     sentAt: messageData['sentAt'] != null ? (messageData['sentAt'] as Timestamp).toDate() : null,
-                  //       //   ));
-                  //       // }
-                  //     }
-                  //
-                  //
-                  //
-                  //     print('chats length is');
-                  //   }
+                            hideLoading();
+                            context.navigateTo(ChatScreen(my_id: value.chats[index].userId.toString(), contracotr_id:value.chats[index].contractorId.toString(),
+                                chat_id: value.chats[index].chatId.toString()));
 
-                  // } catch (e) {
-                  //   print('Error fetching chats: $e');
-                  // }
-                  // var chatservice =ChatService();
-                  //
-                  //  bool check=await chatservice.checkChatExists('2', '1');
-                  //
-                  //  print(check);
-                  // Navigator.push(context, MaterialPageRoute(builder: (context)=>ChatScreen()));
-                },
-                child: Container(
-                  width: 100.w,
-                  height: 12.h,
-                  padding: EdgeInsets.all(4.w),
-                  decoration: BoxDecoration(
-                    color: APPCOLORS.GREY,
-                    borderRadius: BorderRadius.circular(8.w),
-                  ),
-                  child:  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Container(
-                        width: 8.h,
-                        height: 8.h,
-                        decoration: BoxDecoration(
-                          border: Border.all(width:1.w,color: APPCOLORS.WHITE ),
-                          shape: BoxShape.circle,
-                          image: DecorationImage(
-                            image: AssetImage('assets/images/image 29.png'), // Replace with your photo asset path
-                            fit: BoxFit.cover,
+                          },
+                          child: Container(
+                            width: 100.w,
+                            height: 12.h,
+                            padding: EdgeInsets.all(4.w),
+                            decoration: BoxDecoration(
+                              color: APPCOLORS.GREY,
+                              borderRadius: BorderRadius.circular(8.w),
+                            ),
+                            child:  Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Container(
+                                  width: 8.h,
+                                  height: 8.h,
+                                  decoration: BoxDecoration(
+                                    border: Border.all(width:1.w,color: APPCOLORS.WHITE ),
+                                    shape: BoxShape.circle,
+                                    image: DecorationImage(
+                                      image: AssetImage('assets/images/image 29.png'), // Replace with your photo asset path
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                ),
+
+                                SizedBox(
+                                  width: 4.w,
+                                ),
+
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        BoldText(text: value.chats[index].representativeName??'Contractor'),
+                                        wsizedbox7,
+                                        // Text(,style: TextStyle(color: APPCOLORS.BLACK.withOpacity(0.8),fontSize:9.sp,fontWeight: FontWeight.normal),),
+
+                                      ],
+                                    ),
+                                    hsizedbox1,
+                                    SmallText(text: "'${value.chats[index].representativePosition??'abc'} from ${
+                                        value.chats[index].companyName??'company'}'"),
+                                    hsizedbox2,
+                                  ],
+                                ),
+
+                              ],
+                            ),
                           ),
                         ),
-                      ),
+                    );
+                },);
+              },),
 
-                      SizedBox(
-                        width: 4.w,
-                      ),
-
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              BoldText(text: "Aneeq Ahmed"),
-                              wsizedbox7,
-                              Text("8:45 PM",style: TextStyle(color: APPCOLORS.BLACK.withOpacity(0.8),fontSize:9.sp,fontWeight: FontWeight.normal),),
-
-                            ],
-                          ),
-                          hsizedbox1,
-                          SmallText(text: "Bid on your I-14 house project."),
-                          hsizedbox2,
-                        ],
-                      ),
-
-                    ],
-                  ),
-                ),
-              ),
 
 
 

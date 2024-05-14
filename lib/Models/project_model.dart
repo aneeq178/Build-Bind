@@ -5,7 +5,7 @@ class Project {
   String? pName;
   String? pDetails;
   int? pEstimatedCost;
-  String? pAssgnCid;
+  int? pAssgnCid;
   String? pCategory;
   String? pType;
   String? pMode;

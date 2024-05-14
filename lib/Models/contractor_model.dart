@@ -49,7 +49,7 @@ class Contractor {
     userId: json['user_id'] as int,
     contractorType: json['contractor_type'] as String,
     description: json['description'] as String,
-    contractorRating: json['contractor_rating'] as String,
+    contractorRating: json['contractor_rating']??'',
     companyId: json['company_id']??0 as int,
     companyName: json['company_name'] as String,
     companyEmail: json['company_email'] as String,
@@ -101,7 +101,8 @@ class IndividualContractor {
   String individualEmail; // Renamed from individual_email
   String status; // No change
   dynamic tokens; // No change (can be null)
-  int totalProjects; // Renamed from total_projects
+  int totalProjects;
+  String contractorImage;// Renamed from total_projects
 
   IndividualContractor({
     required this.contractorId,
@@ -110,6 +111,7 @@ class IndividualContractor {
     required this.contractorType,
     required this.description,
     required this.contractorRating,
+    required this.contractorImage,
     required this.individualId,
     required this.individualName,
     required this.individualEmail,
@@ -120,6 +122,7 @@ class IndividualContractor {
 
   factory IndividualContractor.fromJson(Map<String, dynamic> json) =>
       IndividualContractor(
+        contractorImage: json['contractor_image']??'',
         contractorId: json['contractor_id'] as int,
         noOfEmployees: json['no_of_employees'] as int,
         userId: json['user_id'] as int,

@@ -2,6 +2,7 @@
 
 import 'dart:developer';
 
+import 'package:buildbind/Controllers/bid_controller.dart';
 import 'package:buildbind/Models/bid_model.dart';
 import 'package:buildbind/Utills/extentions/navigation_extension.dart';
 import 'package:flutter/material.dart';
@@ -13,6 +14,7 @@ import '../../Services/chat_service.dart';
 import '../../Utills/AppColors.dart';
 import '../../Utills/utills.dart';
 import '../chat/chat_screen.dart';
+import '../show_snackbar.dart';
 import '../widgets/sized_boxes.dart';
 import '../widgets/texts.dart';
 
@@ -152,44 +154,76 @@ class _BidingDetailsState extends State<BidingDetails> {
               ),
 
               hsizedbox4,
-              GestureDetector(
-                onTap: () async{
-                  String id =await ApiCall.getIds();
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  GestureDetector(
+                    onTap: () async{
+                      String id =await ApiCall.getIds();
 
-                  log('user id ${id}');
-                  log('contracotr id ${widget.bid.contracotrid}');
-                  var chat_obj=ChatService();
+                      var hideLoading = showLoading(context, 'Please Wait..');
 
-                  final chatExist= await chat_obj.checkChatExists(id,widget.bid.contracotrid.toString());
+                      log('user id ${id}');
+                      log('contracotr id ${widget.bid.contracotrid}');
+                      var chat_obj=ChatService();
 
-                  var ctrl=ChatController();
+                      final chatExist= await chat_obj.checkChatExists(id,widget.bid.contracotrid.toString());
 
-                  if(!chatExist)
-                  {
-                    await chat_obj.createChat(id, widget.bid.contracotrid.toString(),context);
-                  }
-                  else{
-                    print('chat exist');
-                  }
-                  String chatID = generateChatID(id1:id , id2: widget.bid.contracotrid.toString());
+                      var ctrl=ChatController();
 
-                  context.navigateTo(ChatScreen(chat_id:chatID ,contracotr_id:widget.bid.contracotrid.toString() ,my_id: id,));
+                      if(!chatExist)
+                      {
+                        await chat_obj.createChat(id, widget.bid.contracotrid.toString(),context);
+                      }
+                      else{
+                        print('chat exist');
+                      }
+                      String chatID = generateChatID(id1:id , id2: widget.bid.contracotrid.toString());
 
-                },
-                child: Container(
-                  height: 8.h,
-                  padding: EdgeInsets.all(2.w),
-                  decoration: BoxDecoration(
-                    color: APPCOLORS.SECONDARY,
-                    border: Border.all(color: Colors.transparent),
-                    borderRadius: BorderRadius.circular(8.0),
+                      hideLoading();
+                      context.navigateTo(ChatScreen(chat_id:chatID ,contracotr_id:widget.bid.contracotrid.toString() ,my_id: id,));
+
+                    },
+                    child: Container(
+                      width: 40.w,
+                      height: 8.h,
+                      padding: EdgeInsets.all(2.w),
+                      decoration: BoxDecoration(
+                        color: APPCOLORS.SECONDARY,
+                        border: Border.all(color: Colors.transparent),
+                        borderRadius: BorderRadius.circular(8.0),
+                      ),
+                      child: Center(
+                        child: Text('Chat', style: TextStyle(color: APPCOLORS.WHITE,
+                            fontSize: 16.sp,
+                            fontWeight: FontWeight.bold),),
+                      ),
+                    ),
                   ),
-                  child: Center(
-                    child: Text('Chat', style: TextStyle(color: APPCOLORS.WHITE,
-                        fontSize: 16.sp,
-                        fontWeight: FontWeight.bold),),
+                  wsizedbox1,
+                  GestureDetector(
+                    onTap: (){
+                      var ctrl= BidController();
+                      ctrl.acceptBid(widget.bid.bidID.toString(), widget.bid.pId.toString(), context);
+                      },
+                    child: Container(
+                      width: 40.w,
+                      height: 8.h,
+                      padding: EdgeInsets.all(2.w),
+                      decoration: BoxDecoration(
+                        color: APPCOLORS.SECONDARY,
+                        border: Border.all(color: Colors.transparent),
+                        borderRadius: BorderRadius.circular(8.0),
+                      ),
+                      child: Center(
+                        child: Text('Accept Bid', style: TextStyle(color: APPCOLORS.WHITE,
+                            fontSize: 16.sp,
+                            fontWeight: FontWeight.bold),),
+                      ),
+                    ),
                   ),
-                ),
+
+                ],
               ),
 
 

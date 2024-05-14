@@ -71,11 +71,11 @@ class _OnBoardingTwoState extends State<OnBoardingTwo> {
             hsizedbox2,
             const SimpleText(text: 'Find the best constructors.Choose from tens of the listed constructors',),
 
-            hsizedbox5,
+            // hsizedbox5,
             hsizedbox3,
             // hsizedbox2,
             Container(
-              width: 100.w,
+              width: 90.w,
               height: 62.h,
               decoration: const BoxDecoration(
                   image: DecorationImage(

@@ -1,6 +1,8 @@
 import 'package:buildbind/Controllers/project_controler.dart';
 import 'package:buildbind/Models/project_model.dart';
 import 'package:buildbind/Providers/listing_providers.dart';
+import 'package:buildbind/Utills/extentions/navigation_extension.dart';
+import 'package:buildbind/View/Listing/google_map.dart';
 import 'package:buildbind/View/Listing/widgets/listing_project_widgets.dart';
 import 'package:buildbind/View/costEstimation/cost_estiamation.dart';
 import 'package:buildbind/View/show_snackbar.dart';
@@ -61,16 +63,21 @@ class _ListingProject2State extends State<ListingProject2> {
     }
   }
 
+  final ImagePicker _picker = ImagePicker();
 
-  File? _image;
-  String? imgpath;
-  Future<void> pickImage() async {
-    final pickedFile = await ImagePicker().pickImage(source: ImageSource.gallery);
-    if (pickedFile != null) {
-      setState(() {
-        _image = File(pickedFile.path);
-        imgpath = pickedFile.path;
-      });
+  List<File> _images = [];
+  List<String> _imagepaths = [];
+
+  Future<void> _pickImage() async {
+    if (_images.length < 3) {
+      final XFile? pickedFile = await _picker.pickImage(source: ImageSource.gallery);
+      if (pickedFile != null) {
+        setState(() {
+          _images.add(File(pickedFile.path));
+        });
+      }
+    } else {
+          showSnackbar(context, 'You can only add up to 3 images.');
     }
   }
   final _formKey = GlobalKey<FormState>();
@@ -229,7 +236,11 @@ class _ListingProject2State extends State<ListingProject2> {
 
                       LabelText(text: 'Location'),
                       
-                      Center(child: Image.asset('assets/images/Layout.png')),
+                      GestureDetector(
+                          onTap: (){
+                            context.navigateTo(GoogleMapScreen());
+                          },
+                          child: Center(child: Image.asset('assets/images/Layout.png'))),
 
                       hsizedbox2,
                       LabelText(text: 'Map / Models'),
@@ -264,27 +275,34 @@ class _ListingProject2State extends State<ListingProject2> {
 
                       LabelText(text: 'Listing Photos'),
                       hsizedbox1,
-                      GestureDetector(
-                        onTap: (){
-                          pickImage();
-
-                        },
-                        child: Container(
-                          padding: EdgeInsets.only(left: 4.w,right: 4.w,top: 2.h,bottom: 2.h),
-                          width: 20.w,
-                          decoration: BoxDecoration(
-                            color: APPCOLORS.GREY,
-                            border: Border.all(color: Colors.transparent),
-                            borderRadius: BorderRadius.circular(8.w),
+                      Container(
+                        height: 35.h,
+                        width: 80.w,
+                        child: GridView.builder(
+                          shrinkWrap: true,
+                          physics: NeverScrollableScrollPhysics(),
+                          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 3,
+                            crossAxisSpacing: 8.0,
+                            mainAxisSpacing: 8.0,
                           ),
-                          child:
-                          Center(
-                            child: _image == null?Icon(
-                              Icons.add,
-                              color: APPCOLORS.PRIMARY,
-                              size: 30,
-                            ): Image.file(_image!),
-                          ),
+                          itemCount: _images.length + 1,
+                          itemBuilder: (BuildContext context, int index) {
+                            if (index == _images.length) {
+                              return GestureDetector(
+                                onTap: _pickImage,
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    color: Colors.grey[300],
+                                    borderRadius: BorderRadius.all(Radius.circular(4.w)),
+                                  ),
+                                  child: Icon(Icons.add, size: 30,color:APPCOLORS.PRIMARY),
+                                ),
+                              );
+                            } else {
+                              return Image.file(_images[index], fit: BoxFit.cover);
+                            }
+                          },
                         ),
                       ),
 
@@ -376,7 +394,7 @@ class _ListingProject2State extends State<ListingProject2> {
                               ctrl.createNewProject(_namecontroller.text,_detailscontroller.text,widget.project.pQa.toString()
                                   , widget.project.pCategory!, widget.project.pType!,widget.project.pMode!,'house', value.floors.toString(),
                                   value.marla.toString(), '10', value.washroom.toString(), value.kitchens.toString(), '31.44', '33.44', '100909',
-                                  imgpath!, imgpath!, imgpath!, filePath!, context);
+                                  _imagepaths[0]!,_imagepaths[1]!,_imagepaths[2]!, filePath!, context);
                               Navigator.push(context, MaterialPageRoute(builder: (context)=>CostEstimation()));
                             }
                         },

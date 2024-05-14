@@ -11,6 +11,7 @@ import 'package:buildbind/View/widgets/sized_boxes.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
+import '../../Controllers/user_local_conrtoller.dart';
 import '../../Models/contractor_model.dart';
 import '../Bids/bids_screen.dart';
 import '../widgets/nav_bar.dart';
@@ -30,12 +31,14 @@ class _DashboardState extends State<Dashboard> {
   void initState() {
     var ctrl= context.read<ContractorController>();
     ctrl.getTopCompanies(context);
+    ctrl.getTopContractors(context);
+
+    var ctrl2= context.read<UserLocalController>();
+    ctrl2.getData();
     super.initState();
   }
   @override
   Widget build(BuildContext context) {
-    var ctrl= context.read<ContractorController>();
-    ctrl.getTopContractors(context);
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(
@@ -52,26 +55,27 @@ class _DashboardState extends State<Dashboard> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                  Container(
-                  width: 40.w,
-                    height: 8.h,
-                    decoration: BoxDecoration(
-                      color: APPCOLORS.GREY,
-                      borderRadius: BorderRadius.circular(20.w), // Adjust the radius as needed
-                    ),
-
-                    child: Center(
-                      child: Row(
-                        children: [
-                          SizedBox(width: 2.w),
-                          Icon(Icons.location_on_sharp,color: APPCOLORS.PRIMARY,),
-                          SizedBox(width: 2.w),
-                          Text("Islamabad Pakistan",style:TextStyle(color:APPCOLORS.PRIMARY,fontSize: 8.sp)),
-                        ],
-                      ),
-                    ),
-                  ),
+                  // Container(
+                  // width: 40.w,
+                  //   height: 8.h,
+                  //   decoration: BoxDecoration(
+                  //     color: APPCOLORS.GREY,
+                  //     borderRadius: BorderRadius.circular(20.w), // Adjust the radius as needed
+                  //   ),
+                  //
+                  //   child: Center(
+                  //     child: Row(
+                  //       children: [
+                  //         SizedBox(width: 2.w),
+                  //         Icon(Icons.location_on_sharp,color: APPCOLORS.PRIMARY,),
+                  //         SizedBox(width: 2.w),
+                  //         Text("Islamabad Pakistan",style:TextStyle(color:APPCOLORS.PRIMARY,fontSize: 8.sp)),
+                  //       ],
+                  //     ),
+                  //   ),
+                  // ),
                     SizedBox(width: 18.w,),
                     GestureDetector(
                         onTap: (){
@@ -79,20 +83,23 @@ class _DashboardState extends State<Dashboard> {
                         },
                         child: Image.asset("assets/images/Notification.png")),
                     SizedBox(width: 2.w,),
-                    Container(
-                      width: 15.w,
-                      height: 8.h,
-                      decoration: BoxDecoration(
-                        color: APPCOLORS.GREY,
-                        borderRadius: BorderRadius.circular(30.w), // Adjust the radius as needed
-                      ),
-                    ),
+                    // Container(
+                    //   width: 15.w,
+                    //   height: 8.h,
+                    //   decoration: BoxDecoration(
+                    //     color: APPCOLORS.GREY,
+                    //     borderRadius: BorderRadius.circular(30.w), // Adjust the radius as needed
+                    //   ),
+                    // ),
 
                   ],
                 ),
 
-                hsizedbox5,
-                HeadingText(text: "Hey, Ali!"),
+                hsizedbox3,
+        Consumer<UserLocalController>(builder: (context, value, child) {
+          return
+            HeadingText(text: "Hey, ${value.name}!");
+        }),
                HeadingText(text: "Lets Start Exploring"),
 
                 hsizedbox2,
@@ -156,11 +163,11 @@ class _DashboardState extends State<Dashboard> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     LabelText(text: "Featured Companies"),
-                    GestureDetector(
-                        onTap: (){
-                          Navigator.push(context, MaterialPageRoute(builder: (context)=>FeaturedCompanies()));
-                        },
-                        child: Text("View All",style:TextStyle(color:Colors.blueAccent,fontSize: 8.sp))),
+                    // GestureDetector(
+                    //     onTap: (){
+                    //       Navigator.push(context, MaterialPageRoute(builder: (context)=>FeaturedCompanies()));
+                    //     },
+                    //     child: Text("View All",style:TextStyle(color:Colors.blueAccent,fontSize: 8.sp))),
                   ],
                 ),
                 hsizedbox2,
@@ -184,7 +191,7 @@ class _DashboardState extends State<Dashboard> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     LabelText(text: "Top Construction Companies"),
-                    Text("View All",style:TextStyle(color:Colors.blueAccent,fontSize: 8.sp)),
+                    // Text("View All",style:TextStyle(color:Colors.blueAccent,fontSize: 8.sp)),
                   ],
                 ),
                 hsizedbox2,
@@ -209,7 +216,7 @@ class _DashboardState extends State<Dashboard> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     LabelText(text: "Top Constructors"),
-                    Text("View All",style:TextStyle(color:Colors.blueAccent,fontSize: 8.sp)),
+                    // Text("View All",style:TextStyle(color:Colors.blueAccent,fontSize: 8.sp)),
                   ],
                 ),
                 hsizedbox2,
@@ -375,17 +382,17 @@ class FeaturedCompanyTile extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Container(
-                        padding: EdgeInsets.all(8.0),
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: Colors.white,
-                        ),
-                        child: Icon(
-                          Icons.favorite_border,
-                          size: 24.0,
-                        ),
-                      ),
+                      // Container(
+                      //   padding: EdgeInsets.all(8.0),
+                      //   decoration: BoxDecoration(
+                      //     shape: BoxShape.circle,
+                      //     color: Colors.white,
+                      //   ),
+                      //   child: Icon(
+                      //     Icons.favorite_border,
+                      //     size: 24.0,
+                      //   ),
+                      // ),
 
                     ],
                   ),

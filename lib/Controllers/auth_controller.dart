@@ -83,9 +83,11 @@ class AuthController
 
           if(is_contractor=='true')
             {
+              await prefs.setString('is_contractor','true');
               context.navigateTo(BottomNavigation2());
             }
           else{
+            await prefs.setString('is_contractor','false');
             context.navigateTo(BottomNavigation());
           }
 
@@ -189,17 +191,16 @@ class AuthController
 
   //////////////////////////////////////// Forgot Password
 
-
-  forgotPassword(String email,String password,BuildContext context) async {
-    Map<String,dynamic> body = {'email': email, 'password': password};
+  forgotPassword(String phone,String password,BuildContext context) async {
+    Map<String,dynamic> body = {'phone': '03477664202', 'password': password};
 
     try {
-
       var hideLoading = showLoading(context, 'Please Wait..');
-      var response = await ApiCall.callApiPost(body, '/login');
+      var response = await ApiCall.callApiPost(body, '/forgot-password');
       hideLoading();
       if (response != null) {
 
+        showSnackbar(context, 'Password Updated');
 
       } else {
         showSnackbar(context, 'An error Occurred, Please try again later');

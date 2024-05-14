@@ -1,4 +1,9 @@
+import 'package:buildbind/Controllers/contractor_controller.dart';
+import 'package:buildbind/Models/contractor_model.dart';
 import 'package:buildbind/Providers/contractor_fillter_provider.dart';
+import 'package:buildbind/Utills/extentions/navigation_extension.dart';
+import 'package:buildbind/View/Contractor/company_details.dart';
+import 'package:buildbind/View/home/company_description.dart';
 import 'package:buildbind/View/widgets/sized_boxes.dart';
 import 'package:buildbind/View/widgets/texts.dart';
 import 'package:flutter/cupertino.dart';
@@ -20,6 +25,15 @@ class SearchContractor extends StatefulWidget {
 
 class _SearchContractorState extends State<SearchContractor> {
 
+  @override
+  void initState() {
+    var ctrl= context.read<ContractorController>();
+    ctrl.getAllCompanies(context);
+    ctrl.getAllContractors(context);
+
+    // TODO: implement initState
+    super.initState();
+  }
   bool company_selected=true;
   @override
   Widget build(BuildContext context) {
@@ -169,13 +183,50 @@ class _SearchContractorState extends State<SearchContractor> {
               ),
 
               hsizedbox2,
-              LabelText(text: 'Found 4 Companies'),
-              hsizedbox2,
 
-              FeaturedCompnyTile2(url: 'assets/images/image 29              .png', name: 'Bin Aziz Builders', rating: '4.4', locaion: 'Rawalpindi'),
-              FeaturedCompnyTile2(url: 'assets/images/image 27.png', name: 'A&B Builders', rating: '4.4', locaion: 'Rawalpindi'),
-              FeaturedCompnyTile2(url: 'assets/images/image 28.png', name: 'Hassan Abdullah Builders', rating: '4.4', locaion: 'Rawalpindi'),
-              FeaturedCompnyTile2(url: 'assets/images/image 27.png', name: 'Mahar and Brothers Builders', rating: '4.4', locaion: 'Islamabad'),
+              Consumer<ContractorController>(builder: (context, value, child) {
+                return company_selected?Column(
+                  children: [
+                    LabelText(text: 'Found ${value.all_Companies.length} Companies'),
+                    hsizedbox2,
+                    ListView.builder(
+                      shrinkWrap: true,
+                      physics: NeverScrollableScrollPhysics(),
+                      itemCount: value.all_Companies.length,
+                      itemBuilder: (context, index) {
+                        return
+                          GestureDetector(
+                            onTap: (){
+                              context.navigateTo(CompanyDetails(contractor: value.all_Companies[index]));
+                            },
+                            child: FeaturedCompnyTile2(url: 'assets/images/image 29.png', name:value.all_Companies[index].companyName,
+                                rating: value.all_Companies[index].contractorRating, locaion: '', contractor: value.all_Companies[index],),
+                          );
+
+                    },),
+                  ],
+                ):Column(
+                  children: [
+                    LabelText(text: 'Found ${value.all_contractors.length} Contractors'),
+                    hsizedbox2,
+                    ListView.builder(
+                      physics: NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      itemCount: value.all_contractors.length,
+                      itemBuilder: (context, index) {
+
+                        return
+                          GestureDetector(
+                            onTap: (){
+                              context.navigateTo(ContractorDetails(contractor: value.all_contractors[index]));
+                            },
+                            child: FeaturedContractorTile2(url: 'assets/images/image 29.png', name:value.all_contractors[index].individualName,
+                                rating: value.all_contractors[index].contractorRating, locaion: '', contractor:  value.all_contractors[index],),
+                          );
+                      },),
+                  ],
+                );
+              },),
 
             ],
           ),
@@ -396,10 +447,12 @@ class FeaturedCompnyTile2 extends StatelessWidget {
     required this.url,
     required this.name,
     required this.rating,
+    required this.contractor,
     required this.locaion,
     super.key,
   });
 
+  final Contractor contractor;
   final String url;
   final String name;
   final String rating;
@@ -407,12 +460,13 @@ class FeaturedCompnyTile2 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.all(2.w),
-      child: GestureDetector(
-        onTap: (){
-          // Navigator.push(context, MaterialPageRoute(builder: (context)=>ContractorDetails()));
-        },
+    return GestureDetector(
+      onTap: (){
+        context.navigateTo(CompanyDetails(contractor: contractor));
+
+      },
+      child: Padding(
+        padding: EdgeInsets.all(2.w),
         child: Container(
           width: 90.w,
           height: 20.h,
@@ -434,7 +488,7 @@ class FeaturedCompnyTile2 extends StatelessWidget {
                       // 'assets/images/companies.png'
                     ), // Replace with your image asset path
                     fit: BoxFit.cover,
-                    
+
                   ),
                 ),
                 child: Container(
@@ -443,24 +497,24 @@ class FeaturedCompnyTile2 extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Container(
-                        padding: EdgeInsets.all(8.0),
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: Colors.white,
-                        ),
-                        child: Icon(
-                          Icons.favorite,
-                          color: Colors.red,
-                          size: 24.0,
-                        ),
-                      ),
-      
+                      // Container(
+                      //   padding: EdgeInsets.all(8.0),
+                      //   decoration: BoxDecoration(
+                      //     shape: BoxShape.circle,
+                      //     color: Colors.white,
+                      //   ),
+                      //   child: Icon(
+                      //     Icons.favorite,
+                      //     color: Colors.red,
+                      //     size: 24.0,
+                      //   ),
+                      // ),
+
                     ],
                   ),
                 ),
               ),
-      
+
               Padding(
                 padding: EdgeInsets.all(4.w),
                 child: Column(
@@ -505,11 +559,144 @@ class FeaturedCompnyTile2 extends StatelessWidget {
                         ),
                       ],
                     ),
-      
+
                   ],
                 ),
               ),
             ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class FeaturedContractorTile2 extends StatelessWidget {
+  const FeaturedContractorTile2({
+    required this.url,
+    required this.name,
+    required this.rating,
+    required this.contractor,
+    required this.locaion,
+    super.key,
+  });
+
+  final IndividualContractor contractor;
+  final String url;
+  final String name;
+  final String rating;
+  final String locaion;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: (){
+        context.navigateTo(ContractorDetails(contractor: contractor));
+      },
+      child: Padding(
+        padding: EdgeInsets.all(2.w),
+        child: GestureDetector(
+          onTap: (){
+            context.navigateTo(ContractorDetails(contractor: contractor));
+          },
+          child: Container(
+            width: 90.w,
+            height: 20.h,
+            padding: EdgeInsets.all(2.w),
+            decoration: BoxDecoration(
+              color: APPCOLORS.GREY,
+              border: Border.all(color: Colors.transparent),
+              borderRadius: BorderRadius.circular(8.w),
+            ),
+            child: Row(
+              children: [
+                Container(
+                  width: 40.w, // Adjust the width as needed
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(4.w)),
+                    image: DecorationImage(
+                      image: AssetImage(
+                        url,
+                        // 'assets/images/companies.png'
+                      ), // Replace with your image asset path
+                      fit: BoxFit.cover,
+
+                    ),
+                  ),
+                  child: Container(
+                    padding: EdgeInsets.all(16.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        // Container(
+                        //   padding: EdgeInsets.all(8.0),
+                        //   decoration: BoxDecoration(
+                        //     shape: BoxShape.circle,
+                        //     color: Colors.white,
+                        //   ),
+                        //   child: Icon(
+                        //     Icons.favorite,
+                        //     color: Colors.red,
+                        //     size: 24.0,
+                        //   ),
+                        // ),
+
+                      ],
+                    ),
+                  ),
+                ),
+
+                Padding(
+                  padding: EdgeInsets.all(4.w),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        constraints: BoxConstraints(
+                          maxWidth: 35.w,
+                        ),
+                        child: Text(
+                          name,
+                          style: TextStyle(
+                            color:APPCOLORS.PRIMARY,
+                            fontSize: 12.sp,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                      hsizedbox1,
+                      Row(
+                        children: [
+                          Icon(Icons.star,color: Colors.yellow,),
+                          Text(
+                            rating,
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 10.sp,
+                            ),
+                          ),
+                        ],
+                      ),
+                      hsizedbox1,
+                      Row(
+                        children: [
+                          Icon(Icons.location_on_sharp),
+                          Text(
+                            locaion,
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 10.sp,
+                            ),
+                          ),
+                        ],
+                      ),
+
+                    ],
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),

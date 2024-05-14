@@ -9,14 +9,14 @@ import 'package:buildbind/Providers/cost_estimation_prvider.dart';
 import 'package:buildbind/Providers/project_filtter_provider.dart';
 import 'package:buildbind/Services/chat_service.dart';
 import 'package:buildbind/Utills/AppColors.dart';
-import 'package:buildbind/View/bottom_nav_bar.dart';
-import 'package:buildbind/View/chat/chat_screen.dart';
+import 'package:location/location.dart';
+import 'package:buildbind/View/onbaording/splash_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:sizer/sizer.dart';
-
+import 'Controllers/chat_controller.dart';
 import 'Providers/contractor_fillter_provider.dart';
 import 'View/bottom_nav_two.dart';
 import 'firebase_options.dart';
@@ -38,6 +38,7 @@ void main() async{
         ChangeNotifierProvider(create: (_) => ContractorController()),
         ChangeNotifierProvider(create: (_) => UserLocalController()),
         ChangeNotifierProvider(create: (_) => FavController()),
+        ChangeNotifierProvider(create: (_) => ChatController()),
       ],
           child:  MyApp()));
 }
@@ -107,11 +108,23 @@ final ThemeData myTheme = ThemeData(
   // primarySwatch:MaterialColor(APPCOLORS.PRIMARY),
 );
 
+void _requestLocationPermission() async {
+  print('in permission');
+  final status = await location.requestPermission();
+  if (status == PermissionStatus.granted) {
+    print('in permission granted');
+
+
+  }
+}
+Location location = Location();
+
 class MyHomePage extends StatelessWidget {
   const MyHomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return BottomNavigation();
+    _requestLocationPermission();
+    return SplashScreen();
   }
 }

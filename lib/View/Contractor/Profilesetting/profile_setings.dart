@@ -1,4 +1,5 @@
 import 'package:buildbind/Utills/AppColors.dart';
+import 'package:buildbind/Utills/extentions/navigation_extension.dart';
 import 'package:buildbind/View/Auth/login_screen.dart';
 import 'package:buildbind/View/Auth/register_screen.dart';
 import 'package:buildbind/View/Contractor/bussines_sneakpeak.dart';
@@ -11,6 +12,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:sizer/sizer.dart';
+
+import '../../bottom_nav_bar.dart';
 
 
 
@@ -57,24 +60,24 @@ class _ContractorProfileSettingsState extends State<ContractorProfileSettings> {
               ),
             ),
             hsizedbox6,
+            // hsizedbox6,
+            //
+            //
+            // GestureDetector(
+            //   onTap: (){
+            //     Navigator.push(context, MaterialPageRoute(builder: (context)=>UpdatePassword()));
+            //   },
+            //   child: Row(
+            //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //     children: [
+            //       Text('Change Password',style: TextStyle(fontSize: 4.5.w,color: APPCOLORS.BLACK),),
+            //
+            //       Icon(Icons.key),
+            //     ],
+            //   ),
+            // ),
+            // Divider(),
             hsizedbox6,
-
-
-            GestureDetector(
-              onTap: (){
-                Navigator.push(context, MaterialPageRoute(builder: (context)=>UpdatePassword()));
-              },
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text('Change Password',style: TextStyle(fontSize: 4.5.w,color: APPCOLORS.BLACK),),
-
-                  Icon(Icons.key),
-                ],
-              ),
-            ),
-            Divider(),
-            hsizedbox2,
             GestureDetector(
               onTap: (){
                 Navigator.push(context, MaterialPageRoute(builder: (context)=>ContactScreen()));
@@ -128,7 +131,7 @@ class _ContractorProfileSettingsState extends State<ContractorProfileSettings> {
 
             GestureDetector(
               onTap: (){
-                // Navigator.push(context, MaterialPageRoute(builder: (context)=>MyProjects()));
+                context.navigateTo(BottomNavigation());
               },
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,

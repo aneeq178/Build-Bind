@@ -20,6 +20,9 @@ class ContractorController extends ChangeNotifier
   List<Contractor> Companies=[];
   List<IndividualContractor> top_contractors=[];
 
+  List<IndividualContractor> all_contractors=[];
+  List<Contractor> all_Companies=[];
+
   /////////// Get top companies
 
   getTopCompanies(BuildContext context) async {
@@ -45,6 +48,56 @@ class ContractorController extends ChangeNotifier
     // }
   }
 
+
+  /////////// Get all companies
+
+  getAllCompanies(BuildContext context) async {
+
+    // try {
+    // var hideLoading = showLoading(context, 'Please Wait..');
+    var response = await ApiCall.callApiGet('/get_company/');
+    // hideLoading();
+    if (response != null) {
+      all_Companies.clear();
+      for (var data in response)
+      {
+        all_Companies.add(Contractor.fromJson(data));
+      }
+      print('Length of bids is${all_Companies.length}');
+
+      notifyListeners();
+    } else {
+      showSnackbar(context, 'An error Occurred, Please try again later');
+    }
+    // } catch (e) {
+    //   print("error in controller  ${e}");
+    // }
+  }
+
+  /////////// Get all Contractors
+
+  getAllContractors(BuildContext context) async {
+
+    // try {
+      // var hideLoading = showLoading(context, 'Please Wait..');
+      var response = await ApiCall.callApiGet('/get_contractors/');
+      // hideLoading();
+      if (response != null) {
+        all_contractors.clear();
+        for (var data in response)
+        {
+          all_contractors.add(IndividualContractor.fromJson(data));
+        }
+        print('Length of bids is${all_contractors.length}');
+
+        notifyListeners();
+      } else {
+        showSnackbar(context, 'An error Occurred, Please try again later');
+      }
+    // } catch (e) {
+    //   print("error in controller  ${e}");
+    // }
+  }
   //////////////////Get top contractors
 
 

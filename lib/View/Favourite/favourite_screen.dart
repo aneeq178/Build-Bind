@@ -71,7 +71,7 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
                         onTap: (){
                           // Navigator.push(context, MaterialPageRoute(builder: (context)=>ContractorDetails()));
                         },
-                        child:FeaturedCompnyTile2(url: 'assets/images/image 29              .png', name:value.templist[index].companyName, rating: '4.4', locaion: 'Rawalpindi'),
+                        child:FeaturedCompnyTile2(url: 'assets/images/image 29              .png', name:value.templist[index].companyName, rating: '4.4', locaion: 'Rawalpindi', contractor: value.templist[index],),
 
                       );
                   },)

@@ -1,10 +1,13 @@
 import 'package:buildbind/Controllers/auth_controller.dart';
+import 'package:buildbind/Utills/extentions/navigation_extension.dart';
 import 'package:buildbind/View/Auth/register_screen.dart';
+import 'package:buildbind/View/Settings/otp_screen.dart';
 import 'package:buildbind/View/bottom_nav_bar.dart';
 import 'package:buildbind/View/home/dashboard_screen.dart';
 import 'package:buildbind/View/show_snackbar.dart';
 import 'package:buildbind/View/widgets/sized_boxes.dart';
 import 'package:buildbind/View/widgets/texts.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
@@ -109,6 +112,19 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ),
                 ),
+                hsizedbox1,
+                GestureDetector(
+                  onTap: (){
+                    context.navigateTo(OtpScreen());
+                  },
+                  child: Align(
+                    alignment: Alignment.centerRight,
+                     child: Text('Forgot Password', style: TextStyle(
+                          color: APPCOLORS.PRIMARY,
+                          fontSize: 12.sp,
+                          fontWeight: FontWeight.bold),)),
+                ),
+
                 hsizedbox1,
                 Row(
                   children: [

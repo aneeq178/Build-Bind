@@ -37,7 +37,7 @@ class _ContractorDetailsState extends State<ContractorDetails> {
                 height: 50.h,
                 decoration: BoxDecoration(
                   color: APPCOLORS.GREY,
-                  image: DecorationImage(
+                  image: const DecorationImage(
                     image: AssetImage(
                       'assets/images/main2.jpg'
                     ),

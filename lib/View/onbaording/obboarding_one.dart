@@ -69,7 +69,7 @@ class OnboardingOne extends StatelessWidget {
             hsizedbox2,
             const SimpleText(text: 'Find someone to build your project',),
 
-            hsizedbox5,
+
             hsizedbox5,
             hsizedbox4,
             Container(

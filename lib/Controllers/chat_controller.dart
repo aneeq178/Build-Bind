@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
 
+import 'package:buildbind/Models/chat_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 import '../Services/api_calls.dart';
@@ -8,18 +9,26 @@ import '../View/show_snackbar.dart';
 
 class ChatController extends ChangeNotifier
 {
+
+  List<ChatModel> chats=[];
+
+
+
+
   getChats(BuildContext context) async {
 
     try {
     // var hideLoading = showLoading(context, 'Please Wait..');
-    var response = await ApiCall.callApiGet('get-chats//');
+    var response = await ApiCall.callApiGet('/get-chats-users');
     // hideLoading();
     if (response != null) {
 
+      chats.clear();
       for (var data in response)
       {
-
+        chats.add(ChatModel.fromJson(data));
       }
+      print('Length of bids is${chats.length}');
 
 
       notifyListeners();

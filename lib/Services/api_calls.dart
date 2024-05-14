@@ -19,7 +19,15 @@ class ApiCall{
 
   static Future<String> getIds()async{
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    String token =await prefs.getString('id')??'7';
+    String token =await prefs.getString('id')??'';
+    print("id is ${token}");
+
+    return token;
+  }
+
+  static Future<String> getUserType()async{
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    String token =await prefs.getString('is_contractor')??'';
     print("id is ${token}");
 
     return token;
@@ -136,8 +144,6 @@ class ApiCall{
     print("12");
     // try {
       String token =await getToken();
-
-
       var headers={
         'authorization':'$token',
       };
@@ -158,7 +164,6 @@ class ApiCall{
       print(jsonResponse);
       print(response.statusCode);
       print(response.body);
-
 
       if (response.statusCode == 200) {
         return jsonResponse;

@@ -31,7 +31,7 @@ class _ProfileSetingsState extends State<ProfileSetings> {
   void initState() {
     var ctrl= context.read<UserLocalController>();
     ctrl.getData();
-    // TODO: implement initState
+
     super.initState();
   }
   @override

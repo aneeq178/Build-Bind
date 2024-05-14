@@ -1,14 +1,32 @@
+import 'package:buildbind/Utills/extentions/navigation_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
+import '../../Controllers/contractor_controller.dart';
 import '../../Utills/AppColors.dart';
 import '../Bids/bids_screen.dart';
 import '../home/dashboard_screen.dart';
 import '../widgets/sized_boxes.dart';
 import '../widgets/texts.dart';
+import 'contractor_details.dart';
 
-class ContractorHomeScreen extends StatelessWidget {
+class ContractorHomeScreen extends StatefulWidget {
   const ContractorHomeScreen({super.key});
+
+  @override
+  State<ContractorHomeScreen> createState() => _ContractorHomeScreenState();
+}
+
+class _ContractorHomeScreenState extends State<ContractorHomeScreen> {
+  @override
+  void initState() {
+
+    var ctrl= context.read<ContractorController>();
+    ctrl.getTopCompanies(context);
+    ctrl.getTopContractors(context);
+    // TODO: implement initState
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -112,20 +130,24 @@ class ContractorHomeScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     LabelText(text: "Top Construction Companies"),
-                    Text("View All",style:TextStyle(color:Colors.blueAccent,fontSize: 8.sp)),
+                    // Text("View All",style:TextStyle(color:Colors.blueAccent,fontSize: 8.sp)),
                   ],
                 ),
-                hsizedbox1,
+                hsizedbox2,
 
-                // Consumer(builder: )
-                // Container(
-                //   height: 8.5.h,
-                //   child: ListView.builder(
-                //     shrinkWrap: true,
-                //     itemCount: 4,
-                //     scrollDirection: Axis.horizontal,
-                //     itemBuilder: (context, index) =>  TopCompanies(contractor: data.C,),),
-                // ),
+
+                Consumer<ContractorController>(builder: (context, data, child) {
+                  return Container(
+                    height: 8.5.h,
+                    child: ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: data.Companies.length,
+                      scrollDirection: Axis.horizontal,
+                      itemBuilder: (context, index) =>  TopCompanies(contractor: data.Companies[index],),),
+                  );
+                },),
+
+
 
                 hsizedbox2,
 
@@ -133,52 +155,62 @@ class ContractorHomeScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     LabelText(text: "Top Constructors"),
-                    Text("View All",style:TextStyle(color:Colors.blueAccent,fontSize: 8.sp)),
+                    // Text("View All",style:TextStyle(color:Colors.blueAccent,fontSize: 8.sp)),
                   ],
                 ),
-                hsizedbox1,
+                hsizedbox2,
 
-                Container(
-                  height: 14.5.h,
-                  child: ListView.builder(
-                    shrinkWrap: true,
-                    itemCount: 4,
-                    scrollDirection: Axis.horizontal,
-                    itemBuilder: (context, index) => Container(
-                      width: 20.w,
-                      height: 1.5.h,
-                      padding: EdgeInsets.all(2.w),
-                      decoration: BoxDecoration(
-                        border: Border.all(color: Colors.transparent),
-                        borderRadius: BorderRadius.circular(8.w),
-                      ),
-                      child:Column(
-                        children: [
-                          Container(
-                            width: 14.w,
-                            height: 7.5.h,
-                            padding: EdgeInsets.all(5.w),
+
+                Consumer<ContractorController>(builder: (context, data, child) {
+                  return
+                    Container(
+                      height: 16.5.h,
+                      child: ListView.builder(
+                        shrinkWrap: true,
+                        itemCount: data.top_contractors.length,
+                        scrollDirection: Axis.horizontal,
+                        itemBuilder: (context, index) => GestureDetector(
+                          onTap: (){
+                            context.navigateTo(ContractorDetails(contractor: data.top_contractors[index],));
+                          },
+                          child: Container(
+                            width: 25.w,
+                            height: 1.5.h,
+                            padding: EdgeInsets.all(2.w),
                             decoration: BoxDecoration(
-                              image: DecorationImage(
-                                image: AssetImage(
-                                  'assets/images/image 29.png',
-                                  // 'assets/images/companies.png'
-                                ), // Replace with your image asset path
-                                fit: BoxFit.cover,
-                              ),
-                              color: APPCOLORS.GREY,
                               border: Border.all(color: Colors.transparent),
                               borderRadius: BorderRadius.circular(8.w),
                             ),
-                          ),
-                          hsizedbox1,
-                          Text(" Ali",style:TextStyle(color:APPCOLORS.PRIMARY,fontSize: 12.sp)),
+                            child:Column(
+                              children: [
+                                Container(
+                                  width: 14.w,
+                                  height: 7.5.h,
+                                  padding: EdgeInsets.all(5.w),
+                                  decoration: BoxDecoration(
+                                    image: DecorationImage(
+                                      image: AssetImage(
+                                        'assets/temp/zkbowner.jpeg',
+                                      ), // Replace with your image asset path
+                                      fit: BoxFit.cover,
+                                    ),
+                                    color: APPCOLORS.GREY,
+                                    border: Border.all(color: Colors.transparent),
+                                    borderRadius: BorderRadius.circular(8.w),
+                                  ),
+                                ),
+                                hsizedbox1,
+                                Text(data.top_contractors[index].individualName,style:TextStyle(color:APPCOLORS.PRIMARY,fontSize: 10.sp)),
 
-                        ],
-                      ),
-                    ),),
-                ),
-                hsizedbox2,
+                              ],
+                            ),
+                          ),
+                        ),),
+                    );
+
+                },),
+
+                hsizedbox1,
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -187,26 +219,8 @@ class ContractorHomeScreen extends StatelessWidget {
                   ],
                 ),
                 hsizedbox1,
-                // Container(
-                //   height: 6.2.h,
-                //   child: ListView(
-                //     scrollDirection: Axis.horizontal,
-                //     shrinkWrap: true,
-                //     children: [
-                //       TabButton(text: "All",selected: true,),
-                //       wsizedbox2,
-                //       TabButton(text: "House",selected: false,),
-                //       wsizedbox2,
-                //       TabButton(text: "Plaza",selected: false),
-                //       wsizedbox2,
-                //       TabButton(text: "Flats",selected: false),
-                //       // wsizedbox4,
-                //       // TabButton( text: "Factory",),
-                //     ],
-                //   ),
-                // ),
-                // hsizedbox2,
-                // ProjectWidget(),
+
+
               ],
             ),
           ),
