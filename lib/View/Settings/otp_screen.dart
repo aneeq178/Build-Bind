@@ -37,7 +37,7 @@ class _OtpScreenState extends State<OtpScreen> {
     return Scaffold(
 
       appBar: AppBar(
-        title: HeadingText(text: 'Uppdate Profile'),
+        title: const HeadingText(text: 'Forgot Password'),
         centerTitle: true,
       ),
       body: Padding(

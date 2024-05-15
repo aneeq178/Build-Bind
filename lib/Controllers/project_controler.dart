@@ -2,14 +2,20 @@ import 'dart:developer';
 
 import 'package:buildbind/Models/project_model.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:sizer/sizer.dart';
 import '../Services/api_calls.dart';
+import '../Utills/AppColors.dart';
 import '../Utills/utills.dart';
+import '../View/bottom_nav_bar.dart';
 import '../View/show_snackbar.dart';
+import '../View/widgets/texts.dart';
 
 class ProjectController extends ChangeNotifier
 {
   List<Project> projects=[];
+  List<Project> my_projects=[];
 
 
   getProjects(BuildContext context) async {
@@ -42,6 +48,35 @@ class ProjectController extends ChangeNotifier
   }
 
 
+  myProjects(BuildContext context) async {
+
+    try {
+
+    var response = await ApiCall.callApiGet('/user_projects');
+
+    if(response !=null)
+    {
+      my_projects.clear();
+      for (var data in response)
+      {
+        my_projects.add(Project.fromJson(data));
+      }
+      print('Length of project is${
+          my_projects.length}');
+
+      notifyListeners();
+    }
+
+    else
+    {
+      showSnackbar(context, "An error occurred please try again");
+    }
+
+    } catch (e) {
+      print("error in controller  ${e}");
+    }
+  }
+
 
 
 
@@ -49,8 +84,6 @@ class ProjectController extends ChangeNotifier
   createNewProject(String p_name,String p_details,String qa,String p_category,String p_type,String p_mode,String p_listing,
   String p_floors,String p_area,String p_living_area,String p_washorrom,String p_kitchen,String p_lat,String p_long,String p_budget
       ,String img_1,String img_2,String img_3,String model,BuildContext context) async {
-
-
     try {
       final url = Uri.parse('$BASEURL/create_project/');
 
@@ -62,22 +95,22 @@ class ProjectController extends ChangeNotifier
       String token =await ApiCall.getToken();
 
       final req = http.MultipartRequest('POST', url)
-        ..fields['project_name'] = 'Dummy Project'
-        ..fields['project_details'] = 'This is a dummy project for testing purposes'
-        ..fields['p_category'] = 'residential'
-        ..fields['p_type'] = 'grey structure'
-        ..fields['p_mode'] = 'with material'
-        ..fields['p_qa'] = 'true'
-        ..fields['p_listing'] = 'house'
-        ..fields['p_floors'] = '2'
-        ..fields['p_area'] = '2000'
-        ..fields['p_living_area'] = '1500'
-        ..fields['p_washroom'] = '2'
-        ..fields['p_kitchen'] = '1'
-        ..fields['p_status'] = 'Listed'
+        ..fields['project_name'] = p_name
+        ..fields['project_details'] = p_details
+        ..fields['p_category'] =p_category
+        ..fields['p_type'] = p_type
+        ..fields['p_mode'] = p_mode
+        ..fields['p_qa'] = 'false'
+        ..fields['p_listing'] = p_listing
+        ..fields['p_floors'] = p_floors
+        ..fields['p_area'] = p_area
+        ..fields['p_living_area'] = p_living_area
+        ..fields['p_washroom'] = p_washorrom
+        ..fields['p_kitchen'] = p_kitchen
+        ..fields['p_status'] = 'Pending'
         ..fields['p_latitude'] = '37.7749'
         ..fields['p_longitude'] = '-122.4194'
-        ..fields['p_budget'] = '100000'
+        ..fields['p_budget'] = p_budget
         ..files.add(await http.MultipartFile.fromPath(
             'image_1', img_1))
         ..files.add(await http.MultipartFile.fromPath(
@@ -101,7 +134,31 @@ class ProjectController extends ChangeNotifier
 
   if (res.statusCode==200) {
 
-  showSnackbar(context, "Project Uploaded");
+    return AlertDialog(
+      title: const HeadingText( text: 'Good Luck with the project',),
+
+      content: const Text('Your Project is now live'),
+      actions: [
+
+        GestureDetector(
+          onTap: () {
+            Navigator.push(context, MaterialPageRoute(builder: (context)=>BottomNavigation()));
+          },
+          child: Container(
+            height: 8.h,
+            padding: EdgeInsets.all(2.w),
+            decoration: BoxDecoration(
+              color: APPCOLORS.SECONDARY,
+              border: Border.all(color: Colors.transparent),
+              borderRadius: BorderRadius.circular(8.0),
+            ),
+            child: Center(
+              child:Text('Continue Browsing',style: TextStyle(color: APPCOLORS.WHITE,fontSize:16.sp,fontWeight: FontWeight.bold),),
+            ),
+          ),
+        ),
+      ],
+    );
 
   } else {
   showSnackbar(context, 'An error Occurred, Please try again later');
@@ -143,29 +200,34 @@ class ProjectController extends ChangeNotifier
 
   ///////////////// Get my projects
 
-  getMyProjects(String email,String password,BuildContext context) async {
-    Map<String,dynamic> body = {'email': email, 'password': password};
-
-    try {
+  searchProjects(
+      String param,String value,
+      String? param2,String? value2,
+      String? param3,String? value3,
+      BuildContext context) async {
+    // try {
       var hideLoading = showLoading(context, 'Please Wait..');
-      var response = await ApiCall.callApiPost(body, '/rider/login');
+
+      var response = await ApiCall.callApiGet('/search-projects/?$param=$value&$param2=$value2&$param3=$value3');
       hideLoading();
+      projects.clear();
+
       if (response != null) {
 
-        if (response['message'] == 'Invalid email or password') {
-          showSnackbar(context, "Invalid email or password");
-
-        } else {
-
-          showSnackbar(context, "Login Successful");
-
+        for (var data in response['Projects'])
+        {
+          projects.add(Project.fromJson(data));
         }
+        print('Length of project is${projects.length}');
+
+
+        notifyListeners();
       } else {
-        showSnackbar(context, 'An error Occurred, Please try again later');
+        showSnackbar(context, 'Projects not found');
       }
-    } catch (e) {
-      print("error in controller  ${e}");
-    }
+    // } catch (e) {
+    //   print("error in controller  ${e}");
+    // }
   }
 
 
@@ -198,24 +260,20 @@ class ProjectController extends ChangeNotifier
 
 
 
-  ////////////////// Search Projects
 
-  searchProjects(String parameter,String value,BuildContext context) async {
+  ////////////////  Project
 
+  completeProjectC(String pId,BuildContext context) async {
+    Map<String,dynamic> body = {'p_id': pId};
 
     try {
-      // var hideLoading = showLoading(context, 'Please Wait..');
-      var response = await ApiCall.callApiGet('search-projects/?$parameter=$value');
-      // hideLoading();
+      var hideLoading = showLoading(context, 'Please Wait..');
+      var response = await ApiCall.callApiPost(body, '/complete_project_contractor');
+      hideLoading();
       if (response != null) {
-        projects.clear();
-        for (var data in response['projects'])
-        {
-          projects.add(Project.fromJson(data));
-        }
-        print('Length of project is${projects.length}');
 
-        notifyListeners();
+
+        showSnackbar(context, 'Project Marked as Complete');
       } else {
         showSnackbar(context, 'An error Occurred, Please try again later');
       }
@@ -225,8 +283,49 @@ class ProjectController extends ChangeNotifier
   }
 
 
+  ////////////////
+
+  completeProjectU(String pId,BuildContext context) async {
+    Map<String,dynamic> body = {'p_id': pId};
+
+    try {
+      var hideLoading = showLoading(context, 'Please Wait..');
+      var response = await ApiCall.callApiPost(body, '/complete_project_user');
+      hideLoading();
+      if (response != null) {
 
 
+        showSnackbar(context, 'Project Marked as Complete');
+      } else {
+        showSnackbar(context, 'An error Occurred, Please try again later');
+      }
+    } catch (e) {
+      print("error in controller  ${e}");
+    }
+  }
+
+
+  //////////////////////////
+
+
+  pendingProjectU(String pId,BuildContext context) async {
+    Map<String,dynamic> body = {'p_id': pId};
+
+    try {
+      var hideLoading = showLoading(context, 'Please Wait..');
+      var response = await ApiCall.callApiPost(body, '/pending_project_user');
+      hideLoading();
+      if (response != null) {
+
+
+        showSnackbar(context, 'Project Marked as Complete');
+      } else {
+        showSnackbar(context, 'An error Occurred, Please try again later');
+      }
+    } catch (e) {
+      print("error in controller  ${e}");
+    }
+  }
 
 
 

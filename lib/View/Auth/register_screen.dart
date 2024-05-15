@@ -153,11 +153,20 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         shape: BoxShape.circle,
                         color: APPCOLORS.PRIMARY,
                       ),
-                      child: _image == null?Icon(
-                        Icons.image,
-                        color: Colors.white,
-                        size: 50,
-                      ): Image.file(_image!),
+                      child: ClipOval(
+                        child: _image == null
+                            ? Icon(
+                          Icons.image,
+                          color: Colors.white,
+                          size: 50,
+                        )
+                            : Image.file(
+                          _image!,
+                          fit: BoxFit.cover,
+                          width: 30.w,
+                          height: 20.h,
+                        ),
+                      ),
                     ),
                   ),
                   Container(
@@ -252,6 +261,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               return null;
                             },
                             decoration: InputDecoration(
+                              prefixText: '+92',
                               labelText: 'Phone Number',
                               border:   InputBorder.none,
                             ),
@@ -449,6 +459,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               {
                                 showSnackbar(context, "CNIC don't match with image");
                               }
+
+                              var ctrl=AuthController();
+
+                              ctrl.Signup(_namecontroller.text, _emailcontroller.text,
+                                  '+92${_phonecontrller.text}', 'false',_CNICcontroller.text ,_passwordcontrller.text
+                                  ,data.Cnicf!,data.Cnicb!, context, true);
+
                             }
 
 

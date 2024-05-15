@@ -1,4 +1,5 @@
 import 'package:buildbind/Controllers/project_controler.dart';
+import 'package:buildbind/Models/cost_estimation_model.dart';
 import 'package:buildbind/Models/project_model.dart';
 import 'package:buildbind/Providers/listing_providers.dart';
 import 'package:buildbind/Utills/extentions/navigation_extension.dart';
@@ -74,6 +75,7 @@ class _ListingProject2State extends State<ListingProject2> {
       if (pickedFile != null) {
         setState(() {
           _images.add(File(pickedFile.path));
+          _imagepaths.add(pickedFile.path);
         });
       }
     } else {
@@ -238,7 +240,7 @@ class _ListingProject2State extends State<ListingProject2> {
                       
                       GestureDetector(
                           onTap: (){
-                            context.navigateTo(GoogleMapScreen());
+                            // context.navigateTo(GoogleMapScreen());
                           },
                           child: Center(child: Image.asset('assets/images/Layout.png'))),
 
@@ -382,20 +384,35 @@ class _ListingProject2State extends State<ListingProject2> {
                       hsizedbox6,
 
                       GestureDetector(
-                        onTap: (){
+                        onTap: ()async{
+                          var estctrl=context.read<CostEstimationModel>();
+                          // ctrl.calculateTotalCost(1,3,3,4,2,2);
+
                           if(value.floors==0||value.marla==0||value.livingroom==0||value.kitchens==0||value.washroom==0||value.LT==0)
                             {
                               showSnackbar(context, 'Please fill all information');
                             }
                           else
                             {
-                              var ctrl = ProjectController();
 
-                              ctrl.createNewProject(_namecontroller.text,_detailscontroller.text,widget.project.pQa.toString()
-                                  , widget.project.pCategory!, widget.project.pType!,widget.project.pMode!,'house', value.floors.toString(),
-                                  value.marla.toString(), '10', value.washroom.toString(), value.kitchens.toString(), '31.44', '33.44', '100909',
-                                  _imagepaths[0]!,_imagepaths[1]!,_imagepaths[2]!, filePath!, context);
-                              Navigator.push(context, MaterialPageRoute(builder: (context)=>CostEstimation()));
+                              estctrl.calculateIndividualCost(value.floors,value.marla,value.livingroom,value.washroom,value.kitchens,1);
+
+
+                              var hideLoading2 = showLoading(context, 'Calculating Cost..');
+
+                              Future.delayed(Duration(seconds: 3), () {
+                                hideLoading2();
+                                var project=Project(
+                                  pName: _namecontroller.text,pDetails: _detailscontroller.text,pQa: widget.project.pQa,pCategory: widget.project.pCategory!,
+                                  pType: widget.project.pType!,pMode: widget.project.pMode!,pFloors:  value.floors,pArea:  value.marla.toString(),pWashroom: value.washroom,
+                                  pKitchen: value.kitchens,
+                                );
+
+                                Navigator.push(context, MaterialPageRoute(builder: (context)=>CostEstimation(project: project,imagepaths: _imagepaths,filepath:filePath!)));
+                              });
+
+
+
                             }
                         },
                         child: Container(

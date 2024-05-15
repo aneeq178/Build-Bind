@@ -134,7 +134,7 @@ class ProjectWidget extends StatelessWidget {
                     wsizedbox1,
                     GestureDetector(
                       onTap: (){
-                        Navigator.push(context, MaterialPageRoute(builder: (context)=>ContractorBiding()));
+                        Navigator.push(context, MaterialPageRoute(builder: (context)=>ContractorBiding(project: project,)));
                       },
                       child: Container(
                         height: 6.h,

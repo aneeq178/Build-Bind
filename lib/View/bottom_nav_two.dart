@@ -46,49 +46,90 @@ class _BottomNavigation2State extends State<BottomNavigation2> {
         automaticallyImplyLeading: false,
       ),
       body: _pages[_selectedTab],
-      bottomNavigationBar: BottomAppBar(
-        color: Colors.white,
-        shape: CircularNotchedRectangle(),
-        child: Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(5.w),
-              topRight: Radius.circular(5.w),
+      bottomNavigationBar: WillPopScope(
+        onWillPop: () async {
+          // Show the quit confirmation dialog
+          bool? quitConfirmed = await showDialog<bool>(
+            context: context,
+            barrierDismissible: false,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                title: Text('Quit Confirmation'),
+                content: SingleChildScrollView(
+                  child: ListBody(
+                    children: <Widget>[
+                      Text('Are you sure you want to quit?',),
+                    ],
+                  ),
+                ),
+                actions: <Widget>[
+                  TextButton(
+                    child: Text('Yes',
+                    ),
+                    onPressed: () {
+                      Navigator.of(context)
+                          .pop(true); // Close the dialog with 'true'
+                    },
+                  ),
+                  TextButton(
+                    child: Text('No',),
+                    onPressed: () {
+                      Navigator.of(context)
+                          .pop(false); // Close the dialog with 'false'
+                    },
+                  ),
+                ],
+              );
+            },
+          );
+
+          // Return true if the user confirmed quitting, otherwise false
+          return quitConfirmed ?? false;
+        },
+        child: BottomAppBar(
+          color: Colors.white,
+          shape: CircularNotchedRectangle(),
+          child: Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(5.w),
+                topRight: Radius.circular(5.w),
+              ),
             ),
-          ),
-          child: Row(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              IconButton(
-                icon: Icon(Icons.home,
-                    color: _selectedTab == 0 ? APPCOLORS.SECONDARY : Colors.black),
-                onPressed: () {
-                  _changeTab(0);
-                },
-              ),
-              IconButton(
-                icon: Icon(Icons.explore_rounded,
-                    color: _selectedTab == 1 ? APPCOLORS.SECONDARY : Colors.black),
-                onPressed: () {
-                  _changeTab(1);
-                },
-              ),
-              // IconButton(
-              //   icon: Icon(Icons.search,
-              //       color: _selectedTab == 2 ? APPCOLORS.SECONDARY : Colors.black),
-              //   onPressed: () {
-              //     _changeTab(2);
-              //   },
-              // ),
-              IconButton(
-                icon: Icon(Icons.menu,
-                    color: _selectedTab == 2 ? APPCOLORS.SECONDARY : Colors.black),
-                onPressed: () {
-                  _changeTab(2);
-                },
-              ),
-            ],
+            child: Row(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                IconButton(
+                  icon: Icon(Icons.home,
+                      color: _selectedTab == 0 ? APPCOLORS.SECONDARY : Colors.black),
+                  onPressed: () {
+                    _changeTab(0);
+                  },
+                ),
+                IconButton(
+                  icon: Icon(Icons.explore_rounded,
+                      color: _selectedTab == 1 ? APPCOLORS.SECONDARY : Colors.black),
+                  onPressed: () {
+                    _changeTab(1);
+                  },
+                ),
+                // IconButton(
+                //   icon: Icon(Icons.search,
+                //       color: _selectedTab == 2 ? APPCOLORS.SECONDARY : Colors.black),
+                //   onPressed: () {
+                //     _changeTab(2);
+                //   },
+                // ),
+                IconButton(
+                  icon: Icon(Icons.menu,
+                      color: _selectedTab == 2 ? APPCOLORS.SECONDARY : Colors.black),
+                  onPressed: () {
+                    _changeTab(2);
+                  },
+                ),
+              ],
+            ),
           ),
         ),
       ),

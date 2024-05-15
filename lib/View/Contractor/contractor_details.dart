@@ -313,7 +313,7 @@ class BadgeContainer extends StatelessWidget {
     return Container(
       padding: EdgeInsets.all(4.w),
       // width: 28.w,
-      height: 6.h,
+      height: 7.h,
       decoration: BoxDecoration(
         color: APPCOLORS.GREY,
         border: Border.all(color: Colors.transparent),

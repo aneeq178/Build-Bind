@@ -169,7 +169,7 @@ class _ProjectDetaillsState extends State<ProjectDetaills> {
 
                 GestureDetector(
                   onTap: (){
-                    Navigator.push(context, MaterialPageRoute(builder: (context)=>ContractorBiding()));
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=>ContractorBiding(project: widget.project,)));
                   },
                   child: Container(
                     width:40.w,

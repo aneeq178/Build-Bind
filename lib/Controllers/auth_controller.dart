@@ -14,7 +14,8 @@ import '../View/show_snackbar.dart';
 
 class AuthController
 {
-  
+
+
 
 /////////////////////// Log In
 
@@ -50,7 +51,7 @@ class AuthController
               String cnic  = data['cnic'].toString();
 
               print(is_contractor);
-              // String image  = response['user']['image'].toString();
+              String image  = response['user']['image'].toString();
 
               final SharedPreferences prefs = await SharedPreferences.getInstance();
 
@@ -60,6 +61,7 @@ class AuthController
               await prefs.setString('name',name);
               await prefs.setString('email',email);
               await prefs.setString('cnic',cnic);
+              await prefs.setString('image',image);
               await prefs.setString('contractor',is_contractor);
 
 
@@ -138,18 +140,20 @@ class AuthController
     try {
 
       // final url = Uri.parse('https://buildbind.onrender.com/createuser/');
+
+
       var headers={
         'Content-Type': 'multipart/form-data',
       };
       final url = Uri.parse('$BASEURL/createuser/');
 
       final req = http.MultipartRequest('POST', url)
-        ..fields['username'] = 'Anewerq'
-        ..fields['email'] = 'ane4331@gmail.com'
-        ..fields['phone'] = '03437434202'
+        ..fields['username'] = fname
+        ..fields['email'] = email
+        ..fields['phone'] = phone
         ..fields['is_contractor'] = 'false'
-        ..fields['cnic'] = '37301-3481334-2'
-        ..fields['password'] = 'pass123341'
+        ..fields['cnic'] = cnic
+        ..fields['password'] = password
         ..files.add(await http.MultipartFile.fromPath(
             'user_img',cincf_path))
         ..files.add(await http.MultipartFile.fromPath(
@@ -163,13 +167,13 @@ class AuthController
       print(cincf_path);
 
 
-      // var hideLoading = showLoading(context, 'Please Wait..');
+      var hideLoading = showLoading(context, 'Please Wait..');
 
       final stream = await req.send().timeout(Duration(seconds: 10));
 
       final res = await http.Response.fromStream(stream);
 
-      // hideLoading();
+      hideLoading();
       // var response =res.body;
       print(res.statusCode);
       print(res.body);
@@ -183,6 +187,7 @@ class AuthController
         showSnackbar(context, 'An error Occurred, Please try again later');
       }
     } catch (e) {
+      showSnackbar(context, 'An error Occurred, Please try again later');
       print("error in controller  ${e}");
     }
   }

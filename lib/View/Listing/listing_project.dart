@@ -158,7 +158,7 @@ class _ListingProjectState extends State<ListingProject> {
                                         return AlertDialog(
                 
                                           title: const Text('Quality Assurance'),
-                                          content: const Text('Our team will ensure the use of quality mentioned in the quotation. \nPrice for this serivce is only 50,00 Rs'),
+                                          content: const Text('Our team will ensure the use of quality mentioned in the quotation. \nPrice for this service is only 50,000 Rs'),
                                           actions: [
                 
                                             TextButton(
@@ -194,13 +194,13 @@ class _ListingProjectState extends State<ListingProject> {
                           {
                             showSnackbar(context, 'All information is required');
                           }
-
                         Project project= Project(
                             pCategory: data.PC==1?'residential':'commercial',
                             pType: data.PC==1?'grey structure':'complete',
                             pMode: data.PC==1?'with material':'without material',
                             pQa: isChecked,
                         );
+
                         Navigator.push(context,MaterialPageRoute(builder: (context)=>ListingProject2(project: project,)));
                       },
                       child: Container(

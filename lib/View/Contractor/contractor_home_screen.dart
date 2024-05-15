@@ -1,8 +1,14 @@
+import 'dart:developer';
+
 import 'package:buildbind/Utills/extentions/navigation_extension.dart';
+import 'package:buildbind/View/Contractor/widgets/project_widget.dart';
+import 'package:buildbind/View/chat/messages_view.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 import '../../Controllers/contractor_controller.dart';
+import '../../Controllers/project_controler.dart';
 import '../../Utills/AppColors.dart';
 import '../Bids/bids_screen.dart';
 import '../home/dashboard_screen.dart';
@@ -20,13 +26,28 @@ class ContractorHomeScreen extends StatefulWidget {
 class _ContractorHomeScreenState extends State<ContractorHomeScreen> {
   @override
   void initState() {
-
     var ctrl= context.read<ContractorController>();
     ctrl.getTopCompanies(context);
     ctrl.getTopContractors(context);
+
+    var ctrl2= context.read<ProjectController>();
+    ctrl2.getProjects( context);
     // TODO: implement initState
     super.initState();
   }
+
+  final List<String> imageUrls = [
+    'assets/images/slider1.jpg',
+    'assets/images/slider2.jpg',
+    'assets/images/slider3.jpg',
+  ];
+
+  final List<String> titles = [
+    'Connect with Clients',
+    'Build Bind',
+    'Lets Bind Together',
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,50 +65,51 @@ class _ContractorHomeScreenState extends State<ContractorHomeScreen> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    Container(
-                      width: 40.w,
-                      height: 8.h,
-                      decoration: BoxDecoration(
-                        color: APPCOLORS.GREY,
-                        borderRadius: BorderRadius.circular(20.w), // Adjust the radius as needed
-                      ),
 
-                      child: Center(
-                        child: Row(
-                          children: [
-                            SizedBox(width: 2.w),
-                            Icon(Icons.location_on_sharp,color: APPCOLORS.PRIMARY,),
-                            SizedBox(width: 2.w),
-                            Text("Islamabad Pakistan",style:TextStyle(color:APPCOLORS.PRIMARY,fontSize: 8.sp)),
-                          ],
-                        ),
-                      ),
-                    ),
                     SizedBox(width: 18.w,),
                     GestureDetector(
                         onTap: (){
-                          Navigator.push(context, MaterialPageRoute(builder: (context)=>NotificationView()));
+                          Navigator.push(context, MaterialPageRoute(builder: (context)=>MessagesView(from: false,)));
                         },
-                        child: Image.asset("assets/images/Notification.png")),
+                        child: Icon(Icons.message,color: APPCOLORS.PRIMARY,)),
                     SizedBox(width: 2.w,),
-                    Container(
-                      width: 15.w,
-                      height: 8.h,
-                      decoration: BoxDecoration(
-                        color: APPCOLORS.GREY,
-                        borderRadius: BorderRadius.circular(30.w), // Adjust the radius as needed
-                      ),
-                    ),
-
                   ],
                 ),
-
-                hsizedbox5,
-
                 HeadingText(text: "Lets get your \n First Client"),
-
                 hsizedbox2,
+                CarouselSlider(
+                  options: CarouselOptions(
+                    height: 200.0,
+                    autoPlay: true,
+                    enlargeCenterPage: true,
+                    aspectRatio: 9/16,
+                    autoPlayCurve: Curves.fastOutSlowIn,
+                    enableInfiniteScroll: true,
+                    autoPlayAnimationDuration: Duration(milliseconds: 800),
+                    viewportFraction: 0.8,
+                  ),
+                  items: imageUrls.map((imageUrl) {
+                    return Builder(
+                      builder: (BuildContext context) {
+                        return Container(
+                          width: MediaQuery.of(context).size.width,
+                          margin: EdgeInsets.symmetric(horizontal: 5.0),
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                              image: AssetImage(imageUrl), // Assuming 'imageUrl' is a valid asset path
+                              fit: BoxFit.cover,
+                            ),
+                            borderRadius: BorderRadius.all(Radius.circular(4.w)),
+                            color: Colors.amber,
+                          ),
+
+                        );
+                      },
+                    );
+                  }).toList(),
+                ),
 
 
                 // GestureDetector(
@@ -219,6 +241,17 @@ class _ContractorHomeScreenState extends State<ContractorHomeScreen> {
                   ],
                 ),
                 hsizedbox1,
+                Consumer<ProjectController>(builder: (context, data, child) {
+                  log(data.projects.length.toString());
+                  return ListView.builder(
+                    shrinkWrap: true,
+                    physics: NeverScrollableScrollPhysics(),
+                    itemCount: data.projects.length,
+                    itemBuilder: (context, index) {
+                      return  ProjectWidget(project: data.projects[index],);
+                    },);
+                },),
+
 
 
               ],

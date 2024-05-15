@@ -1,48 +1,90 @@
 import 'dart:convert';
 import 'dart:developer';
 
+import 'package:buildbind/Models/contractor_dashboard_model.dart';
 import 'package:buildbind/Models/contractor_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
+import '../Models/project_model.dart';
 import '../Services/api_calls.dart';
 import '../Utills/AppColors.dart';
 import '../Utills/utills.dart';
+import '../View/bottom_nav_bar.dart';
 import '../View/bottom_nav_two.dart';
 import '../View/show_snackbar.dart';
 import '../View/widgets/texts.dart';
 
-class ContractorController extends ChangeNotifier
-{
+class ContractorController extends ChangeNotifier {
 
-  List<Contractor> Companies=[];
-  List<IndividualContractor> top_contractors=[];
+  List<Contractor> Companies = [];
+  List<IndividualContractor> top_contractors = [];
 
-  List<IndividualContractor> all_contractors=[];
-  List<Contractor> all_Companies=[];
+  List<IndividualContractor> all_contractors = [];
+  List<Contractor> all_Companies = [];
+
+  List<Project> ongoinProjects = [];
+
+  List<DataModel> contractor_data=[];
+
+
+  /////////// Get top companies
+
+  getOngoingProjects(BuildContext context) async {
+    try {
+
+    // var hideLoading = showLoading(context, 'Please Wait..');
+
+      print('calling');
+    String token2=await ApiCall.getToken();
+
+    final headers = {
+      'authorization': token2,
+    };
+
+    final url = Uri.parse(
+        '$BASEURL/get_contractor_ratings');
+
+    final res = await http.get(url, headers: headers);
+    final status = res.statusCode;
+
+    // hideLoading();
+    var response = jsonDecode(res.body);
+
+    print(res.statusCode);
+    print(response);
+
+
+    if (res.statusCode == 200) {
+
+    } else {
+      showSnackbar(context, 'An error Occurred, Please try again later');
+    }
+    } catch (e) {
+      print("error in controller  ${e}");
+    }
+  }
 
   /////////// Get top companies
 
   getTopCompanies(BuildContext context) async {
-
     // try {
-      // var hideLoading = showLoading(context, 'Please Wait..');
-      var response = await ApiCall.callApiGet('/get_top_company/');
-      // hideLoading();
-      if (response != null) {
-        Companies.clear();
-        for (var data in response)
-        {
-          Companies.add(Contractor.fromJson(data));
-        }
-        print('Length of bids is${Companies.length}');
-
-        notifyListeners();
-      } else {
-        showSnackbar(context, 'An error Occurred, Please try again later');
+    // var hideLoading = showLoading(context, 'Please Wait..');
+    var response = await ApiCall.callApiGet('/get_top_company');
+    // hideLoading();
+    if (response != null) {
+      Companies.clear();
+      for (var data in response) {
+        Companies.add(Contractor.fromJson(data));
       }
+      print('Length of bids is${Companies.length}');
+
+      notifyListeners();
+    } else {
+      showSnackbar(context, 'An error Occurred, Please try again later');
+    }
     // } catch (e) {
     //   print("error in controller  ${e}");
     // }
@@ -52,15 +94,13 @@ class ContractorController extends ChangeNotifier
   /////////// Get all companies
 
   getAllCompanies(BuildContext context) async {
-
     // try {
     // var hideLoading = showLoading(context, 'Please Wait..');
     var response = await ApiCall.callApiGet('/get_company/');
     // hideLoading();
     if (response != null) {
       all_Companies.clear();
-      for (var data in response)
-      {
+      for (var data in response) {
         all_Companies.add(Contractor.fromJson(data));
       }
       print('Length of bids is${all_Companies.length}');
@@ -77,40 +117,37 @@ class ContractorController extends ChangeNotifier
   /////////// Get all Contractors
 
   getAllContractors(BuildContext context) async {
-
     // try {
-      // var hideLoading = showLoading(context, 'Please Wait..');
-      var response = await ApiCall.callApiGet('/get_contractors/');
-      // hideLoading();
-      if (response != null) {
-        all_contractors.clear();
-        for (var data in response)
-        {
-          all_contractors.add(IndividualContractor.fromJson(data));
-        }
-        print('Length of bids is${all_contractors.length}');
-
-        notifyListeners();
-      } else {
-        showSnackbar(context, 'An error Occurred, Please try again later');
+    // var hideLoading = showLoading(context, 'Please Wait..');
+    var response = await ApiCall.callApiGet('/get_contractors/');
+    // hideLoading();
+    if (response != null) {
+      all_contractors.clear();
+      for (var data in response) {
+        all_contractors.add(IndividualContractor.fromJson(data));
       }
+      print('Length of bids is${all_contractors.length}');
+
+      notifyListeners();
+    } else {
+      showSnackbar(context, 'An error Occurred, Please try again later');
+    }
     // } catch (e) {
     //   print("error in controller  ${e}");
     // }
   }
+
   //////////////////Get top contractors
 
 
   getTopContractors(BuildContext context) async {
-
     // try {
     // var hideLoading = showLoading(context, 'Please Wait..');
     var response = await ApiCall.callApiGet('/get_top_contractors/');
     // hideLoading();
     if (response != null) {
       top_contractors.clear();
-      for (var data in response)
-      {
+      for (var data in response) {
         top_contractors.add(IndividualContractor.fromJson(data));
       }
       print('Length of bids is${top_contractors.length}');
@@ -123,6 +160,34 @@ class ContractorController extends ChangeNotifier
     //   print("error in controller  ${e}");
     // }
   }
+
+
+  ////////////////// Get Business Sneak-Peak
+
+
+  getDashboard(BuildContext context) async {
+    try {
+      // var hideLoading = showLoading(context, 'Please Wait..');
+      var response = await ApiCall.callApiGet('/contractor-dashboard/');
+      // hideLoading();
+      if (response != null) {
+        contractor_data.clear();
+
+          contractor_data.add(DataModel.fromJson(response));
+
+        print('Length of bids is${contractor_data.length}');
+
+        notifyListeners();
+      } else {
+        showSnackbar(context, 'An error Occurred, Please try again later');
+      }
+    }
+
+  catch (e) {
+  print("error in controller  ${e}");
+  }
+}
+
 
 
 
@@ -142,6 +207,7 @@ class ContractorController extends ChangeNotifier
           {
             final url = Uri.parse('http://10.0.2.2:5000/contractors');
 
+            print(url);
             final req = http.MultipartRequest('POST', url)
               ..fields['contractor_type'] = 'individual'
               ..fields['no_of_employees'] = emp_num
@@ -195,7 +261,7 @@ class ContractorController extends ChangeNotifier
 
                       GestureDetector(
                         onTap: () {
-                          Navigator.push(context, MaterialPageRoute(builder: (context)=>BottomNavigation2()));
+                          Navigator.push(context, MaterialPageRoute(builder: (context)=>BottomNavigation()));
                         },
                         child: Container(
                           height: 8.h,
@@ -237,7 +303,7 @@ class ContractorController extends ChangeNotifier
               ..files.add(await http.MultipartFile.fromPath(
                   'image', image));
 
-            req.headers['authorization'] = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo2OSwiZW1haWwiOiJhbmVlcTJAZ21haWwuY29tIiwiaWF0IjoxNzE1MzU0NzU5LCJleHAiOjE3MTUzNTgzNTl9.okEzPY6ci7wbcQbL5QuEgW_Bj0-p2paFZ1gnD5sOJE0';
+            req.headers['authorization'] = '$token';
             req.headers['Content-Type']='multipart/form';
 
             final stream = await req.send();
@@ -464,6 +530,28 @@ class ContractorController extends ChangeNotifier
     }
   }
 
+  //////////////////// Buy Tokens Contractor
+
+  BuyToken(String token,BuildContext context) async {
+    Map<String,dynamic> body = {'token_amount': token,};
+
+    try {
+
+      var hideLoading = showLoading(context, 'Please Wait..');
+      var response = await ApiCall.callApiPost(body, '/purchase-tokens/');
+      hideLoading();
+      if (response != null) {
+        showSnackbar(context, 'Payment Successful');
+
+      } else {
+        showSnackbar(context, 'An error Occurred, Please try again later');
+      }
+    } catch (e) {
+      print("error in controller  ${e}");
+    }
+  }
+
+
 
 
 
@@ -495,22 +583,56 @@ class ContractorController extends ChangeNotifier
   }
   /////////////////////// Search Contractor
 
-  searchContractors(String email,String password,BuildContext context) async {
-    Map<String,dynamic> body = {'email': email, 'password': password};
+  searchContractors(
+     String? value,
+      String? value2,
+      String? value3,
+      BuildContext context) async {
+
 
     try {
 
       var hideLoading = showLoading(context, 'Please Wait..');
-      var response = await ApiCall.callApiPost(body, '/rider/login');
+      var response = await ApiCall.callApiGet('/search-contractors?individualName=$value&no_of_employees=$value2&rating=$value3');
       hideLoading();
       if (response != null) {
-
-        if (response['message'] == 'Invalid email or password') {
-          showSnackbar(context, "Invalid email or password");
-
-        } else {
-          showSnackbar(context, "Login Successful");
+        all_Companies.clear();
+        for (var data in response) {
+          all_Companies.add(Contractor.fromJson(data));
         }
+        print('Length of bids is${all_Companies.length}');
+
+        notifyListeners();
+      } else {
+        showSnackbar(context, 'An error Occurred, Please try again later');
+      }
+    } catch (e) {
+      print("error in controller  ${e}");
+    }
+  }
+
+  /////////////////////// Search Commpany
+
+  searchCompany(
+      String? value,
+      String? value2,
+      String? value3,
+      BuildContext context) async {
+
+    try {
+
+      // var hideLoading = showLoading(context, 'Please Wait..');
+      var response = await ApiCall.callApiGet('/search-contractors?companyName=$value&no_of_employees=$value2&rating=$value3');
+      // hideLoading();
+      if (response != null) {
+        all_contractors.clear();
+        for (var data in response) {
+          all_contractors.add(IndividualContractor.fromJson(data));
+        }
+        print('Length of bids is${all_contractors.length}');
+
+        notifyListeners();
+
       } else {
         showSnackbar(context, 'An error Occurred, Please try again later');
       }

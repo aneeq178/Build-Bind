@@ -13,7 +13,21 @@ class HeadingText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(text,style: TextStyle(color: APPCOLORS.PRIMARY,fontSize:18.sp,fontWeight: FontWeight.bold),);
+    return Text(text,style: TextStyle(color: APPCOLORS.PRIMARY,fontSize:16.sp,fontWeight: FontWeight.bold),);
+  }
+}
+
+class HeadingTextW extends StatelessWidget {
+  const HeadingTextW({
+    super.key,
+    required this.text,
+  });
+
+  final String text;
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(text,style: TextStyle(color: APPCOLORS.WHITE,fontSize:16.sp,fontWeight: FontWeight.bold),);
   }
 }
 
@@ -27,7 +41,7 @@ class HeadingText2 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(text,style: TextStyle(color: APPCOLORS.PRIMARY,fontSize:14.sp,fontWeight: FontWeight.bold));
+    return Text(text,style: TextStyle(color: APPCOLORS.PRIMARY,fontSize:13.sp,fontWeight: FontWeight.bold));
   }
 }
 
@@ -41,7 +55,7 @@ class LabelText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(text,style: TextStyle(color: APPCOLORS.PRIMARY,fontSize:16.sp,fontWeight: FontWeight.bold),);
+    return Text(text,style: TextStyle(color: APPCOLORS.PRIMARY,fontSize:15.sp,fontWeight: FontWeight.bold),);
   }
 }
 
@@ -69,7 +83,7 @@ class BoldText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(text,style: TextStyle(color: APPCOLORS.PRIMARY,fontSize:13.sp,fontWeight: FontWeight.bold),);
+    return Text(text,style: TextStyle(color: APPCOLORS.PRIMARY,fontSize:12.sp,fontWeight: FontWeight.bold),);
   }
 }
 

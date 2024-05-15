@@ -46,7 +46,7 @@ class Contractor {
   factory Contractor.fromJson(Map<String, dynamic> json) => Contractor(
     contractorId: json['contractor_id'] as int,
     noOfEmployees: json['no_of_employees'] as int,
-    userId: json['user_id'] as int,
+    userId: json['user_id']??1,
     contractorType: json['contractor_type'] as String,
     description: json['description'] as String,
     contractorRating: json['contractor_rating']??'',
@@ -128,7 +128,7 @@ class IndividualContractor {
         userId: json['user_id'] as int,
         contractorType: json['contractor_type'] as String,
         description: json['description'] as String,
-        contractorRating: json['contractor_rating'] as String,
+        contractorRating: json['contractor_rating']??'' ,
         individualId: json['individual_id'] as int,
         individualName: json['individual_name'] as String,
         individualEmail: json['individual_email'] as String,

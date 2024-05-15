@@ -1,7 +1,9 @@
+import 'package:buildbind/Controllers/contractor_controller.dart';
 import 'package:buildbind/View/Contractor/Tokens/buy_tokens_screen.dart';
 import 'package:buildbind/View/widgets/sized_boxes.dart';
 import 'package:buildbind/View/widgets/texts.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../Utills/AppColors.dart';
@@ -11,9 +13,17 @@ class BussinessSneakPeak extends StatefulWidget {
 
   @override
   State<BussinessSneakPeak> createState() => _BussinessSneakPeakState();
+
 }
 
 class _BussinessSneakPeakState extends State<BussinessSneakPeak> {
+  @override
+  void initState() {
+    var ctrl=context.read<ContractorController>();
+    ctrl.getDashboard(context);
+    // TODO: implement initState
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,142 +31,146 @@ class _BussinessSneakPeakState extends State<BussinessSneakPeak> {
         centerTitle: true,
         title: HeadingText(text: 'HQ Developers'),
       ),
-      body:Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            padding: EdgeInsets.all(4.w),
-            height: 25.h,
-            width: 100.w,
-            decoration: BoxDecoration(
-                color: APPCOLORS.PRIMARY,
-              borderRadius: BorderRadius.only(bottomLeft: Radius.circular(4.w),bottomRight: Radius.circular(4.w))
-            ),
-            child: Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text('Available Tokens',style: TextStyle(color: APPCOLORS.WHITE,fontSize:12.sp,fontWeight: FontWeight.bold)),
-                    Text('30',style: TextStyle(color: APPCOLORS.WHITE,fontSize:12.sp)),
-                  ],
+      body:
+      Consumer<ContractorController>(builder: (context, value, child) {
+        return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                padding: EdgeInsets.all(4.w),
+                height: 25.h,
+                width: 100.w,
+                decoration: BoxDecoration(
+                    color: APPCOLORS.PRIMARY,
+                    borderRadius: BorderRadius.only(bottomLeft: Radius.circular(4.w),bottomRight: Radius.circular(4.w))
                 ),
-                hsizedbox1,
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                child: Column(
                   children: [
-                    Text('Contractor Type',style: TextStyle(color: APPCOLORS.WHITE,fontSize:12.sp,fontWeight: FontWeight.bold)),
-                    Text('Registered Company',style: TextStyle(color: APPCOLORS.WHITE,fontSize:12.sp)),
-                  ],
-                ),
-                hsizedbox1,
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text('Ongoing Projects',style: TextStyle(color: APPCOLORS.WHITE,fontSize:12.sp,fontWeight: FontWeight.bold)),
-                    Text('1',style: TextStyle(color: APPCOLORS.WHITE,fontSize:12.sp)),
-                  ],
-                ),
-                hsizedbox1,
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text('Completed Projects',style: TextStyle(color: APPCOLORS.WHITE,fontSize:12.sp,fontWeight: FontWeight.bold)),
-                    Text('3',style: TextStyle(color: APPCOLORS.WHITE,fontSize:12.sp)),
-                  ],
-                ),
-                hsizedbox1,
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text('Ratting',style: TextStyle(color: APPCOLORS.WHITE,fontSize:12.sp,fontWeight: FontWeight.bold)),
                     Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text('4.8 ',style: TextStyle(color: APPCOLORS.WHITE,fontSize:12.sp)),
-                        Icon(Icons.star,color: Colors.yellow,),
+                        Text('Available Tokens',style: TextStyle(color: APPCOLORS.WHITE,fontSize:12.sp,fontWeight: FontWeight.bold)),
+                        Text(value.contractor_data[0].contractorTokens.toString(),style: TextStyle(color: APPCOLORS.WHITE,fontSize:12.sp)),
                       ],
                     ),
-                  ],
-                ),
-              ],
-            ),
-          ),
-          hsizedbox2,
-
-          Container(
-            padding: EdgeInsets.all(4.w),
-            child: Column(
-              children: [
-                HeadingText2(text: 'Earnings'),
-                hsizedbox2,
-                Container(
-                  padding: EdgeInsets.all(4.w),
-                  height: 20.h,
-                  width: 100.w,
-                  decoration: BoxDecoration(
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey,
-                          offset: Offset(0, 1),
-                          blurRadius: 6,
-                          spreadRadius: 2,
+                    hsizedbox1,
+                    // Row(
+                    //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    //   children: [
+                    //     Text('Contractor Type',style: TextStyle(color: APPCOLORS.WHITE,fontSize:12.sp,fontWeight: FontWeight.bold)),
+                    //     Text('Registered Company',style: TextStyle(color: APPCOLORS.WHITE,fontSize:12.sp)),
+                    //   ],
+                    // ),
+                    hsizedbox1,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text('Ongoing Projects',style: TextStyle(color: APPCOLORS.WHITE,fontSize:12.sp,fontWeight: FontWeight.bold)),
+                        Text(value.contractor_data[0].ongoingProjects[0].count.toString(),style: TextStyle(color: APPCOLORS.WHITE,fontSize:12.sp)),
+                      ],
+                    ),
+                    hsizedbox1,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text('Completed Projects',style: TextStyle(color: APPCOLORS.WHITE,fontSize:12.sp,fontWeight: FontWeight.bold)),
+                        Text('3',style: TextStyle(color: APPCOLORS.WHITE,fontSize:12.sp)),
+                      ],
+                    ),
+                    hsizedbox1,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text('Ratting',style: TextStyle(color: APPCOLORS.WHITE,fontSize:12.sp,fontWeight: FontWeight.bold)),
+                        Row(
+                          children: [
+                            Text('4.8 ',style: TextStyle(color: APPCOLORS.WHITE,fontSize:12.sp)),
+                            Icon(Icons.star,color: Colors.yellow,),
+                          ],
                         ),
                       ],
-                      color: APPCOLORS.GREY,
-                      borderRadius: BorderRadius.all(Radius.circular(4.w))
-                  ),
-                  child: Column(
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text('Earnings in March',style: TextStyle(color: APPCOLORS.BLACK,fontSize:12.sp)),
-                          Text('250,000',style: TextStyle(color: APPCOLORS.BLACK,fontSize:12.sp,fontWeight: FontWeight.bold)),
-                        ],
-                      ),
-                      hsizedbox2,
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text('On Going Orders',style: TextStyle(color: APPCOLORS.BLACK,fontSize:12.sp)),
-                          Text('380,0000',style: TextStyle(color: APPCOLORS.BLACK,fontSize:12.sp,fontWeight: FontWeight.bold)),
-                        ],
-                      ),
-                      hsizedbox2,
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text('Total Orders',style: TextStyle(color: APPCOLORS.BLACK,fontSize:12.sp)),
-                          Text('10.5 Million',style: TextStyle(color: APPCOLORS.BLACK,fontSize:12.sp,fontWeight: FontWeight.bold)),
-                        ],
-                      ),
-
-                    ],
-                  ),
-                ),
-                hsizedbox4,
-
-                GestureDetector(
-                  onTap: (){
-                    Navigator.push(context, MaterialPageRoute(builder: (context)=>BuyTokens()));
-                  },
-                  child: Container(
-                    width: 80.w,
-                    height: 7.h,
-                    decoration: BoxDecoration(
-                      color: APPCOLORS.SECONDARY,
-
-                      borderRadius: BorderRadius.circular(4.w),
                     ),
-                    child: Center(child: Text('Buy Tokens',style: TextStyle(color: APPCOLORS.WHITE,fontSize:12.sp,fontWeight: FontWeight.bold))),
+                  ],
+                ),
+              ),
+              hsizedbox2,
 
-                  ),
-                )
-              ],
-            ),
-          ),
-        ],
-      ),
+              Container(
+                padding: EdgeInsets.all(4.w),
+                child: Column(
+                  children: [
+                    HeadingText2(text: 'Earnings'),
+                    hsizedbox2,
+                    Container(
+                      padding: EdgeInsets.all(4.w),
+                      height: 20.h,
+                      width: 100.w,
+                      decoration: BoxDecoration(
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey,
+                              offset: Offset(0, 1),
+                              blurRadius: 6,
+                              spreadRadius: 2,
+                            ),
+                          ],
+                          color: APPCOLORS.GREY,
+                          borderRadius: BorderRadius.all(Radius.circular(4.w))
+                      ),
+                      child: Column(
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text('Earnings in ${value.contractor_data[0].earningsByMonth[0].month}',style: TextStyle(color: APPCOLORS.BLACK,fontSize:12.sp)),
+                              Text('${value.contractor_data[0].earningsByMonth[0].earnings}',style: TextStyle(color: APPCOLORS.BLACK,fontSize:12.sp,fontWeight: FontWeight.bold)),
+                            ],
+                          ),
+                          hsizedbox2,
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text('On Going Orders',style: TextStyle(color: APPCOLORS.BLACK,fontSize:12.sp)),
+                              Text('380,0000',style: TextStyle(color: APPCOLORS.BLACK,fontSize:12.sp,fontWeight: FontWeight.bold)),
+                            ],
+                          ),
+                          hsizedbox2,
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text('Total Orders',style: TextStyle(color: APPCOLORS.BLACK,fontSize:12.sp)),
+                              Text('10.5 Million',style: TextStyle(color: APPCOLORS.BLACK,fontSize:12.sp,fontWeight: FontWeight.bold)),
+                            ],
+                          ),
+
+                        ],
+                      ),
+                    ),
+                    hsizedbox4,
+
+                    GestureDetector(
+                      onTap: (){
+                        Navigator.push(context, MaterialPageRoute(builder: (context)=>BuyTokens()));
+                      },
+                      child: Container(
+                        width: 80.w,
+                        height: 7.h,
+                        decoration: BoxDecoration(
+                          color: APPCOLORS.SECONDARY,
+
+                          borderRadius: BorderRadius.circular(4.w),
+                        ),
+                        child: Center(child: Text('Buy Tokens',style: TextStyle(color: APPCOLORS.WHITE,fontSize:12.sp,fontWeight: FontWeight.bold))),
+
+                      ),
+                    )
+                  ],
+                ),
+              ),
+            ],
+          );
+      },),
+
     );
   }
 }

@@ -8,12 +8,14 @@ import 'package:buildbind/View/Contractor/contractor_details.dart';
 
 import 'package:buildbind/View/home/featured_companies.dart';
 import 'package:buildbind/View/widgets/sized_boxes.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 import '../../Controllers/user_local_conrtoller.dart';
 import '../../Models/contractor_model.dart';
 import '../Bids/bids_screen.dart';
+import '../Search/search_contractor.dart';
 import '../widgets/nav_bar.dart';
 import '../widgets/texts.dart';
 
@@ -37,6 +39,19 @@ class _DashboardState extends State<Dashboard> {
     ctrl2.getData();
     super.initState();
   }
+
+
+  final List<String> imageUrls = [
+    'assets/images/slider1.jpg',
+    'assets/images/slider2.jpg',
+    'assets/images/slider3.jpg',
+  ];
+
+  final List<String> titles = [
+    'Connect with Clients',
+    'Build Bind',
+    'Lets Bind Together',
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -55,8 +70,12 @@ class _DashboardState extends State<Dashboard> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
+                    Consumer<UserLocalController>(builder: (context, value, child) {
+                      return
+                        HeadingText(text: "Hey, ${value.name}!");
+                    }),
                   // Container(
                   // width: 40.w,
                   //   height: 8.h,
@@ -76,13 +95,14 @@ class _DashboardState extends State<Dashboard> {
                   //     ),
                   //   ),
                   // ),
-                    SizedBox(width: 18.w,),
+
                     GestureDetector(
                         onTap: (){
+
                           Navigator.push(context, MaterialPageRoute(builder: (context)=>NotificationView()));
                         },
                         child: Image.asset("assets/images/Notification.png")),
-                    SizedBox(width: 2.w,),
+
                     // Container(
                     //   width: 15.w,
                     //   height: 8.h,
@@ -95,11 +115,8 @@ class _DashboardState extends State<Dashboard> {
                   ],
                 ),
 
-                hsizedbox3,
-        Consumer<UserLocalController>(builder: (context, value, child) {
-          return
-            HeadingText(text: "Hey, ${value.name}!");
-        }),
+
+
                HeadingText(text: "Lets Start Exploring"),
 
                 hsizedbox2,
@@ -136,27 +153,68 @@ class _DashboardState extends State<Dashboard> {
                 //           ),
                 // ),
 
-              hsizedbox2,
+                CarouselSlider(
+                  options: CarouselOptions(
+                    height: 200.0,
+                    autoPlay: true,
+                    enlargeCenterPage: true,
+                    aspectRatio: 9/16,
+                    autoPlayCurve: Curves.fastOutSlowIn,
+                    enableInfiniteScroll: true,
+                    autoPlayAnimationDuration: Duration(milliseconds: 800),
+                    viewportFraction: 0.8,
+                  ),
+                  items: imageUrls.map((imageUrl) {
+                    return Builder(
+                      builder: (BuildContext context) {
+                        return Container(
+                            width: MediaQuery.of(context).size.width,
+                            margin: EdgeInsets.symmetric(horizontal: 5.0),
+                            decoration: BoxDecoration(
+                              image: DecorationImage(
+                                image: AssetImage(imageUrl), // Assuming 'imageUrl' is a valid asset path
+                                fit: BoxFit.cover,
+                              ),
+                              borderRadius: BorderRadius.all(Radius.circular(4.w)),
+                              color: Colors.amber,
+                            ),
+                        );
+                      },
+                    );
+                  }).toList(),
+                ),
 
-                //
-                // Container(
-                //   height: 6.2.h,
-                //   child: ListView(
-                //     scrollDirection: Axis.horizontal,
-                //     shrinkWrap: true,
-                //     children: [
-                //       TabButton(text: "All",selected: true,),
-                //       wsizedbox2,
-                //       TabButton(text: "House",selected: false,),
-                //       wsizedbox2,
-                //       TabButton(text: "Plaza",selected: false),
-                //       wsizedbox2,
-                //       TabButton(text: "Flats",selected: false),
-                //       // wsizedbox4,
-                //       // TabButton( text: "Factory",),
-                //     ],
-                //   ),
-                // ),
+                hsizedbox2,
+                GestureDetector(
+                  onTap: (){
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=>SearchContractor()));
+                  },
+                  child: Container(
+                    padding: EdgeInsets.all(2.w),
+                    decoration: BoxDecoration(
+                      color: APPCOLORS.GREY,
+                      border: Border.all(color: Colors.transparent),
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: TextField(
+                            onTap: (){
+                              Navigator.push(context, MaterialPageRoute(builder: (context)=>SearchContractor()));
+                            },
+                            decoration: InputDecoration(
+                              hintText: 'Search Company or Contractor',
+                              border: InputBorder.none,
+                            ),
+                          ),
+                        ),
+                        Icon(Icons.search),
+                      ],
+                    ),
+                  ),
+                ),
+
                 hsizedbox2,
 
                 Row(

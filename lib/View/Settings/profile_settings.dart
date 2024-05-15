@@ -7,6 +7,7 @@ import 'package:buildbind/View/Auth/login_screen.dart';
 import 'package:buildbind/View/Auth/register_screen.dart';
 import 'package:buildbind/View/Settings/edit_user.dart';
 import 'package:buildbind/View/Settings/update_password.dart';
+import 'package:buildbind/View/rating/rating.dart';
 
 import 'package:buildbind/View/widgets/sized_boxes.dart';
 import 'package:flutter/cupertino.dart';
@@ -16,6 +17,8 @@ import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
 import '../MyProjects/my_projects.dart';
+import '../bottom_nav_bar.dart';
+import '../bottom_nav_two.dart';
 import '../contact_us_screen.dart';
 
 class ProfileSetings extends StatefulWidget {
@@ -31,7 +34,6 @@ class _ProfileSetingsState extends State<ProfileSetings> {
   void initState() {
     var ctrl= context.read<UserLocalController>();
     ctrl.getData();
-
     super.initState();
   }
   @override
@@ -117,7 +119,7 @@ class _ProfileSetingsState extends State<ProfileSetings> {
 
             GestureDetector(
               onTap: (){
-                Navigator.push(context, MaterialPageRoute(builder: (context)=>MyProjects()));
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>RatingView()));
               },
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -132,27 +134,30 @@ class _ProfileSetingsState extends State<ProfileSetings> {
             Divider(),
 
 
-            GestureDetector(
-              onTap: (){
-                Navigator.push(context, MaterialPageRoute(builder: (context)=>ContractorType()));
-              },
-              child: Container(
-                padding: EdgeInsets.all(2.w),
-                height: 5.5.h,
-                decoration: BoxDecoration(
+            Consumer<UserLocalController>(builder: (context, value, child) {
+              return GestureDetector(
+                onTap: (){
+                  value.contractorCheck?context.navigateTo(BottomNavigation2()):context.navigateTo(ContractorType());
+                },
+                child: Container(
+                  padding: EdgeInsets.all(2.w),
+                  height: 5.5.h,
+                  decoration: BoxDecoration(
                     color: APPCOLORS.SECONDARY,
-                  borderRadius: BorderRadius.all(Radius.circular(4.w)),
+                    borderRadius: BorderRadius.all(Radius.circular(4.w)),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text('Become a Contractor',style: TextStyle(fontSize: 4.5.w,color: APPCOLORS.BLACK),),
+
+                      Icon(Icons.account_box_outlined),
+                    ],
+                  ),
                 ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text('Become a Contractor',style: TextStyle(fontSize: 4.5.w,color: APPCOLORS.BLACK),),
-              
-                    Icon(Icons.account_box_outlined),
-                  ],
-                ),
-              ),
-            ),
+              );
+            },),
+
             Divider(),
             GestureDetector(
               onTap: (){

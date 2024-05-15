@@ -14,6 +14,7 @@ import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 import '../../Utills/AppColors.dart';
 import '../Contractor/contractor_details.dart';
+import '../bottom_nav_bar.dart';
 
 
 class SearchContractor extends StatefulWidget {
@@ -30,32 +31,37 @@ class _SearchContractorState extends State<SearchContractor> {
     var ctrl= context.read<ContractorController>();
     ctrl.getAllCompanies(context);
     ctrl.getAllContractors(context);
-
-    // TODO: implement initState
     super.initState();
   }
   bool company_selected=true;
+
+  var _searchcontroller= TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         leading:    Padding(
           padding:  EdgeInsets.all(2.w),
-          child: Container(
-            width: 6.h,
-            height: 6.h,
-            decoration: BoxDecoration(
-              color: APPCOLORS.GREY,
-              shape: BoxShape.circle,
-            ),
-            child: Center(
-              child: Icon(
-                Icons.arrow_back_ios,
+          child: GestureDetector(
+            onTap: (){
+              context.navigateTo(BottomNavigation());
+            },
+            child: Container(
+              width: 6.h,
+              height: 6.h,
+              decoration: BoxDecoration(
+                color: APPCOLORS.GREY,
+                shape: BoxShape.circle,
+              ),
+              child: Center(
+                child: Icon(
+                  Icons.arrow_back_ios,
+                ),
               ),
             ),
           ),
         ),
-        title:Center(child: LabelText(text: 'Search result')),
+        title:const Center(child: LabelText(text: 'Search Contractors')),
         actions: [
           Padding(
             padding:  EdgeInsets.all(2.w),
@@ -66,7 +72,7 @@ class _SearchContractorState extends State<SearchContractor> {
                   isScrollControlled: true,
                   context: context,
                   builder: (BuildContext context) {
-                    return FilterWidget();
+                    return FilterWidget(check:company_selected);
                   },
                 );
               },
@@ -92,35 +98,58 @@ class _SearchContractorState extends State<SearchContractor> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              GestureDetector(
-                onTap: (){
-                  Navigator.push(context, MaterialPageRoute(builder: (context)=>SearchContractor()));
-                },
-                child: Container(
-                  padding: EdgeInsets.all(2.w),
-                  decoration: BoxDecoration(
-                    color: APPCOLORS.GREY,
-                    border: Border.all(color: Colors.transparent),
-                    borderRadius: BorderRadius.circular(8.0),
-                  ),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: TextField(
-                          onTap: (){
-                            Navigator.push(context, MaterialPageRoute(builder: (context)=>SearchContractor()));
-                          },
-                          decoration: InputDecoration(
-                            hintText: 'Search Company or Contractor',
-                            border: InputBorder.none,
-                          ),
-                        ),
-                      ),
-                      Icon(Icons.search),
-                    ],
-                  ),
+    Consumer<CFilterProvider>(builder: (context, data, child) {
+    return
+    GestureDetector(
+      onTap: (){
+        // Navigator.push(context, MaterialPageRoute(builder: (context)=>SearchContractor()));
+      },
+      child: Container(
+        padding: EdgeInsets.all(2.w),
+        decoration: BoxDecoration(
+          color: APPCOLORS.GREY,
+          border: Border.all(color: Colors.transparent),
+          borderRadius: BorderRadius.circular(8.0),
+        ),
+        child: Row(
+          children: [
+            Expanded(
+              child: TextField(
+                decoration: InputDecoration(
+                  hintText: 'Search Company or Contractor',
+                  border: InputBorder.none,
                 ),
+        controller: _searchcontroller,
               ),
+            ),
+            GestureDetector(
+                onTap: (){
+
+                  var ctrl =ContractorController();
+
+                  if(company_selected)
+                    {
+                      ctrl.searchCompany(_searchcontroller.text,data.no_of_emp==1?'8':data.no_of_emp==1?'15':'30',data.rating==1?'3':'4', context);
+
+                    }
+                  else
+                    {
+                    ctrl.searchContractors(_searchcontroller.text,data.no_of_emp==1?'8':data.no_of_emp==1?'15':'30',data.rating==1?'3':'4', context);
+
+                    }
+
+                    },
+
+
+
+                child: Icon(Icons.search)),
+          ],
+        ),
+      ),
+    );
+    }),
+
+
 
               hsizedbox1,
               Container(
@@ -238,8 +267,11 @@ class _SearchContractorState extends State<SearchContractor> {
 
 class FilterWidget extends StatelessWidget {
   const FilterWidget({
+    required this.check,
     super.key,
   });
+
+   final bool check;
 
   @override
   Widget build(BuildContext context) {
@@ -416,6 +448,19 @@ class FilterWidget extends StatelessWidget {
                   alignment: Alignment.center,
                   child: GestureDetector(
                     onTap: (){
+
+                      var ctrl=ContractorController();
+
+                      if(check)
+                        {
+                         ctrl.searchCompany('',data.no_of_emp==1?'8':data.no_of_emp==1?'15':'30',data.rating==1?'3':'4', context);
+                        }
+
+                      else
+                        {
+                          ctrl.searchContractors('',data.no_of_emp==1?'8':data.no_of_emp==1?'15':'30',data.rating==1?'3':'4', context);
+
+                        }
 
                     },
                     child: Container(

@@ -10,6 +10,8 @@ class UserLocalController extends ChangeNotifier
   String name='';
   String phone='';
   String email='';
+  String image='';
+  bool contractorCheck=false;
 
 
    getData()async{
@@ -17,6 +19,21 @@ class UserLocalController extends ChangeNotifier
      name =await prefs.getString('name')??'Aneeq';
      phone =await prefs.getString('phone')??'+ 92';
      email =await prefs.getString('email')??'aneeq2@gmail.com';
+     image =await prefs.getString('image')??'';
+    String is_contractor=await ApiCall.getUserType()??'';
+
+    if(is_contractor=='true')
+      {
+        contractorCheck=true;
+      }
+    else
+      {
+        contractorCheck=false;
+      }
+
+
+    print(image);
+
 
     notifyListeners();
   }

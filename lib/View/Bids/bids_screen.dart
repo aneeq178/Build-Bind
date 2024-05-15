@@ -86,7 +86,7 @@ class _NotificationViewState extends State<NotificationView> {
 
                       GestureDetector(
                         onTap: (){
-                          Navigator.push(context, MaterialPageRoute(builder: (context)=>MessagesView()));
+                          Navigator.push(context, MaterialPageRoute(builder: (context)=>MessagesView(from: true,)));
                         },
                         child: Container(
                           width: 40.w,

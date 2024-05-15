@@ -9,4 +9,4 @@ String generateChatID({required String id1, required String id2})
 }
 
 
-String BASEURL='http://10.0.2.2:5000';
+String BASEURL='https://buildbind.onrender.com';

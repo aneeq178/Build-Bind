@@ -1,22 +1,39 @@
 import 'package:buildbind/View/bottom_nav_two.dart';
+import 'package:buildbind/View/show_snackbar.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
+import '../../../Controllers/bid_controller.dart';
+import '../../../Models/project_model.dart';
 import '../../../Utills/AppColors.dart';
 import '../../widgets/sized_boxes.dart';
 import '../../widgets/texts.dart';
 import '../contractor_details.dart';
 
 class ContractorBiding extends StatefulWidget {
-  const ContractorBiding({super.key});
+  const ContractorBiding({
+    required this.project,
+    super.key});
+
+  final Project project;
+
 
   @override
   State<ContractorBiding> createState() => _ContractorBidingState();
 }
 
+
 class _ContractorBidingState extends State<ContractorBiding> {
+
+  String? _pdfPath;
+  String? _pdfname;
+
+  var _costcontroller = TextEditingController();
+  var _descriptioncontrller = TextEditingController();
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,9 +67,9 @@ class _ContractorBidingState extends State<ContractorBiding> {
               ),
 
               hsizedbox2,
-              const LabelText(text: '15 Marla, 2 Floor Modern House'),
+               LabelText(text: widget.project.pName!),
               hsizedbox1,
-              Text("I have a 5 marla plot in Taj residence and I want to construct house with modern front elevation ",style:TextStyle(color:Colors.black,fontSize: 8.sp)),
+              Text(widget.project.pDetails!,style:TextStyle(color:Colors.black,fontSize: 8.sp)),
               hsizedbox1,
               Container(
                 padding: EdgeInsets.all(2.w),
@@ -65,7 +82,7 @@ class _ContractorBidingState extends State<ContractorBiding> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                    HeadingText2(text: 'Estimated Cost'),
-                   HeadingText2(text: '6.5 M Rs'),
+                   HeadingText2(text:widget.project.pEstimatedCost.toString()!),
                   ],
                 ),
               ),
@@ -81,6 +98,7 @@ class _ContractorBidingState extends State<ContractorBiding> {
                   children: [
                     Expanded(
                       child: TextField(
+                        controller: _costcontroller,
                         decoration: InputDecoration(
                           hintText: 'Your offer in Rs',
                           border: InputBorder.none,
@@ -102,6 +120,7 @@ class _ContractorBidingState extends State<ContractorBiding> {
                   children: [
                     Expanded(
                       child: TextField(
+                        controller: _descriptioncontrller,
                         maxLines: 3,
                         decoration: InputDecoration(
                           hintText: 'Describe your offer',
@@ -132,7 +151,8 @@ class _ContractorBidingState extends State<ContractorBiding> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          Text('Attach Detailed Quotation',style: TextStyle(color: APPCOLORS.WHITE,fontSize:12.sp,fontWeight: FontWeight.bold)),
+                          _pdfname==null? Text('Attach Detailed Quotation',style: TextStyle(color: APPCOLORS.WHITE,fontSize:12.sp,fontWeight: FontWeight.bold)):
+                          Text(_pdfname!,style: TextStyle(color: APPCOLORS.WHITE,fontSize:12.sp,fontWeight: FontWeight.bold)),
                           wsizedbox2,
                           Icon(Icons.drive_folder_upload_outlined,color: Colors.white,),
 
@@ -146,25 +166,15 @@ class _ContractorBidingState extends State<ContractorBiding> {
               hsizedbox4,
               GestureDetector(
                 onTap: () {
-                  showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return AlertDialog(
-                        title: Text('Lets hope for the best'),
+                  var ctrl=BidController();
+                  if(_pdfPath==null)
+                    {
+                      showSnackbar(context,'Please Attack Quotation');
+                    }
+                  else{
+                    ctrl.submitBid(_costcontroller.text,_descriptioncontrller.text,widget.project.pId.toString(),_pdfPath! ,context);
 
-                        content: const Text('Your Quotation have been submitted you can check client response in the chat  '),
-                        actions: [
-
-                          TextButton(
-                            onPressed: () {
-                              Navigator.push(context, MaterialPageRoute(builder: (context)=>BottomNavigation2()));
-                            },
-                            child: Text('OK'),
-                          ),
-                        ],
-                      );
-                    },
-                  );
+                  }
                 },
                 child: Container(
                   height: 8.h,
@@ -194,6 +204,8 @@ class _ContractorBidingState extends State<ContractorBiding> {
       ),
     );
   }
+
+
   void _pickPDF(BuildContext context) async {
     try {
       FilePickerResult? result = await FilePicker.platform.pickFiles(
@@ -203,8 +215,9 @@ class _ContractorBidingState extends State<ContractorBiding> {
 
       if (result != null) {
         // Do something with the picked PDF file
-        String filePath = result.files.single.path!;
-        print('Picked PDF file path: $filePath');
+         _pdfPath = result.files.single.path!;
+         _pdfname = result.files.single.name!;
+        print('Picked PDF file path: $_pdfPath');
 
         // You can handle the file path as needed, for example, you may want to display it or perform further operations.
       } else {

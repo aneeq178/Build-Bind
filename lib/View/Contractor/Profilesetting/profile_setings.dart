@@ -4,6 +4,7 @@ import 'package:buildbind/View/Auth/login_screen.dart';
 import 'package:buildbind/View/Auth/register_screen.dart';
 import 'package:buildbind/View/Contractor/bussines_sneakpeak.dart';
 import 'package:buildbind/View/Contractor/ongoing_projects.dart';
+import 'package:buildbind/View/Contractor/rattings.dart';
 import 'package:buildbind/View/Settings/update_password.dart';
 import 'package:buildbind/View/contact_us_screen.dart';
 
@@ -110,6 +111,22 @@ class _ContractorProfileSettingsState extends State<ContractorProfileSettings> {
               ),
             ),
             Divider(),
+            hsizedbox2,
+
+            GestureDetector(
+              onTap: (){
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>Rattings()));
+              },
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text('Ratings',style: TextStyle(fontSize: 4.5.w,color: APPCOLORS.BLACK),),
+                  Icon(Icons.notes),
+                ],
+              ),
+            ),
+            Divider(),
+
             hsizedbox2,
 
             GestureDetector(

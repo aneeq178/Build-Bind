@@ -15,6 +15,14 @@ class PFilterProvider extends ChangeNotifier
     notifyListeners();
   }
 
+  resetFilters(){
+     fillter_p_cost=0;
+     fillter_p_categroy=0;
+     fillter_p_type=0;
+     fillter_p_mode=0;
+    notifyListeners();
+  }
+
   updatecategory(int f){
     fillter_p_categroy=f;
     notifyListeners();

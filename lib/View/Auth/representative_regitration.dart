@@ -341,19 +341,14 @@ class _RepresentativeRegistrationState extends State<RepresentativeRegistration>
 
                               }
                             else{
-                              ContractorReg contractor= ContractorReg(individualName: _namecontroller.text,
+                              ContractorReg contractor= ContractorReg(individualName: _namecontroller.text,contractorImage: imgpath,
                                 cnic: _CNICcontroller.text,position: _positioncontroller.text,cnicfpath: data.Cnicf,cnicbpath: data.Cnicb);
 
                               Navigator.push(context, MaterialPageRoute(builder: (context)=>RegisterTwo(type: widget.type,contractor: contractor,)));
 
                             }
-
-
                           }
                         }
-
-
-
                       },
                       child: Container(
                         height: 8.h,

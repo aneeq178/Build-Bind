@@ -17,12 +17,10 @@ class SendOtp
     // Generate a random 4-digit OTP
     otp = (random.nextInt(9000) + 1000);
     print(otp);
-    final String msg =
-        "Hello from Faisal Burger!\n\nYour OTP for Registration is: $otp\n\nPlease enter this code in the app to confirm your Procede.\n\nThank You,\nTeam Shazal";
-    // Replace the URL with your actual SMS gateway URL
-    String apiUrl =
 
-        'http://b2bsms.helium.com.pk/SMSPortal/Customer/ProcessSMS.aspx?userid=eride&pwd=eride123&msg=$msg&mobileno=$phoneNumber';
+    final String msg =
+        "Hello from Build Bind!\n\nYour OTP for Registration is: $otp\n\nPlease enter this code in the app to confirm your Proceed.\n\nThank You,\nTeam Shazal";
+    String apiUrl = 'http://b2bsms.helium.com.pk/SMSPortal/Customer/ProcessSMS.aspx?userid=eride&pwd=eride123&msg=$msg&mobileno=$phoneNumber';
 
     try {
       final response = await http.get(Uri.parse(apiUrl));

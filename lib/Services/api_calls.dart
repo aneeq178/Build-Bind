@@ -144,18 +144,22 @@ class ApiCall{
     print("12");
     // try {
       String token =await getToken();
+
       var headers={
         'authorization':'$token',
       };
 
       String baseUrl = "$BASEURL$endpoint";
       print(baseUrl);
+      print(headers);
 
       print("1");
-      final response = await http.get(
-        headers: headers,
-        Uri.parse(baseUrl),
-      ).timeout(Duration(seconds: 10));
+
+    final response = await http.get(
+      headers: headers,
+      Uri.parse(baseUrl),
+    );
+
 
     print(response.statusCode);
 

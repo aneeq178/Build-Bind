@@ -14,7 +14,11 @@ import '../bottom_nav_bar.dart';
 import '../show_snackbar.dart';
 
 class MessagesView extends StatefulWidget {
-  const MessagesView({super.key});
+  const MessagesView({
+    required this.from,
+    super.key});
+
+  final bool from;
 
   @override
   State<MessagesView> createState() => _MessagesViewState();
@@ -62,7 +66,9 @@ class _MessagesViewState extends State<MessagesView> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Container(
+
+
+             widget.from? Container(
                 width: 95.w,
                 height: 10.h,
                 padding: EdgeInsets.all(2.w),
@@ -95,7 +101,7 @@ class _MessagesViewState extends State<MessagesView> {
 
                       GestureDetector(
                         onTap: (){
-                          Navigator.push(context, MaterialPageRoute(builder: (context)=>MessagesView()));
+                          Navigator.push(context, MaterialPageRoute(builder: (context)=>MessagesView(from: true,)));
                         },
                         child: Container(
                           width: 40.w,
@@ -112,7 +118,7 @@ class _MessagesViewState extends State<MessagesView> {
                     ],
                   ),
                 ),
-              ),
+              ):Container(),
               hsizedbox2,
 
               LabelText(text: 'All Chats'),
