@@ -2,6 +2,7 @@ import 'package:buildbind/Controllers/contractor_controller.dart';
 import 'package:buildbind/Models/contractor_model.dart';
 import 'package:buildbind/Providers/contractor_fillter_provider.dart';
 import 'package:buildbind/Utills/extentions/navigation_extension.dart';
+import 'package:buildbind/Utills/utills.dart';
 import 'package:buildbind/View/Contractor/company_details.dart';
 import 'package:buildbind/View/home/company_description.dart';
 import 'package:buildbind/View/widgets/sized_boxes.dart';
@@ -228,7 +229,7 @@ class _SearchContractorState extends State<SearchContractor> {
                             onTap: (){
                               context.navigateTo(CompanyDetails(contractor: value.all_Companies[index]));
                             },
-                            child: FeaturedCompnyTile2(url: 'assets/images/image 29.png', name:value.all_Companies[index].companyName,
+                            child: FeaturedCompnyTile2(url:value.all_Companies[index].imgpath, name:value.all_Companies[index].companyName,
                                 rating: value.all_Companies[index].contractorRating, locaion: '', contractor: value.all_Companies[index],),
                           );
 
@@ -249,7 +250,7 @@ class _SearchContractorState extends State<SearchContractor> {
                             onTap: (){
                               context.navigateTo(ContractorDetails(contractor: value.all_contractors[index]));
                             },
-                            child: FeaturedContractorTile2(url: 'assets/images/image 29.png', name:value.all_contractors[index].individualName,
+                            child: FeaturedContractorTile2(url:value.all_contractors[index].contractorImage, name:value.all_contractors[index].individualName,
                                 rating: value.all_contractors[index].contractorRating, locaion: '', contractor:  value.all_contractors[index],),
                           );
                       },),
@@ -505,6 +506,7 @@ class FeaturedCompnyTile2 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+   print( '$BASEURL/$url');
     return GestureDetector(
       onTap: (){
         context.navigateTo(CompanyDetails(contractor: contractor));
@@ -527,37 +529,17 @@ class FeaturedCompnyTile2 extends StatelessWidget {
                 width: 40.w, // Adjust the width as needed
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.all(Radius.circular(4.w)),
-                  image: DecorationImage(
-                    image: AssetImage(
-                      url,
-                      // 'assets/images/companies.png'
-                    ), // Replace with your image asset path
-                    fit: BoxFit.cover,
 
-                  ),
                 ),
-                child: Container(
-                  padding: EdgeInsets.all(16.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      // Container(
-                      //   padding: EdgeInsets.all(8.0),
-                      //   decoration: BoxDecoration(
-                      //     shape: BoxShape.circle,
-                      //     color: Colors.white,
-                      //   ),
-                      //   child: Icon(
-                      //     Icons.favorite,
-                      //     color: Colors.red,
-                      //     size: 24.0,
-                      //   ),
-                      // ),
+                child: Image.network(
+                  '$BASEURL/$url',
+                  errorBuilder: (BuildContext context, Object error, StackTrace? stackTrace) {
+                    return Center(
+                      child: Text('Failed to load image'),
+                    );
+                  },
+                ),
 
-                    ],
-                  ),
-                ),
               ),
 
               Padding(
@@ -583,7 +565,7 @@ class FeaturedCompnyTile2 extends StatelessWidget {
                       children: [
                         Icon(Icons.star,color: Colors.yellow,),
                         Text(
-                          rating,
+                          rating==''?'not rated':rating,
                           style: TextStyle(
                             color: Colors.black,
                             fontSize: 10.sp,
@@ -592,18 +574,18 @@ class FeaturedCompnyTile2 extends StatelessWidget {
                       ],
                     ),
                     hsizedbox1,
-                    Row(
-                      children: [
-                        Icon(Icons.location_on_sharp),
-                        Text(
-                          locaion,
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 10.sp,
-                          ),
-                        ),
-                      ],
-                    ),
+                    // Row(
+                    //   children: [
+                    //     Icon(Icons.location_on_sharp),
+                    //     Text(
+                    //       locaion,
+                    //       style: TextStyle(
+                    //         color: Colors.black,
+                    //         fontSize: 10.sp,
+                    //       ),
+                    //     ),
+                    //   ],
+                    // ),
 
                   ],
                 ),
@@ -634,6 +616,7 @@ class FeaturedContractorTile2 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print( '$BASEURL/$url');
     return GestureDetector(
       onTap: (){
         context.navigateTo(ContractorDetails(contractor: contractor));
@@ -715,7 +698,7 @@ class FeaturedContractorTile2 extends StatelessWidget {
                         children: [
                           Icon(Icons.star,color: Colors.yellow,),
                           Text(
-                            rating,
+                            rating==''?'not rated':rating,
                             style: TextStyle(
                               color: Colors.black,
                               fontSize: 10.sp,

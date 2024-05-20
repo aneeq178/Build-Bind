@@ -262,7 +262,7 @@ class _DashboardState extends State<Dashboard> {
                       shrinkWrap: true,
                       itemCount: data.Companies.length,
                       scrollDirection: Axis.horizontal,
-                      itemBuilder: (context, index) =>  TopCompanies(contractor: data.Companies[index],),),
+                      itemBuilder: (context, index) =>TopCompanies(contractor: data.Companies[index],),),
                   );
                 },),
 
@@ -363,23 +363,34 @@ class TopCompanies extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Container(
-              width: 13.w,
-              height: 8.h,
-              padding: EdgeInsets.all(5.w),
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage(
-                    'assets/temp/habib.jpeg',
-                    // 'assets/images/companies.png'
-                  ), // Replace with your image asset path
-                  fit: BoxFit.cover,
-                ),
-                color: APPCOLORS.GREY,
-                border: Border.all(color: Colors.transparent),
-                borderRadius: BorderRadius.circular(8.w),
-              ),
-            ),
+            // Container(
+            //   width: 13.w,
+            //   height: 8.h,
+            //   padding: EdgeInsets.all(5.w),
+            //   decoration: BoxDecoration(
+            //     // image: DecorationImage(
+            //     //   image: AssetImage(
+            //     //     'assets/temp/habib.jpeg',
+            //     //     // 'assets/images/companies.png'
+            //     //   ), // Replace with your image asset path
+            //     //   fit: BoxFit.cover,
+            //     // ),
+            //     color: APPCOLORS.GREY,
+            //     border: Border.all(color: Colors.transparent),
+            //     borderRadius: BorderRadius.circular(8.w),
+            //
+            //   ),
+            //
+            //   child: Image.network(
+            //     c,
+            //
+            //     errorBuilder: (BuildContext context, Object error, StackTrace? stackTrace) {
+            //       return Center(
+            //         child: Text('Failed to load image'),
+            //       );
+            //     },
+            //   ),
+            // ),
             Text(contractor.companyName,style:TextStyle(color:APPCOLORS.PRIMARY,fontSize: 10.sp)),
             SizedBox(width: 2.w,),
           ],

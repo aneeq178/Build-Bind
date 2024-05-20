@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
 
+import 'package:buildbind/Controllers/project_controler.dart';
 import 'package:buildbind/Models/contractor_dashboard_model.dart';
 import 'package:buildbind/Models/contractor_model.dart';
 import 'package:flutter/cupertino.dart';
@@ -33,11 +34,11 @@ class ContractorController extends ChangeNotifier {
   /////////// Get top companies
 
   getOngoingProjects(BuildContext context) async {
-    try {
+    // try {
 
     // var hideLoading = showLoading(context, 'Please Wait..');
 
-      print('calling');
+      print('calling on going');
     String token2=await ApiCall.getToken();
 
     final headers = {
@@ -45,7 +46,7 @@ class ContractorController extends ChangeNotifier {
     };
 
     final url = Uri.parse(
-        '$BASEURL/get_contractor_ratings');
+        '$BASEURL/contractors_ongoing_projects');
 
     final res = await http.get(url, headers: headers);
     final status = res.statusCode;
@@ -58,13 +59,21 @@ class ContractorController extends ChangeNotifier {
 
 
     if (res.statusCode == 200) {
+      ongoinProjects.clear();
+      for (var data in response) {
+        ongoinProjects.add(Project.fromJson(data));
+      }
 
+      print('Length of ongoing is${ongoinProjects.length}');
+
+      notifyListeners();
     } else {
-      showSnackbar(context, 'An error Occurred, Please try again later');
+
+
     }
-    } catch (e) {
-      print("error in controller  ${e}");
-    }
+    // } catch (e) {
+    //   print("error in controller  ${e}");
+    // }
   }
 
   /////////// Get top companies
@@ -79,7 +88,7 @@ class ContractorController extends ChangeNotifier {
       for (var data in response) {
         Companies.add(Contractor.fromJson(data));
       }
-      print('Length of bids is${Companies.length}');
+      print('Length of companies is${Companies.length}');
 
       notifyListeners();
     } else {
@@ -150,7 +159,7 @@ class ContractorController extends ChangeNotifier {
       for (var data in response) {
         top_contractors.add(IndividualContractor.fromJson(data));
       }
-      print('Length of bids is${top_contractors.length}');
+      print('Length of contrator is${top_contractors.length}');
 
       notifyListeners();
     } else {
@@ -201,11 +210,13 @@ class ContractorController extends ChangeNotifier {
         String token =await ApiCall.getToken();
         String id =await ApiCall.getIds();
     try {
-      final url = Uri.parse('$BASEURL/contractors');
+      final url = Uri.parse('$BASEURL/registercontractor');
 
           if(type=='individual')
           {
-            final url = Uri.parse('http://10.0.2.2:5000/contractors');
+            final url = Uri.parse('$BASEURL/registercontractor');
+
+            var hideLoading = showLoading(context, 'Please Wait..');
 
             print(url);
             final req = http.MultipartRequest('POST', url)
@@ -228,6 +239,8 @@ class ContractorController extends ChangeNotifier {
             final stream = await req.send();
             final res = await http.Response.fromStream(stream);
             final status = res.statusCode;
+
+            hideLoading();
             if (res.statusCode==200) {
 
               var response=jsonDecode(res.body);
@@ -250,12 +263,8 @@ class ContractorController extends ChangeNotifier {
               showDialog(
                 context: context,
                 builder: (BuildContext context) {
-
-
-
                   return AlertDialog(
                     title: const HeadingText( text: 'Thank You for providing your details',),
-
                     content: const Text('Your Application is under review by our team you will receive an email one the verification is done'),
                     actions: [
 
@@ -284,6 +293,9 @@ class ContractorController extends ChangeNotifier {
             }
             }
           else{
+
+            var hideLoading = showLoading(context, 'Please Wait..');
+
             final req = http.MultipartRequest('POST', url)
               ..fields['contractor_type'] = 'company'
               ..fields['no_of_employees'] = emp_num
@@ -309,6 +321,8 @@ class ContractorController extends ChangeNotifier {
             final stream = await req.send();
             final res = await http.Response.fromStream(stream);
             final status = res.statusCode;
+
+            hideLoading();
             print(res.body);
             print(res.statusCode);
                     if (res.statusCode==200) {

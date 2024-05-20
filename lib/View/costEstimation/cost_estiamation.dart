@@ -15,11 +15,11 @@ class CostEstimation extends StatefulWidget {
   const CostEstimation({
     required this.project,
     required this.imagepaths,
-    required this.filepath,
+     this.filepath,
     super.key});
 
   final Project project;
-  final String filepath;
+  final String? filepath;
   final  List<String> imagepaths;
   @override
   State<CostEstimation> createState() => _CostEstimationState();
@@ -250,7 +250,7 @@ appBar: AppBar(toolbarHeight: 0,),
                                             padding: EdgeInsets.all(4.w),
                                             duration: Duration(milliseconds: 500),// Set the animation duration
                                             curve: Curves.easeInOut, // Set the animation curve
-                                            height: data.isPWselected?18.h:9.h,
+                                            height: data.isPWselected?20.h:9.h,
                                             width: 100.w,
                                             decoration: BoxDecoration(
                                               color: APPCOLORS.GREY,
@@ -517,7 +517,7 @@ appBar: AppBar(toolbarHeight: 0,),
                             await ctrl.createNewProject(widget.project.pName!,widget.project.pName!,widget.project.pQa.toString()
                                 , widget.project.pCategory!, widget.project.pType!,widget.project.pMode!,'house',widget.project.pFloors.toString(),
                                 widget.project.pArea!, '10', widget.project.pWashroom.toString(), widget.project.pKitchen.toString(), '31.44', '33.44', '100909',
-                                widget.imagepaths[0]!, widget.imagepaths[1]!, widget.imagepaths[2]!, widget.filepath, context);
+                                widget.imagepaths[0]!, widget.imagepaths[1]!, widget.imagepaths[2]!, widget.filepath??widget.imagepaths[1]!, context);
                           },
                           child: Container(
                             height: 8.h,

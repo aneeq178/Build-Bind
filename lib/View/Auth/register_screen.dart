@@ -148,7 +148,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     },
                     child: Container(
                       width: 30.w,
-                      height: 20.h,
+                      height: 15.h,
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
                         color: APPCOLORS.PRIMARY,
@@ -464,7 +464,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
                               ctrl.Signup(_namecontroller.text, _emailcontroller.text,
                                   '+92${_phonecontrller.text}', 'false',_CNICcontroller.text ,_passwordcontrller.text
-                                  ,data.Cnicf!,data.Cnicb!, context, true);
+                                  ,data.Cnicf!,data.Cnicb!,imgpath!, context, true);
 
                             }
 
@@ -476,7 +476,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 ntn: _NTNcontroller.text,individualEmail: _emailcontroller.text);
 
                            widget.from?context.navigateTo(RepresentativeRegistration(type: 'A',contractorReg: contractor,)):ctrl.Signup(_namecontroller.text,_emailcontroller.text,_phonecontrller.text,'false',_CNICcontroller.text
-                               ,_passwordcontrller.text,data.Cnicf!,data.Cnicb!, context,widget.from);
+                               ,_passwordcontrller.text,data.Cnicf!,data.Cnicb!,imgpath!,context,widget.from);
                           }
                         }
                       },

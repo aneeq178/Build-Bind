@@ -136,22 +136,22 @@ class _CompanyDetailsState extends State<CompanyDetails> {
                         padding: EdgeInsets.all(4.w),
                         child: Row(
                           children: [
-                            Container(
-                              width: 25.w,
-                              height: 6.h,
-                              decoration: BoxDecoration(
-                                color: APPCOLORS.PRIMARY,
-                                border: Border.all(color: Colors.transparent),
-                                borderRadius: BorderRadius.circular(8.w),
-                              ),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  Icon(Icons.star,color: Colors.yellowAccent,),
-                                  // Text(widget.contractor,style: TextStyle(color: APPCOLORS.WHITE,fontSize:12.sp,fontWeight: FontWeight.bold),),
-                                ],
-                              ),
-                            ),
+                            // Container(
+                            //   width: 25.w,
+                            //   height: 6.h,
+                            //   decoration: BoxDecoration(
+                            //     color: APPCOLORS.PRIMARY,
+                            //     border: Border.all(color: Colors.transparent),
+                            //     borderRadius: BorderRadius.circular(8.w),
+                            //   ),
+                            //   child: Row(
+                            //     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            //     children: [
+                            //       Icon(Icons.star,color: Colors.yellowAccent,),
+                            //       // Text(widget.contractor,style: TextStyle(color: APPCOLORS.WHITE,fontSize:12.sp,fontWeight: FontWeight.bold),),
+                            //     ],
+                            //   ),
+                            // ),
                             wsizedbox2,
 
                           ],
@@ -273,56 +273,56 @@ class _CompanyDetailsState extends State<CompanyDetails> {
               //       ],
               //     )
               // ),
-              hsizedbox2,
-              HeadingText(text: 'Projects'),
-              hsizedbox1,
-              Align(
-                alignment: Alignment.center,
-                child: Container(
-                  width: 80.w,
-                  height: 7.h,
-                  decoration: BoxDecoration(
-                    color: APPCOLORS.WHITE,
-                    border: Border.all(color: Colors.black54),
-                    borderRadius: BorderRadius.circular(8.w),
-                  ),
-                  child: Center(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Text('Project A ',style: TextStyle(color: APPCOLORS.PRIMARY,fontSize:12.sp,fontWeight: FontWeight.bold)),
-                        wsizedbox2,
-                        Text('Boolan FLats in G-13',style: TextStyle(color: APPCOLORS.BLACK,fontSize:12.sp,fontWeight: FontWeight.normal)),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-              hsizedbox2,
-
-              HeadingText(text: 'Legal Docs'),
-
-              hsizedbox1,
-
-              Container(
-                width: 80.w,
-                height: 7.h,
-                decoration: BoxDecoration(
-                  color: APPCOLORS.PRIMARY,
-                  border: Border.all(color: Colors.black54),
-                  borderRadius: BorderRadius.circular(8.w),
-                ),
-                child: Center(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Text('Portfolio ',style: TextStyle(color: APPCOLORS.WHITE,fontSize:12.sp,fontWeight: FontWeight.bold)),
-                      wsizedbox2,
-                      Text('PDF',style: TextStyle(color: APPCOLORS.WHITE,fontSize:12.sp,fontWeight: FontWeight.normal)),
-                    ],
-                  ),
-                ),
-              ),
+              // hsizedbox2,
+              // HeadingText(text: 'Projects'),
+              // hsizedbox1,
+              // Align(
+              //   alignment: Alignment.center,
+              //   child: Container(
+              //     width: 80.w,
+              //     height: 7.h,
+              //     decoration: BoxDecoration(
+              //       color: APPCOLORS.WHITE,
+              //       border: Border.all(color: Colors.black54),
+              //       borderRadius: BorderRadius.circular(8.w),
+              //     ),
+              //     child: Center(
+              //       child: Row(
+              //         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              //         children: [
+              //           Text('Project A ',style: TextStyle(color: APPCOLORS.PRIMARY,fontSize:12.sp,fontWeight: FontWeight.bold)),
+              //           wsizedbox2,
+              //           Text('Boolan FLats in G-13',style: TextStyle(color: APPCOLORS.BLACK,fontSize:12.sp,fontWeight: FontWeight.normal)),
+              //         ],
+              //       ),
+              //     ),
+              //   ),
+              // ),
+              // hsizedbox2,
+              //
+              // HeadingText(text: 'Legal Docs'),
+              //
+              // hsizedbox1,
+              //
+              // Container(
+              //   width: 80.w,
+              //   height: 7.h,
+              //   decoration: BoxDecoration(
+              //     color: APPCOLORS.PRIMARY,
+              //     border: Border.all(color: Colors.black54),
+              //     borderRadius: BorderRadius.circular(8.w),
+              //   ),
+              //   child: Center(
+              //     child: Row(
+              //       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              //       children: [
+              //         Text('Portfolio ',style: TextStyle(color: APPCOLORS.WHITE,fontSize:12.sp,fontWeight: FontWeight.bold)),
+              //         wsizedbox2,
+              //         Text('PDF',style: TextStyle(color: APPCOLORS.WHITE,fontSize:12.sp,fontWeight: FontWeight.normal)),
+              //       ],
+              //     ),
+              //   ),
+              // ),
 
               hsizedbox1,
 

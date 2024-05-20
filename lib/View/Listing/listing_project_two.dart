@@ -234,15 +234,15 @@ class _ListingProject2State extends State<ListingProject2> {
                         ),
                       ),
 
-                      hsizedbox2,
-
-                      LabelText(text: 'Location'),
-                      
-                      GestureDetector(
-                          onTap: (){
-                            // context.navigateTo(GoogleMapScreen());
-                          },
-                          child: Center(child: Image.asset('assets/images/Layout.png'))),
+                      // hsizedbox2,
+                      //
+                      // LabelText(text: 'Location'),
+                      //
+                      // GestureDetector(
+                      //     onTap: (){
+                      //       // context.navigateTo(GoogleMapScreen());
+                      //     },
+                      //     child: Center(child: Image.asset('assets/images/Layout.png'))),
 
                       hsizedbox2,
                       LabelText(text: 'Map / Models'),
@@ -408,7 +408,7 @@ class _ListingProject2State extends State<ListingProject2> {
                                   pKitchen: value.kitchens,
                                 );
 
-                                Navigator.push(context, MaterialPageRoute(builder: (context)=>CostEstimation(project: project,imagepaths: _imagepaths,filepath:filePath!)));
+                                Navigator.push(context, MaterialPageRoute(builder: (context)=>CostEstimation(project: project,imagepaths: _imagepaths,filepath:filePath)));
                               });
 
 

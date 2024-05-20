@@ -51,10 +51,11 @@ class AuthController
               String cnic  = data['cnic'].toString();
 
               print(is_contractor);
-              String image  = response['user']['image'].toString();
+              String image  = response['user']['user_img'].toString();
 
               final SharedPreferences prefs = await SharedPreferences.getInstance();
 
+              print('imageis ${image}');
 
               await prefs.setString('id',id);
               await prefs.setString('phone',phone);
@@ -85,6 +86,16 @@ class AuthController
 
           if(is_contractor=='true')
             {
+
+              String c_name = response['contractorDetails']['company_name'].toString();
+              String c_ntn = response['contractorDetails']['company_ntn'].toString();
+              String c_mail = response['contractorDetails']['company_email'].toString();
+
+              await prefs.setString('c_name',c_name);
+              await prefs.setString('c_ntn',c_ntn);
+              await prefs.setString('c_mail',c_mail);
+
+
               await prefs.setString('is_contractor','true');
               context.navigateTo(BottomNavigation2());
             }
@@ -135,7 +146,7 @@ class AuthController
   ////////////////////////////////// Sign up
 
   Signup(String fname,String email,String phone,String is_contractor,
-      String cnic,String password,String cincf_path,String cnicb_path,BuildContext context,bool from) async {
+      String cnic,String password,String cincf_path,String cnicb_path,String img,BuildContext context,bool from) async {
 
     try {
 
@@ -155,7 +166,7 @@ class AuthController
         ..fields['cnic'] = cnic
         ..fields['password'] = password
         ..files.add(await http.MultipartFile.fromPath(
-            'user_img',cincf_path))
+            'user_img',img))
         ..files.add(await http.MultipartFile.fromPath(
             'cnic_front',cincf_path))
         ..files.add(await http.MultipartFile.fromPath(

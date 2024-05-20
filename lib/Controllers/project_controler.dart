@@ -20,7 +20,7 @@ class ProjectController extends ChangeNotifier
 
   getProjects(BuildContext context) async {
 
-    // try {
+    try {
 
     var response = await ApiCall.callApiGet('/project_media');
 
@@ -42,9 +42,9 @@ class ProjectController extends ChangeNotifier
       showSnackbar(context, "An error occurred please try again");
     }
 
-    // } catch (e) {
-    //   print("error in controller  ${e}");
-    // }
+    } catch (e) {
+      print("error in controller  ${e}");
+    }
   }
 
 
@@ -85,6 +85,7 @@ class ProjectController extends ChangeNotifier
   String p_floors,String p_area,String p_living_area,String p_washorrom,String p_kitchen,String p_lat,String p_long,String p_budget
       ,String img_1,String img_2,String img_3,String model,BuildContext context) async {
     try {
+
       final url = Uri.parse('$BASEURL/create_project/');
 
       log(url.toString());
@@ -134,31 +135,36 @@ class ProjectController extends ChangeNotifier
 
   if (res.statusCode==200) {
 
-    return AlertDialog(
-      title: const HeadingText( text: 'Good Luck with the project',),
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const HeadingText( text: 'Good Luck with the project',),
 
-      content: const Text('Your Project is now live'),
-      actions: [
+            content: const Text('Your Project is now live'),
+            actions: [
 
-        GestureDetector(
-          onTap: () {
-            Navigator.push(context, MaterialPageRoute(builder: (context)=>BottomNavigation()));
-          },
-          child: Container(
-            height: 8.h,
-            padding: EdgeInsets.all(2.w),
-            decoration: BoxDecoration(
-              color: APPCOLORS.SECONDARY,
-              border: Border.all(color: Colors.transparent),
-              borderRadius: BorderRadius.circular(8.0),
-            ),
-            child: Center(
-              child:Text('Continue Browsing',style: TextStyle(color: APPCOLORS.WHITE,fontSize:16.sp,fontWeight: FontWeight.bold),),
-            ),
-          ),
-        ),
-      ],
-    );
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=>BottomNavigation()));
+                },
+                child: Container(
+                  height: 8.h,
+                  padding: EdgeInsets.all(2.w),
+                  decoration: BoxDecoration(
+                    color: APPCOLORS.SECONDARY,
+                    border: Border.all(color: Colors.transparent),
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                  child: Center(
+                    child:Text('Continue Browsing',style: TextStyle(color: APPCOLORS.WHITE,fontSize:16.sp,fontWeight: FontWeight.bold),),
+                  ),
+                ),
+              ),
+            ],
+          );
+        });
+
 
   } else {
   showSnackbar(context, 'An error Occurred, Please try again later');
@@ -273,7 +279,7 @@ class ProjectController extends ChangeNotifier
       if (response != null) {
 
 
-        showSnackbar(context, 'Project Marked as Complete');
+        showSnackbar(context, 'Project Submitted for approval');
       } else {
         showSnackbar(context, 'An error Occurred, Please try again later');
       }
@@ -282,6 +288,24 @@ class ProjectController extends ChangeNotifier
     }
   }
 
+////////////////////////////////
+
+  approveProjectC(String pId,BuildContext context) async {
+    Map<String,dynamic> body = {'p_id': pId};
+
+    try {
+      var hideLoading = showLoading(context, 'Please Wait..');
+      var response = await ApiCall.callApiPost(body, '/complete_project_user');
+      hideLoading();
+      if (response != null) {
+        showSnackbar(context, 'Project is Completed Congratulations');
+      } else {
+        showSnackbar(context, 'An error Occurred, Please try again later');
+      }
+    } catch (e) {
+      print("error in controller  ${e}");
+    }
+  }
 
   ////////////////
 

@@ -7,30 +7,31 @@ import '../View/show_snackbar.dart';
 
 class RatingController extends ChangeNotifier
 {
+  rateContractor(String p_id,String contractor_id,String img1,String img2,String img3,
+      String rating,String rating_desc,BuildContext context) async {
 
 
-  rateContractor(String p_id,String contractor_id,String user_id,String img1,String img2,String img3,
-      String comment,String rating,BuildContext context) async {
+    // String userid=await ApiCall.getIds();
+
     try {
       String token =await ApiCall.getToken();
 
-      final url = Uri.parse('$BASEURL/ratings/');
+      final url = Uri.parse('$BASEURL/rate_contractor');
 
       var hideLoading = showLoading(context, 'Please Wait..');
 
       final req = http.MultipartRequest('POST', url)
         ..fields['p_id'] = p_id
         ..fields['contractor_id'] = contractor_id
-        ..fields['user_id'] = user_id
         ..fields['rating'] = rating
-        ..fields['comment'] = comment
+        ..fields['rating_description'] = rating_desc
         ..files.add(await http.MultipartFile.fromPath(
             'rating_img1', img1))
         ..files.add(await http.MultipartFile.fromPath(
             'rating_img2', img2))
         ..files.add(await http.MultipartFile.fromPath(
             'rating_img3', img3))
-        ..fields['rating_type'] = 'contractor';
+        ..fields['rating_type'] = 'user';
 
       final stream = await req.send();
       final res = await http.Response.fromStream(stream);
@@ -47,11 +48,11 @@ class RatingController extends ChangeNotifier
 
       }
       else if(res.statusCode==400) {
-        showSnackbar(context, 'Insufficient Tokens');
+        showSnackbar(context, 'Thanks for your feedback');
       }
       else
       {
-        showSnackbar(context, 'An error occurred');
+        showSnackbar(context, 'Thanks for your feedback');
       }
 
     } catch (e) {

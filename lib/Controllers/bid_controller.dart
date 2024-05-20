@@ -9,6 +9,7 @@ import 'package:http/http.dart' as http;
 import '../Services/api_calls.dart';
 import '../Utills/AppColors.dart';
 import '../View/bottom_nav_bar.dart';
+import '../View/bottom_nav_two.dart';
 import '../View/show_snackbar.dart';
 import '../View/widgets/texts.dart';
 
@@ -109,8 +110,9 @@ class BidController extends ChangeNotifier
       final url = Uri.parse('https://buildbind.onrender.com/bids/');
 
       final req = http.MultipartRequest('POST', url)
-        ..fields['bid_amount'] = bidamount
+        ..fields['bid_amount'] = 20.toString()
         ..fields['project_id'] = p_id
+        ..fields['proposed_price'] = p_id
         ..files.add(await http.MultipartFile.fromPath(
             'quotation', image))
         ..fields['bid_description'] = description;
@@ -123,19 +125,16 @@ class BidController extends ChangeNotifier
       final status = res.statusCode;
 
       hideLoading();
-      req.headers['authoriztion'] = '$token';
+      req.headers['authorization'] = '$token';
 
 
       print(status);
       print(res.body);
-      if(res.statusCode==200)
+      if(res.statusCode==201)
         {
           showDialog(
             context: context,
             builder: (BuildContext context) {
-
-
-
               return AlertDialog(
                 title: const HeadingText( text: 'Bid Submitted',),
 
@@ -144,7 +143,7 @@ class BidController extends ChangeNotifier
 
                   GestureDetector(
                     onTap: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context)=>BottomNavigation()));
+                      Navigator.push(context, MaterialPageRoute(builder: (context)=>BottomNavigation2()));
                     },
                     child: Container(
                       height: 8.h,

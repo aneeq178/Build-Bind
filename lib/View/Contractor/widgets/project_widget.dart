@@ -7,6 +7,7 @@ import 'package:sizer/sizer.dart';
 
 import '../../../Models/project_model.dart';
 import '../../../Utills/AppColors.dart';
+import '../../../Utills/utills.dart';
 import '../../widgets/sized_boxes.dart';
 
 class ProjectWidget extends StatelessWidget {
@@ -18,6 +19,7 @@ class ProjectWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print('$BASEURL/${project.image1}');
     return Container(
       width: 95.w,
       height: 30.h,
@@ -33,34 +35,14 @@ class ProjectWidget extends StatelessWidget {
             width: 32.w, // Adjust the width as needed
             decoration: BoxDecoration(
               borderRadius: BorderRadius.all(Radius.circular(4.w)),
-              image: DecorationImage(
-                image: AssetImage(
-                  'assets/images/companies.png',
-                  // 'assets/images/companies.png'
-                ), // Replace with your image asset path
-                fit: BoxFit.cover,
-              ),
             ),
-            child: Container(
-              padding: EdgeInsets.all(16.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Container(
-                    padding: EdgeInsets.all(8.0),
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: Colors.white,
-                    ),
-                    child: Icon(
-                      Icons.favorite_border,
-                      size: 24.0,
-                    ),
-                  ),
-
-                ],
-              ),
+            child:  Image.network(
+             '$BASEURL/${project.image1}',
+              errorBuilder: (BuildContext context, Object error, StackTrace? stackTrace) {
+                return Center(
+                  child: Image.asset('assets/images/main2.jpg'),
+                );
+              },
             ),
           ),
 
@@ -82,7 +64,8 @@ class ProjectWidget extends StatelessWidget {
                 Container(
                   width: 45.w,
                   child:  Text(
-                    project.pDetails??'Project Detailers',
+                    maxLines: 5,
+                    project.pDetails??'Project Details',
                     style: TextStyle(
                       color:APPCOLORS.BLACK,
                       fontSize: 8.sp,
@@ -91,19 +74,6 @@ class ProjectWidget extends StatelessWidget {
                   ),
                 ),
                 hsizedbox1,
-
-                Row(
-                  children: [
-                    Icon(Icons.location_on_sharp),
-                    Text(
-                      'G-13 Islamabad',
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 10.sp,
-                      ),
-                    ),
-                  ],
-                ),
                 Text(
                   'Rs ${project.pBudget}',
                   style: TextStyle(
@@ -119,7 +89,7 @@ class ProjectWidget extends StatelessWidget {
                   children: [
                     GestureDetector(
                     onTap:(){
-                      Navigator.push(context, MaterialPageRoute(builder: (context)=>ProjectDetaills(project: project,)));
+                      Navigator.push(context, MaterialPageRoute(builder: (context)=>ProjectDetaills(project: project,from: 'C',)));
                     },
                       child: Container(
                         height: 6.h,

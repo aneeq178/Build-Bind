@@ -19,10 +19,12 @@ class Contractor {
   String status; // No change
   String tokens; // No change (can be null)
   int totalProjects; // Renamed from total_projects
+  String imgpath; // Renamed from total_projects
 
   Contractor({
     required this.contractorId,
     required this.noOfEmployees,
+    required this.imgpath,
     required this.userId,
     required this.fav,
     required this.contractorType,
@@ -52,18 +54,19 @@ class Contractor {
     contractorRating: json['contractor_rating']??'',
     companyId: json['company_id']??0 as int,
     companyName: json['company_name'] as String,
-    companyEmail: json['company_email'] as String,
-    companyNtn: json['company_ntn'] as int,
+    companyEmail: json['company_email']??'',
+    companyNtn: json['company_ntn']??1,
+    imgpath: json['contractor_image']??'',
     fav: false,
-    representativeName: json['representative_name'] as String,
-    representativePosition: json['representative_position'] as String,
+    representativeName: json['representative_name']??'',
+    representativePosition: json['representative_position']??'',
     representativeCnic: json['representative_cnic']??'cnic',
-    companyPecLicense: json['company_pec_license'] as String,
-    rFcnic: json['r_fcnic'] as String,
-    rBcnic: json['r_bcnic'] as String,
-    status: json['status'] as String,
-    tokens: json['tokens']??'',
-    totalProjects: json['total_projects'] as int,
+    companyPecLicense: json['company_pec_license']??'',
+    rFcnic: json['r_fcnic']??'',
+    rBcnic: json['r_bcnic']??'',
+    status: json['status']??'',
+    tokens: json['tokens'].toString(),
+    totalProjects: json['total_projects']??'',
   );
 
   Map<String, dynamic> toJson() => {

@@ -12,8 +12,11 @@ import 'package:buildbind/View/widgets/sized_boxes.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
+import '../../../Controllers/user_local_conrtoller.dart';
+import '../../../Utills/utills.dart';
 import '../../bottom_nav_bar.dart';
 
 
@@ -26,8 +29,14 @@ class ContractorProfileSettings extends StatefulWidget {
 }
 
 class _ContractorProfileSettingsState extends State<ContractorProfileSettings> {
+
+
+
   @override
   Widget build(BuildContext context) {
+var ctrl=context.read<UserLocalController>();
+ctrl.getCData();
+
     return Scaffold(
       body: Padding(
         padding: EdgeInsets.all(4.w),
@@ -39,23 +48,44 @@ class _ContractorProfileSettingsState extends State<ContractorProfileSettings> {
               alignment: Alignment.centerLeft,
               child: Row(
                 children: [
-                  Container(
-                    width: 26.w,
-                    height: 12.h,
-                    decoration: BoxDecoration(
-                      color: APPCOLORS.SECONDARY,
-                      borderRadius: BorderRadius.circular(30.w), // Adjust the radius as needed
-                    ),
-                  ),
+                  Consumer<UserLocalController>(builder: (context, value, child) {
+                    return      Container(
+                      width: 26.w,
+                      height: 12.h,
+                      decoration: BoxDecoration(
+                        color: APPCOLORS.SECONDARY,
+                        borderRadius: BorderRadius.circular(30.w), // Adjust the radius as needed
+                      ),
+                      child:  ClipOval(
+                        child: FadeInImage(
+                          placeholder: AssetImage('assets/images/c9.jpg'), // A grey placeholder image
+                          image: NetworkImage('$BASEURL/${value.image}'),
+                          fit: BoxFit.cover,
+                          imageErrorBuilder: (context, error, stackTrace) {
+                            return Container(
+                              color: Colors.grey, // Show grey container if the image fails to load
+                            );
+                          },
+                        ),
+                      ),
+                    );
+                  },),
+
                   wsizedbox4,
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text('Bin Aziz Pvt Ltd',style: TextStyle(fontSize: 4.5.w,color: APPCOLORS.BLACK),),
-                      Text('NTN : 1286469879',style: TextStyle(fontSize: 4.5.w,color: APPCOLORS.BLACK),),
-                    ],
-                  ),
+
+                  Consumer<UserLocalController>(builder: (context, value, child) {
+
+                    return Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(value.cname,style: TextStyle(fontSize: 3.5.w,color: APPCOLORS.BLACK),),
+                        Text('NTN : ${value.cntn}',style: TextStyle(fontSize: 3.5.w,color: APPCOLORS.BLACK),),
+                        Text('email : ${value.cmail}',style: TextStyle(fontSize: 3.5.w,color: APPCOLORS.BLACK),),
+                      ],
+                    );
+                  },)
+
 
                 ],
               ),

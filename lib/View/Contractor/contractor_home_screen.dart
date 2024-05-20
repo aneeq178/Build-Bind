@@ -22,7 +22,6 @@ class ContractorHomeScreen extends StatefulWidget {
   @override
   State<ContractorHomeScreen> createState() => _ContractorHomeScreenState();
 }
-
 class _ContractorHomeScreenState extends State<ContractorHomeScreen> {
   @override
   void initState() {
@@ -32,6 +31,9 @@ class _ContractorHomeScreenState extends State<ContractorHomeScreen> {
 
     var ctrl2= context.read<ProjectController>();
     ctrl2.getProjects( context);
+
+
+
     // TODO: implement initState
     super.initState();
   }

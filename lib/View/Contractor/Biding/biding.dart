@@ -50,13 +50,12 @@ class _ContractorBidingState extends State<ContractorBiding> {
             children: [
               Container(
                 width: 100.w,
-                height: 30.h,
+                height: 35.h,
                 padding: EdgeInsets.all(2.w),
                 decoration: BoxDecoration(
-                  image: DecorationImage(
+                  image: const DecorationImage(
                     image: AssetImage(
-                      'assets/images/image 27.png',
-                      // 'assets/images/companies.png'
+                      'assets/images/biding.jpg',
                     ), // Replace with your image asset path
                     fit: BoxFit.cover,
                   ),
@@ -82,7 +81,7 @@ class _ContractorBidingState extends State<ContractorBiding> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                    HeadingText2(text: 'Estimated Cost'),
-                   HeadingText2(text:widget.project.pEstimatedCost.toString()!),
+                   HeadingText2(text:widget.project.pEstimatedCost==null?'4500000':widget.project.pEstimatedCost.toString()),
                   ],
                 ),
               ),
@@ -169,11 +168,10 @@ class _ContractorBidingState extends State<ContractorBiding> {
                   var ctrl=BidController();
                   if(_pdfPath==null)
                     {
-                      showSnackbar(context,'Please Attack Quotation');
+                      showSnackbar(context,'Please Attach Quotation');
                     }
                   else{
                     ctrl.submitBid(_costcontroller.text,_descriptioncontrller.text,widget.project.pId.toString(),_pdfPath! ,context);
-
                   }
                 },
                 child: Container(
@@ -215,8 +213,12 @@ class _ContractorBidingState extends State<ContractorBiding> {
 
       if (result != null) {
         // Do something with the picked PDF file
-         _pdfPath = result.files.single.path!;
-         _pdfname = result.files.single.name!;
+
+        setState(() {
+          _pdfPath = result.files.single.path!;
+          _pdfname = result.files.single.name!;
+        });
+
         print('Picked PDF file path: $_pdfPath');
 
         // You can handle the file path as needed, for example, you may want to display it or perform further operations.

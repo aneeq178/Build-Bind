@@ -132,7 +132,6 @@ class _ExploreProjectsState extends State<ExploreProjects> {
                                                       data.fillter_p_cost==1?'20000':
                                                       data.fillter_p_cost==2?'20000'
                                                           :'20000',
-
                                     'category',
                                     data.fillter_p_categroy==0?'':
                                     data.fillter_p_categroy==1?'residential':'commercial',

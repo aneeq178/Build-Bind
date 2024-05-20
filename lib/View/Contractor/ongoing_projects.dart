@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../Utills/AppColors.dart';
+import '../../Utills/utills.dart';
 import '../MyProjects/project_detaills.dart';
 import '../widgets/sized_boxes.dart';
 import '../widgets/texts.dart';
@@ -89,25 +90,18 @@ class _OnGoingProjectsState extends State<OnGoingProjects> {
                       fit: BoxFit.cover,
                     ),
                   ),
-                  child: Container(
-                    padding: EdgeInsets.all(16.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Container(
-                          padding: EdgeInsets.all(8.0),
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: Colors.white,
-                          ),
-                          child: Icon(
-                            Icons.favorite_border,
-                            size: 24.0,
-                          ),
-                        ),
-
-                      ],
+                  child:  Container(
+                    width: 32.w, // Adjust the width as needed
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(4.w)),
+                    ),
+                    child:  Image.network(
+                      '$BASEURL/${data.ongoinProjects[index].image1}',
+                      errorBuilder: (BuildContext context, Object error, StackTrace? stackTrace) {
+                        return Center(
+                          child: Image.asset('assets/images/main2.jpg'),
+                        );
+                      },
                     ),
                   ),
                 ),
@@ -130,6 +124,7 @@ class _OnGoingProjectsState extends State<OnGoingProjects> {
                       Container(
                         width: 45.w,
                         child:  Text(
+                          maxLines: 4,
                           data.ongoinProjects[index].pDetails!,
                           style: TextStyle(
                             color:APPCOLORS.BLACK,
@@ -166,7 +161,7 @@ class _OnGoingProjectsState extends State<OnGoingProjects> {
                         children: [
                           GestureDetector(
                             onTap:(){
-                              Navigator.push(context, MaterialPageRoute(builder: (context)=>ProjectDetaills(project:data.ongoinProjects[index],)));
+                              Navigator.push(context, MaterialPageRoute(builder: (context)=>ProjectDetaills(project:data.ongoinProjects[index],from:'B')));
                             },
                             child: Container(
                               height: 6.h,

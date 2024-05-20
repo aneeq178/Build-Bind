@@ -11,8 +11,12 @@ class UserLocalController extends ChangeNotifier
   String phone='';
   String email='';
   String image='';
+
   bool contractorCheck=false;
 
+  String cname='';
+  String cntn='';
+  String cmail='';
 
    getData()async{
     final SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -37,6 +41,21 @@ class UserLocalController extends ChangeNotifier
 
     notifyListeners();
   }
+
+
+  getCData()async{
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    cname =await prefs.getString('c_name')??'Aneeq';
+    cntn =await prefs.getString('c_ntn')??'+ 7823467';
+    cmail =await prefs.getString('c_mail')??'aneeq2@gmail.com';
+    image =await prefs.getString('image')??'';
+
+
+
+    print(cname);
+    notifyListeners();
+  }
+
 
 
   updateUser(String phone,String username,BuildContext context) async {

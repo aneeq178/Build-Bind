@@ -16,6 +16,7 @@ import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
+import '../../Utills/utills.dart';
 import '../MyProjects/my_projects.dart';
 import '../bottom_nav_bar.dart';
 import '../bottom_nav_two.dart';
@@ -36,6 +37,7 @@ class _ProfileSetingsState extends State<ProfileSetings> {
     ctrl.getData();
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,6 +48,8 @@ class _ProfileSetingsState extends State<ProfileSetings> {
           children: [
             hsizedbox6,
             Consumer<UserLocalController>(builder: (context, value, child) {
+
+              print('$BASEURL/${value.image}');
               return   Align(
                 alignment: Alignment.centerLeft,
                 child: Row(
@@ -54,8 +58,20 @@ class _ProfileSetingsState extends State<ProfileSetings> {
                       width: 26.w,
                       height: 12.h,
                       decoration: BoxDecoration(
-                        color: APPCOLORS.SECONDARY,
+                        color: APPCOLORS.GREY,
                         borderRadius: BorderRadius.circular(30.w), // Adjust the radius as needed
+                      ),
+                      child: ClipOval(
+                        child: FadeInImage(
+                          placeholder: AssetImage('assets/images/c9.jpg'), // A grey placeholder image
+                          image: NetworkImage('$BASEURL/${value.image}'),
+                          fit: BoxFit.cover,
+                          imageErrorBuilder: (context, error, stackTrace) {
+                            return Container(
+                              color: Colors.grey, // Show grey container if the image fails to load
+                            );
+                          },
+                        ),
                       ),
                     ),
                     wsizedbox4,
@@ -119,7 +135,7 @@ class _ProfileSetingsState extends State<ProfileSetings> {
 
             GestureDetector(
               onTap: (){
-                Navigator.push(context, MaterialPageRoute(builder: (context)=>RatingView()));
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>MyProjects()));
               },
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,

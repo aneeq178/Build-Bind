@@ -83,6 +83,7 @@ flutter:
      - assets/temp/
      - assets/temp/zkbowner.jpeg
      - assets/temp/zkbowner.jpeg
+     - assets/images/biding.jpg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

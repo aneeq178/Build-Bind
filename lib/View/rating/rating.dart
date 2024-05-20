@@ -9,6 +9,7 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:sizer/sizer.dart';
 import '../../Controllers/chat_controller.dart';
+import '../../Controllers/rating_controller.dart';
 import '../../Services/api_calls.dart';
 import '../../Services/chat_service.dart';
 import '../../Utills/AppColors.dart';
@@ -20,7 +21,12 @@ import '../widgets/texts.dart';
 
 class RatingView extends StatefulWidget {
   const RatingView({
+    required this.pId,
+    required this.cId,
     super.key});
+
+  final String pId;
+  final String cId;
 
   @override
   State<RatingView> createState() => _RatingViewState();
@@ -199,7 +205,8 @@ class _RatingViewState extends State<RatingView> {
                       showSnackbar(context, 'Add at least 3 images');
                     }
                   else{
-
+                    var ctrl= RatingController();
+                    ctrl.rateContractor(widget.pId, widget.cId, _imagepaths[0],_imagepaths[1],_imagepaths[2],rating.toString(),_descriptioncontrller.text, context);
                   }
                 },
                 child: Container(

@@ -274,11 +274,9 @@ title: Row(
                         SizedBox(width: 8.0),
                         GestureDetector(
                           onTap: (){
-                            Future.delayed(Duration(seconds: 2), () {
-                          _messagecontroller.clear();
-                            });
-                            _sendMessage(_messagecontroller.text);
 
+                          _messagecontroller.clear();
+                            _sendMessage(_messagecontroller.text);
                           },
                           child: Container(
                             decoration: BoxDecoration(

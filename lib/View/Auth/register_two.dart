@@ -131,32 +131,31 @@ class _RegisterTwoState extends State<RegisterTwo> {
                       ),
                     ),
                   ),
-                  hsizedbox2,
-                  widget.type=='A'?GestureDetector(
-                    onTap: (){
-                      _pickPDF(context);
-                    },
-                    child: Container(
-                      width: 80.w,
-                      height: 7.h,
-                      decoration: BoxDecoration(
-                        color: APPCOLORS.PRIMARY,
-                        border: Border.all(color: Colors.black54),
-                        borderRadius: BorderRadius.circular(8.w),
-                      ),
-                      child: Center(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Text('Add Portfolio ',style: TextStyle(color: APPCOLORS.WHITE,fontSize:12.sp,fontWeight: FontWeight.bold)),
-                            wsizedbox2,
-                            Icon(Icons.drive_folder_upload_outlined,color: Colors.white,),
-
-                          ],
-                        ),
-                      ),
-                    ),
-                  ):Container(),
+                  // hsizedbox2,
+                  // widget.type=='A'?GestureDetector(
+                  //   onTap: (){
+                  //   },
+                  //   child: Container(
+                  //     width: 80.w,
+                  //     height: 7.h,
+                  //     decoration: BoxDecoration(
+                  //       color: APPCOLORS.PRIMARY,
+                  //       border: Border.all(color: Colors.black54),
+                  //       borderRadius: BorderRadius.circular(8.w),
+                  //     ),
+                  //     child: Center(
+                  //       child: Row(
+                  //         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  //         children: [
+                  //           Text('Add Portfolio ',style: TextStyle(color: APPCOLORS.WHITE,fontSize:12.sp,fontWeight: FontWeight.bold)),
+                  //           wsizedbox2,
+                  //           Icon(Icons.drive_folder_upload_outlined,color: Colors.white,),
+                  //
+                  //         ],
+                  //       ),
+                  //     ),
+                  //   ),
+                  // ):Container(),
                   hsizedbox2,
                   widget.type=='A'? GestureDetector(
                     onTap: ()
